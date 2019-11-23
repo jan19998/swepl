@@ -1,6 +1,7 @@
 USE swepl;
 
 DROP TABLE IF EXISTS `ist bei`;
+DROP TABLE IF EXISTS `betreut`;
 DROP TABLE IF EXISTS `Student`;
 DROP TABLE IF EXISTS `Termin`;
 DROP TABLE IF EXISTS `Gruppe`;
@@ -25,11 +26,9 @@ CREATE TABLE Semester(
 
 CREATE TABLE Gruppe(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	Benutzer_FK INT UNSIGNED,
 	Semester_FK VARCHAR(7),
 	Gruppennummer VARCHAR(3) NOT NULL,
 	CONSTRAINT Gruppe_primär PRIMARY KEY (ID),
-	CONSTRAINT `Benutzer betreut Gruppe` FOREIGN KEY (Benutzer_FK) REFERENCES `Benutzer`(ID) ON DELETE SET NULL,
 	CONSTRAINT `Gruppe ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE
 );
 
@@ -69,4 +68,12 @@ CREATE TABLE `ist bei`(
 	CONSTRAINT `ist_bei_primär` PRIMARY KEY (Student_FK,Termin_FK),
 	CONSTRAINT `Student ist bei Termin` FOREIGN KEY (Student_FK) REFERENCES `Student`(ID) ON DELETE CASCADE,
 	CONSTRAINT `Termin ist für Student` FOREIGN KEY (Termin_FK) REFERENCES `Termin`(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE `betreut`(
+	Benutzer_FK INT UNSIGNED,
+	Gruppe_FK INT UNSIGNED,
+	CONSTRAINT `betreut_primär` PRIMARY KEY (Benutzer_FK,Gruppe_FK),
+	CONSTRAINT `Benutzer betreut Gruppe` FOREIGN KEY (Benutzer_FK) REFERENCES `Benutzer`(ID) ON DELETE CASCADE,
+	CONSTRAINT `Gruppe wird betreut` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE CASCADE
 );

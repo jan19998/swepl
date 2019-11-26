@@ -77,3 +77,19 @@ CREATE TABLE `betreut`(
 	CONSTRAINT `Benutzer betreut Gruppe` FOREIGN KEY (Benutzer_FK) REFERENCES `Benutzer`(ID) ON DELETE CASCADE,
 	CONSTRAINT `Gruppe wird betreut` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE CASCADE
 );
+
+INSERT INTO Semester(Kennung) VALUES 
+('ws19/20');
+
+INSERT INTO Gruppe(Gruppennummer,Semester_FK) VALUES
+('e9','ws19/20');
+
+INSERT INTO Student(Vorname,Nachname,Matrikelnummer,`E-Mail`,Semester_FK,Gruppe_FK) VALUES 
+('test1','test',111111111,'test@testmail.com','ws19/20',1),
+('test2','test',111111112,'test@testmail.com','ws19/20',1),
+('test3','test',111111113,'test@testmail.com','ws19/20',1),
+('test4','test',111111114,'test@testmail.com','ws19/20',1),
+('test5','test',111111115,'test@testmail.com','ws19/20',1),
+('test6','test',111111116,'test@testmail.com','ws19/20',1),
+('test7','test',111111117,'test@testmail.com','ws19/20',1),
+('test8','test',111111118,'test@testmail.com','ws19/20',1);

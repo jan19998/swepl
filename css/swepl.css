@@ -51,3 +51,22 @@ input[type=submit] {
     height:100px;
 }
 
+/*Sebastian*/
+
+.link{
+    color: #00b5ad;
+}
+
+.link:hover{
+    color: #005550;
+}
+
+.btn{
+    background-color: #00b5ad;
+}
+
+.btn:hover{
+    background-color: #005550;
+}
+
+/*---------------*/

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<?php include header?>
+<?php include('snippets/header.php');?>
 <div class ="container">
     <div class ="row">
         <div class ="col-3">
@@ -39,7 +39,7 @@
             </div>
     </div>
     </div>
-    <?php include footer?>
+    <?php include('snippets/footer.php');?>
 </div>
 </body>
 </html>

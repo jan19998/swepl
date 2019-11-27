@@ -28,7 +28,7 @@ $remoteConnection = mysqli_connect(
                     $i = $i + 1;
                 }
             }
-          echo '<a href="mailto:'.$email.'" target="_blank" class="btn btn-primary">E-Mail an alle Kursteilnehmer</a>';
+          echo '<a href="mailto:'.$email.'" target="_blank" class="btn border-0 btn-primary">E-Mail an alle Kursteilnehmer</a>';
         ?>
     </div>
 </div>

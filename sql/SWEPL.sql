@@ -2,6 +2,7 @@ USE swepl;
 
 DROP TABLE IF EXISTS `ist bei`;
 DROP TABLE IF EXISTS `betreut`;
+DROP TABLE IF EXISTS `Meilenstein`;
 DROP TABLE IF EXISTS `Student`;
 DROP TABLE IF EXISTS `Termin`;
 DROP TABLE IF EXISTS `Gruppe`;
@@ -57,6 +58,16 @@ CREATE TABLE Termin(
 	CONSTRAINT Termin_primär PRIMARY KEY (ID),
 	CONSTRAINT `Termin ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE,
 	CONSTRAINT `Termin ist für Gruppe` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE SET NULL
+);
+
+CREATE TABLE Meilenstein(
+	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Gruppe_FK INT UNSIGNED,
+	Datum DATE NOT NULL,
+	`Status` BOOL NOT NULL DEFAULT FALSE,
+	Bezeichnung VARCHAR(255) NOT NULL,
+	CONSTRAINT Meilenstein_primär PRIMARY KEY (ID),
+	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID)
 );
 
 -- N:M Relation

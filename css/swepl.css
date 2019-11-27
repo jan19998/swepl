@@ -63,10 +63,12 @@ input[type=submit] {
 
 .btn{
     background-color: #00b5ad;
+    color: #F0F0F0;
 }
 
 .btn:hover{
     background-color: #005550;
+    color: #F0F0F0;
 }
 
 /*---------------*/

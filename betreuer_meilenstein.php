@@ -12,8 +12,8 @@
 </head>
 
 <body>
-<?php include('snippets/header.php');?>
 <div class ="container">
+    <?php include('snippets/header.php');?>
     <div class ="row">
         <div class ="col-3">
             <h3>

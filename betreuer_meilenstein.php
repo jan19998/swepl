@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-
     <meta charset="UTF-8">
     <title>SWEPl</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -13,13 +12,17 @@
 </head>
 
 <body>
+<?php $gruppe = 'e9'?>
 <div class ="container">
     <?php include('snippets/header.php');?>
-    <div class ="row">
-        <div class ="col-3">
+    <div class ="row pb-3">
+        <div class ="col-9">
             <h3>
-                Gruppe Dynamisch
+                Gruppe <?php echo $gruppe;?>
             </h3>
+        </div>
+        <div class="col-3 justify-content-end" style="justify-content: flex-end;">
+            <a href="#" class="btn border-0 btn-primary">Zurück zur Kursübersicht</a>
         </div>
     </div>
     <div class="row">

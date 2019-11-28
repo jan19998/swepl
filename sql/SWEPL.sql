@@ -2,6 +2,7 @@ USE swepl;
 
 DROP TABLE IF EXISTS `ist bei`;
 DROP TABLE IF EXISTS `betreut`;
+DROP TABLE IF EXISTS `Bewertung`;
 DROP TABLE IF EXISTS `Meilenstein`;
 DROP TABLE IF EXISTS `Student`;
 DROP TABLE IF EXISTS `Termin`;
@@ -51,10 +52,7 @@ CREATE TABLE Termin(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Semester_FK VARCHAR(7),
 	Gruppe_FK INT UNSIGNED,
-	Ampelstatus ENUM('Grün','Gelb','Rot') NOT NULL,
 	Datum DATE NOT NULL,
-	Bewertung ENUM('+','-','0') NOT NULL,
-	Kommentar VARCHAR(255),
 	CONSTRAINT Termin_primär PRIMARY KEY (ID),
 	CONSTRAINT `Termin ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE,
 	CONSTRAINT `Termin ist für Gruppe` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE SET NULL
@@ -68,6 +66,16 @@ CREATE TABLE Meilenstein(
 	Bezeichnung VARCHAR(255) NOT NULL,
 	CONSTRAINT Meilenstein_primär PRIMARY KEY (ID),
 	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID)
+);
+
+CREATE TABLE Bewertung(
+	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Termin_FK INT UNSIGNED,
+	Ampelstatus ENUM('Grün','Gelb','Rot') NOT NULL,
+	Bewertung ENUM('+','-','0') NOT NULL,
+	Kommentar VARCHAR(255),
+	CONSTRAINT Bewertung_primär PRIMARY KEY (ID),
+	CONSTRAINT `Termin wird bewertet` FOREIGN KEY (Termin_FK) REFERENCES `Termin`(ID)
 );
 
 -- N:M Relation

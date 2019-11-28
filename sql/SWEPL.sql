@@ -1,3 +1,4 @@
+CREATE DATABASE IF NOT EXISTS `swepl';
 USE swepl;
 
 DROP TABLE IF EXISTS `ist bei`;

@@ -2,7 +2,7 @@
     <div class="col-3">
         <?php include ('snippets/tabellen/bewertung_statistik_tabelle.php')?>
     </div>
-    <div class="col-9">
+    <div class="col ml-3">
         <?php include ('snippets/tabellen/meilenstein_statistik_tabelle.php')?>
     </div>
 </div>

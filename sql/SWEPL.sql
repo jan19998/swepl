@@ -81,7 +81,7 @@ CREATE TABLE Bewertung(
 -- N:M Relation
 
 CREATE TABLE `ist bei`(
-	Anwesend BOOL,
+	Anwesend BOOL DEFAULT FALSE,
 	Student_FK INT UNSIGNED,
 	Termin_FK INT UNSIGNED,
 	CONSTRAINT `ist_bei_primär` PRIMARY KEY (Student_FK,Termin_FK),
@@ -112,3 +112,4 @@ INSERT INTO Student(Vorname,Nachname,Matrikelnummer,`E-Mail`,Semester_FK,Gruppe_
 ('test6','test',111111116,'test@testmail.com','ws19/20',1),
 ('test7','test',111111117,'test@testmail.com','ws19/20',1),
 ('test8','test',111111118,'test@testmail.com','ws19/20',1);
+

@@ -28,7 +28,7 @@ CREATE TABLE Semester(
 CREATE TABLE Gruppe(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Semester_FK VARCHAR(7),
-	Gruppennummer VARCHAR(3) NOT NULL, CONSTRAINT Gruppe_primär PRIMARY KEY (ID), 
+	Gruppennummer VARCHAR(3) NOT NULL, CONSTRAINT Gruppe_primär PRIMARY KEY (ID),
 	CONSTRAINT `Gruppe ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE
 );
 
@@ -39,9 +39,9 @@ CREATE TABLE Student(
 	Vorname VARCHAR(50) NOT NULL,
 	Nachname VARCHAR(50) NOT NULL,
 	Matrikelnummer INT(9) UNSIGNED NOT NULL,
-	`E-Mail` VARCHAR(50) NOT NULL, 
+	`E-Mail` VARCHAR(50) NOT NULL,
 	CONSTRAINT Student_primär PRIMARY KEY (ID),
-	CONSTRAINT `Student ist in Gruppe` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE SET NULL, 
+	CONSTRAINT `Student ist in Gruppe` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE SET NULL,
 	CONSTRAINT `Student ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE
 );
 
@@ -49,9 +49,9 @@ CREATE TABLE Termin(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Semester_FK VARCHAR(7),
 	Gruppe_FK INT UNSIGNED,
-	Datum DATE NOT NULL, 
-	CONSTRAINT Termin_primär PRIMARY KEY (ID), 
-	CONSTRAINT `Termin ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE, 
+	Datum DATE NOT NULL,
+	CONSTRAINT Termin_primär PRIMARY KEY (ID),
+	CONSTRAINT `Termin ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE,
 	CONSTRAINT `Termin ist für Gruppe` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE SET NULL
 );
 
@@ -61,8 +61,8 @@ CREATE TABLE Meilenstein(
 	Frist DATE NOT NULL,
 	Beendet DATE DEFAULT NULL,
 	`Status` BOOL NOT NULL DEFAULT FALSE,
-	Bezeichnung VARCHAR(255) NOT NULL, 
-	CONSTRAINT Meilenstein_primär PRIMARY KEY (ID), 
+	Bezeichnung VARCHAR(255) NOT NULL,
+	CONSTRAINT Meilenstein_primär PRIMARY KEY (ID),
 	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID)
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE Bewertung(
 	Termin_FK INT UNSIGNED,
 	Ampelstatus ENUM('Grün','Gelb','Rot') NOT NULL,
 	Bewertung ENUM('+','-','0') NOT NULL,
-	Kommentar VARCHAR(255), CONSTRAINT Bewertung_primär PRIMARY KEY (ID), 
+	Kommentar VARCHAR(255), CONSTRAINT Bewertung_primär PRIMARY KEY (ID),
 	CONSTRAINT `Termin wird bewertet` FOREIGN KEY (Termin_FK) REFERENCES `Termin`(ID)
 );
 
@@ -79,25 +79,26 @@ CREATE TABLE Bewertung(
 CREATE TABLE `ist bei`(
 	Anwesend BOOL DEFAULT FALSE,
 	Student_FK INT UNSIGNED,
-	Termin_FK INT UNSIGNED, CONSTRAINT `ist_bei_primär` PRIMARY KEY (Student_FK,Termin_FK), 
-	CONSTRAINT `Student ist bei Termin` FOREIGN KEY (Student_FK) REFERENCES `Student`(ID) ON DELETE CASCADE, 
+	Termin_FK INT UNSIGNED, CONSTRAINT `ist_bei_primär` PRIMARY KEY (Student_FK,Termin_FK),
+	CONSTRAINT `Student ist bei Termin` FOREIGN KEY (Student_FK) REFERENCES `Student`(ID) ON DELETE CASCADE,
 	CONSTRAINT `Termin ist für Student` FOREIGN KEY (Termin_FK) REFERENCES `Termin`(ID) ON DELETE CASCADE
 );
 
 CREATE TABLE `betreut`(
 	Benutzer_FK INT UNSIGNED,
-	Gruppe_FK INT UNSIGNED, CONSTRAINT `betreut_primär` PRIMARY KEY (Benutzer_FK,Gruppe_FK), 
-	CONSTRAINT `Benutzer betreut Gruppe` FOREIGN KEY (Benutzer_FK) REFERENCES `Benutzer`(ID) ON DELETE CASCADE, 
+	Gruppe_FK INT UNSIGNED,
+	CONSTRAINT `betreut_primär` PRIMARY KEY (Benutzer_FK,Gruppe_FK),
+	CONSTRAINT `Benutzer betreut Gruppe` FOREIGN KEY (Benutzer_FK) REFERENCES `Benutzer`(ID) ON DELETE CASCADE,
 	CONSTRAINT `Gruppe wird betreut` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE CASCADE
 );
 
-INSERT INTO Semester(Kennung) VALUES 
+INSERT INTO Semester(Kennung) VALUES
 ('ws19/20');
 
 INSERT INTO Gruppe(Gruppennummer,Semester_FK) VALUES
 ('e9','ws19/20');
 
-INSERT INTO Student(Vorname,Nachname,Matrikelnummer,`E-Mail`,Semester_FK,Gruppe_FK) VALUES 
+INSERT INTO Student(Vorname,Nachname,Matrikelnummer,`E-Mail`,Semester_FK,Gruppe_FK) VALUES
 ('test1','test',111111111,'test1@testmail.com','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
 ('test2','test',111111112,'test2@testmail.com','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
 ('test3','test',111111113,'test3@testmail.com','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
@@ -140,7 +141,7 @@ INSERT INTO Termin(Datum,Semester_FK,Gruppe_FK) VALUES
 ('2019-10-7','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
 ('2019-10-8','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'));
 
-INSERT INTO `ist bei`(Anwesend,Student_FK,Termin_FK) VALUES 
+INSERT INTO `ist bei`(Anwesend,Student_FK,Termin_FK) VALUES
 (TRUE,(SELECT `ID` FROM `Student` WHERE `Matrikelnummer`='111111111'),(SELECT `ID` FROM `Termin` WHERE `Datum`='2019-10-1' AND `Gruppe_FK`=(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'))),
 (FALSE,(SELECT `ID` FROM `Student` WHERE `Matrikelnummer`='111111111'),(SELECT `ID` FROM `Termin` WHERE `Datum`='2019-10-2' AND `Gruppe_FK`=(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'))),
 (TRUE,(SELECT `ID` FROM `Student` WHERE `Matrikelnummer`='111111111'),(SELECT `ID` FROM `Termin` WHERE `Datum`='2019-10-3' AND `Gruppe_FK`=(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'))),

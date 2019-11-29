@@ -71,4 +71,14 @@ input[type=submit] {
     color: #F0F0F0;
 }
 
+#ms_table_scroll{
+    max-height: 300px;
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+}
+
+.tableFixHead          { overflow-y: auto; height: 100px; }
 /*---------------*/

@@ -33,7 +33,7 @@
 
 ?>
 
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr class="table-info">
             <th scope="col">Bewertung</th>

@@ -13,8 +13,8 @@ $query = 'SELECT m.Bezeichnung,m.`Status` FROM Meilenstein m,Gruppe g
           AND m.Gruppe_FK = g.ID';
 
 ?>
-
-<table class="table">
+<div id="ms_table_scroll" class="table-responsive">
+<table class="table text-center tableFixHead">
     <thead>
     <tr class="table-info">
         <th scope="col">Meilenstein</th>
@@ -50,3 +50,4 @@ $query = 'SELECT m.Bezeichnung,m.`Status` FROM Meilenstein m,Gruppe g
         ?>
     </tbody>
 </table>
+</div>

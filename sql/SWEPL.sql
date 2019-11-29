@@ -108,9 +108,27 @@ INSERT INTO Student(Vorname,Nachname,Matrikelnummer,`E-Mail`,Semester_FK,Gruppe_
 ('test8','test',111111118,'test8@testmail.com','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'));
 
 INSERT INTO Meilenstein(Frist,Bezeichnung,Gruppe_FK) VALUES
-(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'));
+(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-3,'Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-3,'Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-3,'Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-3,'Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-3,'Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-3,'Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-3,'Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-2,'Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-3,'Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-10-4,'Lastenheft2',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'));
 INSERT INTO Meilenstein(Frist,Beendet,Bezeichnung,`Status`,Gruppe_FK) VALUES
-(2019-12-2,2019-12-2,'Kundenpräsentation', TRUE,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'));
+(2019-12-5,2019-12-2,'Kundenpräsentation', TRUE,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-12-6,2019-12-2,'Kundenpräsentation1', TRUE,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),
+(2019-12-7,2019-12-2,'Kundenpräsentation2', TRUE,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9'));
 
 INSERT INTO Termin(Datum,Semester_FK,Gruppe_FK) VALUES
 ('2019-10-1','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9')),

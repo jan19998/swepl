@@ -905,4 +905,4 @@ INSERT INTO Bewertung(Ampelstatus,Bewertung,Termin_FK,Kommentar) VALUES
 ('Gelb','+',(SELECT `ID` FROM `Termin` WHERE `Datum`='2019-10-7' AND `Gruppe_FK`=(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),"erste Konzepte liegen vor"),
 ('Grün','+',(SELECT `ID` FROM `Termin` WHERE `Datum`='2019-10-8' AND `Gruppe_FK`=(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),"Programm wurde vorgeführt");
 
-INSERT INTO Bewertung(Ampelstatus,Bewertung,Termin_FK,Kommentar) VALUES
+SHOW WARNINGS;

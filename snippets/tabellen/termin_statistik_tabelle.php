@@ -7,14 +7,14 @@ $anzahlTermine = 0;
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root","","swepl"
 );
-$query1 ='SELECT t.Datum AS Datum
+$query1 ='SELECT CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum
 From Termin t 
 JOIN Gruppe g ON t.Gruppe_FK = g.ID
 	WHERE g.Gruppennummer = "'.$gruppe.'"
 	AND t.Gruppe_FK = g.ID
     AND t.Semester_FK = "'.$semester.'"
 GROUP BY datum;';
-$query2 ='SELECT CONCAT(s.Vorname," ", s.Nachname) AS Name, s.Matrikelnummer AS Matrikelnummer, t.Datum AS Datum, i.Anwesend AS Anwesend
+$query2 ='SELECT CONCAT(s.Vorname," ", s.Nachname) AS Name, s.Matrikelnummer AS Matrikelnummer, CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum, i.Anwesend AS Anwesend
 FROM Student  s
 JOIN `ist bei`  i ON i.Student_FK = s.ID
 JOIN Termin t ON i.Termin_FK = t.ID
@@ -29,12 +29,12 @@ GROUP BY s.Matrikelnummer,datum;';
     <table class="table">
         <thead>
         <tr class="table-info">
-            <th scope="col" class="text-center">Matrikelnummer</th>
-            <th scope="col" class="text-center" style="min-width: 135px;">Name</th>
+            <th scope="col" class="text-center table_width_statisitc">Matrikelnummer</th>
+            <th scope="col" class="text-center table_width_statisitc">Name</th>
             <?php
             if($result = mysqli_query($remoteConnection,$query1)) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<th scope="col " style="min-width: 135px;">' . $row['Datum'] . '</th>';
+                    echo '<th scope="col " class="text-center">' . $row['Datum'] . '</th>';
                     $anzahlTermineinsgesamt++;
                 };
             };

@@ -81,4 +81,8 @@ input[type=submit] {
 }
 
 .tableFixHead          { overflow-y: auto; height: 100px; }
+
+.table_width_statisitc {
+    min-width: 135px;
+}
 /*---------------*/

@@ -1,7 +1,9 @@
+CREATE DATABASE IF NOT EXISTS `swepl`;
 USE swepl;
 
 DROP TABLE IF EXISTS `ist bei`;
 DROP TABLE IF EXISTS `betreut`;
+DROP TABLE IF EXISTS `Bewertung`;
 DROP TABLE IF EXISTS `Meilenstein`;
 DROP TABLE IF EXISTS `Student`;
 DROP TABLE IF EXISTS `Termin`;
@@ -16,23 +18,19 @@ CREATE TABLE Benutzer(
 	Nachname VARCHAR(50) NOT NULL,
 	Passwort VARCHAR(50) NOT NULL,
 	IstDozent BOOL NOT NULL,
-	`E-Mail` VARCHAR(50) NOT NULL,
-	CONSTRAINT Benutzer_primär PRIMARY KEY (ID)
+	`E-Mail` VARCHAR(50) NOT NULL, CONSTRAINT Benutzer_primär PRIMARY KEY (ID)
 );
 
 CREATE TABLE Semester(
-	Kennung VARCHAR(7) NOT NULL,
-	CONSTRAINT `Semester_primär` PRIMARY KEY (Kennung)
+	Kennung VARCHAR(7) NOT NULL, CONSTRAINT `Semester_primär` PRIMARY KEY (Kennung)
 );
 
 CREATE TABLE Gruppe(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Semester_FK VARCHAR(7),
-	Gruppennummer VARCHAR(3) NOT NULL,
-	CONSTRAINT Gruppe_primär PRIMARY KEY (ID),
+	Gruppennummer VARCHAR(3) NOT NULL, CONSTRAINT Gruppe_primär PRIMARY KEY (ID),
 	CONSTRAINT `Gruppe ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE
 );
-
 
 CREATE TABLE Student(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -51,10 +49,7 @@ CREATE TABLE Termin(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Semester_FK VARCHAR(7),
 	Gruppe_FK INT UNSIGNED,
-	Ampelstatus ENUM('Grün','Gelb','Rot') NOT NULL,
 	Datum DATE NOT NULL,
-	Bewertung ENUM('+','-','0') NOT NULL,
-	Kommentar VARCHAR(255),
 	CONSTRAINT Termin_primär PRIMARY KEY (ID),
 	CONSTRAINT `Termin ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE,
 	CONSTRAINT `Termin ist für Gruppe` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE SET NULL
@@ -63,20 +58,28 @@ CREATE TABLE Termin(
 CREATE TABLE Meilenstein(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Gruppe_FK INT UNSIGNED,
-	Datum DATE NOT NULL,
+	Frist DATE NOT NULL,
+	Beendet DATE DEFAULT NULL,
 	`Status` BOOL NOT NULL DEFAULT FALSE,
 	Bezeichnung VARCHAR(255) NOT NULL,
 	CONSTRAINT Meilenstein_primär PRIMARY KEY (ID),
 	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID)
 );
 
--- N:M Relation
-
-CREATE TABLE `ist bei`(
-	Anwesend BOOL,
-	Student_FK INT UNSIGNED,
+CREATE TABLE Bewertung(
+	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Termin_FK INT UNSIGNED,
-	CONSTRAINT `ist_bei_primär` PRIMARY KEY (Student_FK,Termin_FK),
+	Ampelstatus ENUM('Grün','Gelb','Rot') NOT NULL,
+	Bewertung ENUM('+','-','0') NOT NULL,
+	Kommentar VARCHAR(255), CONSTRAINT Bewertung_primär PRIMARY KEY (ID),
+	CONSTRAINT `Termin wird bewertet` FOREIGN KEY (Termin_FK) REFERENCES `Termin`(ID)
+);
+
+-- N:M Relation
+CREATE TABLE `ist bei`(
+	Anwesend BOOL DEFAULT FALSE,
+	Student_FK INT UNSIGNED,
+	Termin_FK INT UNSIGNED, CONSTRAINT `ist_bei_primär` PRIMARY KEY (Student_FK,Termin_FK),
 	CONSTRAINT `Student ist bei Termin` FOREIGN KEY (Student_FK) REFERENCES `Student`(ID) ON DELETE CASCADE,
 	CONSTRAINT `Termin ist für Student` FOREIGN KEY (Termin_FK) REFERENCES `Termin`(ID) ON DELETE CASCADE
 );
@@ -89,18 +92,4 @@ CREATE TABLE `betreut`(
 	CONSTRAINT `Gruppe wird betreut` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE CASCADE
 );
 
-INSERT INTO Semester(Kennung) VALUES 
-('ws19/20');
-
-INSERT INTO Gruppe(Gruppennummer,Semester_FK) VALUES
-('e9','ws19/20');
-
-INSERT INTO Student(Vorname,Nachname,Matrikelnummer,`E-Mail`,Semester_FK,Gruppe_FK) VALUES 
-('test1','test',111111111,'test@testmail.com','ws19/20',1),
-('test2','test',111111112,'test@testmail.com','ws19/20',1),
-('test3','test',111111113,'test@testmail.com','ws19/20',1),
-('test4','test',111111114,'test@testmail.com','ws19/20',1),
-('test5','test',111111115,'test@testmail.com','ws19/20',1),
-('test6','test',111111116,'test@testmail.com','ws19/20',1),
-('test7','test',111111117,'test@testmail.com','ws19/20',1),
-('test8','test',111111118,'test@testmail.com','ws19/20',1);
+SHOW WARNINGS;

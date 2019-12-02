@@ -122,10 +122,12 @@ legend{
     padding-right: 200px;
 }
 
-footer{
+/*Bricht css von meilenstein*/
+/*footer{
     position: absolute;
     bottom: 0;
 }
+*/
 
 #swepicture {
     height: 168px;

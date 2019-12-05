@@ -1,3 +1,11 @@
+<?php
+    $remoteConnection = mysqli_connect(
+    "127.0.0.1", "root", "", "swepl"
+);
+
+    session_start();
+
+    ?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -28,18 +36,21 @@
     <div class="row">
         <div class ="col-3">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">Terminübersicht</a>
-                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Kursteilnehmer</a>
-                <a class="nav-link active" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="true">Meilensteine</a>
-                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Statistiken</a>
+                <?php
+                $query = 'SELECT Kennung FROM Semester ORDER BY Kennung DESC';
+                if($result = mysqli_query($remoteConnection,$query)) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $_SESSION['semester'] = $row['Kennung'];
+                        echo '<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">'.$row['Kennung'].'</a>';
+                    }
+                }
+                ?>
+
             </div>
         </div>
         <div class ="col-9">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><?php include('snippets/kursteilnehmer.php');?></div>
-                <div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"><?php include('snippets/tabellen/meilenstein_erreicht_tabelle.php');include('snippets/formular_beendeter_meilenstein.php');?></div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"><?php include('snippets/statistiken.php')?></div>
+                        <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><?php include('snippets/jahresauswahl_gruppe.php');?></div>
             </div>
         </div>
     </div>

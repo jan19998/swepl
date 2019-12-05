@@ -8,4 +8,7 @@
             </ul>
         </div>
     </div>
+    <?php
+    mysqli_close($connect);
+    ?>
 </footer>

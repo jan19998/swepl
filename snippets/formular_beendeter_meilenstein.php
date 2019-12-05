@@ -18,13 +18,13 @@ if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) 
     if(mysqli_multi_query($remoteConnection,$update1)) {
        //Problem 2 Daten der Tabelle werden erst geupdatet, wenn die Seite komplett neu geladen wir, nicht direkt nach POST
         //daher versucht es so zu umgehen
-        echo '<a href ="http://localhost/swepl/betreuer_meilenstein.php" class ="link">Tabelle updaten.</a>';
+        echo '<a href ="http://localhost/swepl/betreuer.php" class ="link">Tabelle updaten.</a>';
     }
     else {
         echo "fail";
     }
 }
-echo '<form action=http://localhost/swepl/betreuer_meilenstein.php method="POST">';
+echo '<form action=http://localhost/swepl/betreuer.php method="POST">';
 echo'<fieldset>';
 echo '<legend> Meilenstein updaten <br>';
     echo ' <select name ="selected_milestone">';

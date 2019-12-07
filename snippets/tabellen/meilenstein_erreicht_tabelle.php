@@ -1,7 +1,8 @@
 <?php
 //session_start()
 //$gruppen_id = $_SESSION['selected_group_id']
-
+$semester = 'ws19/20';
+$gruppe = 'e9';
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root","","swepl"
 );

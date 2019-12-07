@@ -1,28 +1,32 @@
 <?php
 //session_start()
 //$gruppen_id = $_SESSION['selected_group_id']
+$semester = 'ws19/20';
+$gruppe = 'e9';
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root", "", "swepl"
 );
 //hier müsste man das WHERE anpassen mit der GruppenID, die in der Session gespeichert wurde
 if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) {
+    echo $_POST['date_of_completion'];
     $date = $_POST['date_of_completion'];
     $milestone =  $_POST['selected_milestone'];
     $update1 = 'UPDATE Meilenstein SET Beendet =';
     $update1 .= " STR_TO_DATE('$date','%Y-%m-%d') ";
     $update1 .= "WHERE Gruppe_FK = 1 AND Bezeichnung = ";
     $update1 .= " '$milestone' ;";
-    //Problem 1: er übernimmt das statusupdate nicht, daher sind die Farben der Tabelle immer fehlerhaft....
-    //ich weiß nicht wieso er das Datum problemlos übernimmt, aber den Status nicht updatet
-    $update1 .= 'UPDATE Meilenstein SET `Status` = 1 WHERE (SELECT DATEDIFF(Beendet,Frist)) <= 0;';
-    if(mysqli_multi_query($remoteConnection,$update1)) {
-       //Problem 2 Daten der Tabelle werden erst geupdatet, wenn die Seite komplett neu geladen wir, nicht direkt nach POST
-        //daher versucht es so zu umgehen
-        echo '<a href ="http://localhost/swepl/betreuer.php" class ="link">Tabelle updaten.</a>';
+    echo $update1;
+    $update2 = ' UPDATE Meilenstein SET `Status` = 1 WHERE (SELECT DATEDIFF(Beendet,Frist)) <= 0;';
+    echo $update2;
+    mysqli_autocommit($remoteConnection,false);
+    mysqli_query($remoteConnection,$update1);
+    mysqli_query($remoteConnection,$update2);
+
+    if(!mysqli_commit($remoteConnection)) {
+        echo 'error bei transaktion';
+        mysqli_rollback($remoteConnection);
     }
-    else {
-        echo "fail";
-    }
+    mysqli_commit($remoteConnection);
 }
 echo '<form action=http://localhost/swepl/betreuer.php method="POST">';
 echo'<fieldset>';

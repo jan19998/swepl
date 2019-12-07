@@ -40,6 +40,8 @@ include('snippets/login.php');
             <fieldset id="login"> <!-- Um die Umrandung um das Login Feld bearbeiten und setzen zu können setzen wir hier eine id -->
                 <legend id="legend1">Login</legend>
                 E-Mail:<br>
+
+                <!-- Buttons für die Anmledung -->
                 <input type="email"  style="width:90%" maxlength="250" name="email"> <!--Länge des Feldes und Anzahl erlaubter Zeichen -->
 
                 <br><br>
@@ -55,7 +57,7 @@ include('snippets/login.php');
 
 
 
-        <!--Content1-->
+        <!--Inhalt 1-->
         <!-- Beschreibung -->
         <div class="col-8" id="beschreibung">
 
@@ -75,9 +77,10 @@ include('snippets/login.php');
     </div>
 
 </div>
+
 <!-- Damit Footer immer unten in der Mitte ist-->
 <div class="row justify-content-center">
-    <?php include('snippets/footer.php');?>
+    <?php include('snippets/footer_startseite');?>
 </div>
 
 </body>

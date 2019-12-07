@@ -1,30 +1,34 @@
 <?php
-$error=''; //Variable to Store error message;
+$error=''; //Um die Error message zu speichern;
 if(isset($_POST['submit'])){
     if(empty($_POST['email']) || empty($_POST['passwort'])){
         $error = "Falsches Passwort";
     }
     else
     {
-        //Define $user and $pass
+        //Variable für Email und Passwort erstellen
         $user=$_POST['email'];
         $pass=$_POST['passwort'];
-        //Establishing Connection with server by passing server_name, user_id and pass as a parameter
+
+        //Datenbankverbindung herstellen
         $remoteConnection = mysqli_connect("127.0.0.1", "root", "", "swepl");
-        //Selecting Database
+        //Datenbank auswählen
         $db = mysqli_select_db($remoteConnection, "swepl");
         //sql query to fetch information of registerd user and finds user match.
         $query = mysqli_query($remoteConnection, "SELECT * FROM swepl.benutzer WHERE `E-Mail`='$user' AND Passwort='$pass'");
 
         $rows = mysqli_num_rows($query);
         if($rows == 1){
-            header("Location: betreuer.php"); // Redirecting to other page
+            header("Location: betreuer.php"); // Zur Betreuer Seite weitelreiten
+
+            //************************************************************************
+            //Hier fehlt noch die Unterscheidung zwischen Betreuer und Dozent
         }
         else
         {
             $error = "Passwort ungültig";
         }
-        mysqli_close($remoteConnection); // Closing connection
+        mysqli_close($remoteConnection); // Verbindung wieder beenden
     }
 }
 

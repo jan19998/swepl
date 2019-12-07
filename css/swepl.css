@@ -122,12 +122,12 @@ legend{
     padding-right: 200px;
 }
 
-/*Bricht css von meilenstein*/
-/*footer{
+/*Jetzt für eigenen footer_startseite.php*/
+#footer_startseite{
     position: absolute;
     bottom: 0;
 }
-*/
+
 
 #swepicture {
     height: 168px;

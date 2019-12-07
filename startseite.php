@@ -80,7 +80,7 @@ include('snippets/login.php');
 
 <!-- Damit Footer immer unten in der Mitte ist-->
 <div class="row justify-content-center">
-    <?php include('snippets/footer_startseite');?>
+    <?php include('snippets/footer_startseite.php');?>
 </div>
 
 </body>

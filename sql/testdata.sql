@@ -1,4 +1,6 @@
 USE swepl;
+INSERT INTO Benutzer(Passwort,`E-Mail`) VALUES
+('Passwort1','benutzer1@live.de');
 
 INSERT INTO Semester(Kennung) VALUES 
 ('ws17/18'),

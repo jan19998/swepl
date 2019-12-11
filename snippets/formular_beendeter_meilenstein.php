@@ -50,5 +50,5 @@ if($result = mysqli_query($remoteConnection,$query)){
        echo '</legend>';
     echo '</fieldset>';
 echo '</form>';
-
+mysqli_close($remoteConnection);
 ?>

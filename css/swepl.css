@@ -138,6 +138,9 @@ legend{
 #swe_picture{
     padding-left: 0px;
 }
+.password_change_successful{
+    text-align: center;
+}
 
 
 /*---------------*/

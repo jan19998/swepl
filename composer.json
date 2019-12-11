@@ -10,6 +10,7 @@
     }
   ],
   "require": {
-    "vlucas/phpdotenv": "3.6.x-dev"
+    "vlucas/phpdotenv": "3.6.x-dev",
+    "eftec/bladeone": "3.31"
   }
 }

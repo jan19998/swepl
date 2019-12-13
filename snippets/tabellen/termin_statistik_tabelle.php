@@ -47,16 +47,16 @@ GROUP BY s.Matrikelnummer,datum;';
             while ($row = mysqli_fetch_assoc($result)) {
                 if($anzahlTermine == 0)
                 {
-                    echo '<tr></tr><th class="text-center">' . $row['Matrikelnummer'] . '</th>
-                    <th class="text-center">' . $row['Name'] . '</th>';
+                    echo '<tr></tr><td class="text-center">' . $row['Matrikelnummer'] . '</td>
+                    <td class="text-center">' . $row['Name'] . '</td>';
                 }
-                echo '<th class="text-center">';
+                echo '<td class="text-center">';
                 if ($row['Anwesend']) {
                     echo '<i class="fa fa-check"></i>';
                 } else {
                     echo '<i class="fa fa-times"></i>';
                 }
-                echo '</th>';
+                echo '</td>';
                 $anzahlTermine++;
                 if ($anzahlTermine == $anzahlTermineinsgesamt )
                 {$anzahlTermine = 0;

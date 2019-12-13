@@ -9,4 +9,13 @@
                 <button class="btn" type="submit" action="logout.php" value="logout">Logout</button>
         </div>
     </div>
+    <?php
+    $dbname = 'swepl';
+    $dbuser = 'root';
+    $dbpass = '';
+    $dbhost = '127.0.0.1';
+
+    $connect = mysqli_connect($dbhost, $dbuser, $dbpass) or die("Unable to Connect to '$dbhost'");
+    mysqli_select_db($connect, $dbname) or die("Could not open the db '$dbname'");
+    ?>
 </header>

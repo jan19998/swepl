@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Dozent</title>
-    <?php //include("snippets/links.php") ?>
     <link rel="stylesheet" href="bootstrap-4.4.1-dist/css/bootstrap.css">
     <link rel="stylesheet" href="bootstrap-table-master/dist/bootstrap-table.css">
     <script src="https://kit.fontawesome.com/1b3fa84305.js" crossorigin="anonymous"></script>
@@ -42,10 +41,9 @@ $db->close();
         <div class="col">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="ve" role="tabpanel">
-                    <div id="toolbar">
-                        <button type="button" id="createButton" class="btn" data-toggle="modal"
-                                data-target="#createModal">
-                            create
+                    <div id="toolbar" class="ml-3">
+                        <button type="button" id="createButton" class="btn" data-toggle="modal" data-target="#createModal">
+                            <i class="fa fa-plus"></i>
                         </button>
                     </div>
                     <table
@@ -54,13 +52,14 @@ $db->close();
                             data-toggle="table"
                             data-toolbar="#toolbar"
                             data-detail-view="true"
+                            data-toolbar-align="right"
                             data-detail-formatter="detailFormatter"
                             data-pagination="true"
                             data-unique-id="id"
                             data-page-list="[10, 25, 50, 100, all]">
                         <thead>
                         <tr>
-                            <th data-field="id" data-sortable="true">ID</th>
+                            <th data-field="id" data-sortable="true" data-visible="false">ID</th>
                             <th data-field="matrikelnummer" data-sortable="true">Matrikelnummer</th>
                             <th data-field="nachname" data-sortable="true">Nachname</th>
                             <th data-field="vorname" data-sortable="true">Vorname</th>
@@ -115,13 +114,11 @@ $db->close();
 <script src="jQuery_v3.4.1.js"></script>
 <script src="bootstrap-4.4.1-dist/js/bootstrap.bundle.js"></script>
 <script src="bootstrap-table-master/dist/bootstrap-table.js"></script>
-<?php //include("snippets/scripts.php") ?>
 <script>
     var $table = $("#table");
 
     function detailFormatter(index, row) {
-        return 'ID: ' + row['id'] + '<br>'
-            + 'Matrikel: ' + row['matrikelnummer'] + '<br>'
+        return 'Matrikel: ' + row['matrikelnummer'] + '<br>'
             + 'Nachname: ' + row['nachname'] + '<br>'
             + 'Vorname: ' + row['vorname'] + '<br>'
             + 'Gruppe: ' + row['gruppe'] + '<br>'
@@ -181,7 +178,6 @@ $db->close();
                         $("#createModal").modal("hide");
                     }
                 });
-                //$("#createModal").modal("hide");
                 return false;
             });
         });

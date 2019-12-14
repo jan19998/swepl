@@ -9,14 +9,6 @@
     <link rel="stylesheet" href="css/swepl.css">
 </head>
 
-<?php
-require_once "snippets/dbconnect.php";
-$db = new dbconnect();
-$result = mysqli_query($db->getConnection(), "Select * from student order by Matrikelnummer");
-$studenten = mysqli_fetch_all($result, MYSQLI_ASSOC);
-$db->close();
-?>
-
 <body>
 
 <div class="container">
@@ -41,52 +33,16 @@ $db->close();
         <div class="col">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="ve" role="tabpanel">
-                    <div id="toolbar" class="ml-3">
-                        <button type="button" id="createButton" class="btn" data-toggle="modal" data-target="#createModal">
-                            <i class="fa fa-plus"></i>
-                        </button>
+                    <div class="row">
+                        <div class="col">
+                            <?php include "snippets/tabellen/jahreTable.php"; ?>
+                        </div>
+                        <div class="col">
+                            <?php include "snippets/tabellen/studentenTable.php"; ?>
+                            <?php include "snippets/tabellen/betreuerTable.php"; ?>
+                            <?php include "snippets/tabellen/gruppenTable.php"; ?>
+                        </div>
                     </div>
-                    <table
-                            id="table"
-                            data-search="true"
-                            data-toggle="table"
-                            data-toolbar="#toolbar"
-                            data-detail-view="true"
-                            data-toolbar-align="right"
-                            data-detail-formatter="detailFormatter"
-                            data-pagination="true"
-                            data-unique-id="id"
-                            data-page-list="[10, 25, 50, 100, all]">
-                        <thead>
-                        <tr>
-                            <th data-field="id" data-sortable="true" data-visible="false">ID</th>
-                            <th data-field="matrikelnummer" data-sortable="true">Matrikelnummer</th>
-                            <th data-field="nachname" data-sortable="true">Nachname</th>
-                            <th data-field="vorname" data-sortable="true">Vorname</th>
-                            <th data-field="gruppe" data-sortable="true">Gruppe</th>
-                            <th data-field="email" data-visible="false">E-Mail</th>
-                            <th data-field="operate" data-formatter="operateFormatter"
-                                data-events="window.operateEvents">Operate
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        foreach ($studenten as $student) {
-                            ?>
-                            <tr>
-                                <td><?php echo $student['ID']; ?></td>
-                                <td><?php echo $student['Matrikelnummer']; ?></td>
-                                <td><?php echo $student['Nachname']; ?></td>
-                                <td><?php echo $student['Vorname']; ?></td>
-                                <td><?php echo $student['Gruppe_FK']; ?></td>
-                                <td><?php echo $student['E-Mail']; ?></td>
-                            </tr>
-                            <?php
-                        }
-                        ?>
-                        </tbody>
-                    </table>
                 </div>
                 <div class="tab-pane fade" id="me" role="tabpanel">
                     test2
@@ -114,236 +70,63 @@ $db->close();
 <script src="jQuery_v3.4.1.js"></script>
 <script src="bootstrap-4.4.1-dist/js/bootstrap.bundle.js"></script>
 <script src="bootstrap-table-master/dist/bootstrap-table.js"></script>
+<script src="js/studentenJS.js"></script>
+<script src="js/betreuerJS.js"></script>
+<script src="js/gruppenJS.js"></script>
+<script src="js/jahreJS.js"></script>
 <script>
-    var $table = $("#table");
+    var $tablestudenten = $("#tablestudenten");
+    var $tablebetreuer = $("#tablebetreuer");
+    var $tablegruppen = $("#tablegruppen");
 
-    function detailFormatter(index, row) {
-        return 'Matrikel: ' + row['matrikelnummer'] + '<br>'
-            + 'Nachname: ' + row['nachname'] + '<br>'
-            + 'Vorname: ' + row['vorname'] + '<br>'
-            + 'Gruppe: ' + row['gruppe'] + '<br>'
-            + 'E-Mail: ' + row['email'];
-    }
-
-    function operateFormatter(value, row, index) {
-        return [
-            '<a class="edit" href="javascript:void(0)" title="Edit">',
-            '<i class="fa fa-pen"></i>',
-            '</a>  ',
-            '<a class="remove" href="javascript:void(0)" title="Remove">',
-            '<i class="fa fa-trash"></i>',
-            '</a>'
-        ].join('')
-    }
-
-    window.operateEvents = {
-        'click .edit': function (e, value, row, index) {
-            edit(row['id']);
-        },
-        'click .remove': function (e, value, row, index) {
-            del(row['id']);
-        }
-    };
-
-    $(document).ready()
-    {
-
-        $("#createButton").on("click", function () {
-            $("#createForm")[0].reset();
-            $("#createForm").unbind("submit").bind("submit", function () {
-                var form = $(this);
-                var matrikel = $("#creatematrikel").val();
-                var nachname = $("#createnachname").val();
-                var vorname = $("#createvorname").val();
-                var email = $("#createemail").val();
-                var gruppe = $("#creategruppe").val();
-                $.ajax({
-                    url: form.attr('action'),
-                    type: form.attr('method'),
-                    data: form.serialize(),
-                    dataType: 'json',
-                    success: function (response) {
-                        $table.bootstrapTable('insertRow', {
-                            index: 0,
-                            row: {
-                                id: response,
-                                matrikelnummer: matrikel,
-                                vorname: vorname,
-                                nachname: nachname,
-                                gruppe: gruppe,
-                                email: email
-                            }
-                        });
-                        $("#createForm")[0].reset();
-                        $("#createModal").modal("hide");
-                    }
-                });
-                return false;
-            });
-        });
-
-    }
-
-    function del(id = null) {
-        $("#deleteModal").modal();
-        $("#deletesubmit").unbind("click").bind("click", function () {
-            $.ajax({
-                url: "snippets/delete.php",
-                type: "POST",
-                data: {did: id},
-                success: function () {
-                    $table.bootstrapTable("removeByUniqueId", id);
-                    $("#deleteModal").modal("hide");
-                }
-            });
-        });
-    }
-
-    function edit(id = null) {
-        $("#editModal").modal();
-        $("#editid").val(0);
+    function showStudenten(jahr) {
+        $("#betreuerTable").hide();
+        $("#gruppenTable").hide();
         $.ajax({
-            url: 'snippets/retrieve.php',
-            type: 'post',
-            data: {rid : id},
-            dataType: 'json',
-            success:function(response) {
-                $("#editmatrikel").val(response.Matrikelnummer);
-                $("#editnachname").val(response.Nachname);
-                $("#editvorname").val(response.Vorname);
-                $("#editgruppe").val(response.Gruppe_FK);
-                $("#editemail").val(response['E-Mail']);
-                $("#editid").val(response['ID']);
-                $("#editForm").unbind("submit").bind("submit", function () {
-                    var form = $(this);
-                    var id = $("#editid").val();
-                    var matrikel = $("#editmatrikel").val();
-                    var nachname = $("#editnachname").val();
-                    var vorname = $("#editvorname").val();
-                    var email = $("#editemail").val();
-                    var gruppe = $("#editgruppe").val();
-                    $.ajax({
-                        url: form.attr('action'),
-                        type: form.attr('method'),
-                        data: form.serialize(),
-                        success: function () {
-                            $table.bootstrapTable("updateByUniqueId", {
-                                id: id,
-                                row: {
-                                    matrikelnummer: matrikel,
-                                    nachname: nachname,
-                                    vorname: vorname,
-                                    email: email,
-                                    gruppe: gruppe
-                                }
-                            });
-                            $("#editModal").modal("hide");
-                        }
-                    });
-                    return false;
-                });
+            url: "snippets/retrieveStudenten.php",
+            type: "post",
+            data: {rjahr: jahr},
+            success: function (response) {
+                $tablestudenten.bootstrapTable('load', JSON.parse(response));
+                $("#studentenTable").show();
+            }
+        });
+    }
+
+    function showBetreuer(jahr) {
+        $("#studentenTable").hide();
+        $("#gruppenTable").hide();
+        $.ajax({
+            url: "snippets/retrieveBetreuer.php",
+            type: "post",
+            //data: {rjahr: jahr},
+            success: function (response) {
+                $tablebetreuer.bootstrapTable('load', JSON.parse(response));
+                $("#betreuerTable").show();
+            }
+        });
+    }
+
+    function showGruppen(jahr) {
+        $("#studentenTable").hide();
+        $("#betreuerTable").hide();
+        $.ajax({
+            url: "snippets/retrieveGruppen.php",
+            type: "post",
+            data: {rjahr: jahr},
+            success: function (response) {
+                $tablegruppen.bootstrapTable('load', JSON.parse(response));
+                $("#gruppenTable").show();
             }
         });
     }
 
 </script>
 
-<!-- Modal -->
-<div id="createModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Hinzufügen</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <form action="snippets/insert.php" method="post" id="createForm">
-                <div class="modal-body">
-                    <div class="row form-group">
-                        <label class="mt-2 col-4" for="creatematrikel">Matrikelnummer</label>
-                        <input class="mt-2 form-control col mr-3" type="number" id="creatematrikel"
-                               name="creatematrikel" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 col-4" for="createnachname">Nachname</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="createnachname"
-                               name="createnachname" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 col-4" for="createvorname">Vorname</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="createvorname"
-                               name="createvorname" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 col-4" for="creategruppe">Gruppe</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="creategruppe"
-                               name="creategruppe" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 mb-2 col-4" for="createemail">E-Mail</label>
-                        <input class="mt-1 mb-2 form-control col mr-3" type="email" id="createemail"
-                               name="createemail" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-default" id="createsubmit">Speichern
-                    </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div id="editModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Bearbeiten</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <form action="snippets/update.php" method="post" id="editForm">
-                <div class="modal-body">
-                    <input type="hidden" id="editid" name="editid">
-                    <div class="row form-group">
-                        <label class="mt-2 col-4" for="editmatrikel">Matrikelnummer</label>
-                        <input class="mt-2 form-control col mr-3" type="number" id="editmatrikel"
-                               name="editmatrikel" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 col-4" for="editnachname">Nachname</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="editnachname"
-                               name="editnachname" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 col-4" for="editvorname">Vorname</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="editvorname"
-                               name="editvorname" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 col-4" for="editgruppe">Gruppe</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="editgruppe"
-                               name="editgruppe" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 mb-2 col-4" for="editemail">E-Mail</label>
-                        <input class="mt-1 mb-2 form-control col mr-3" type="email" id="editemail"
-                               name="editemail" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-default" id="editsubmit">Speichern
-                    </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<?php include "snippets/modal/studentenModal.php"; ?>
+<?php include "snippets/modal/betreuerModal.php"; ?>
+<?php include "snippets/modal/gruppenModal.php"; ?>
+<?php include "snippets/modal/jahreModal.php"; ?>
 
 <!-- Modal -->
 <div id="deleteModal" class="modal fade" role="dialog">

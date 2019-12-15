@@ -7,7 +7,7 @@ $remoteConnection = mysqli_connect(
     "127.0.0.1", "root","","swepl"
 );
 //hier müsste man das WHERE anpassen mit der GruppenID, die in der Session gespeichert wurde
-$query = "SELECT `Status`,DATE_FORMAT(Frist, '%d/%m/%Y'),Gruppe_FK,DATE_FORMAT(Beendet, '%d/%m/%Y'),Bezeichnung  FROM Meilenstein WHERE Gruppe_FK =1 ORDER BY Frist";
+$query = "SELECT `Status`,Frist,Gruppe_FK,Beendet,Bezeichnung  FROM Meilenstein WHERE Gruppe_FK =1 ORDER BY Frist";
 ?>
 <table class ="table">
     <thead>
@@ -27,19 +27,23 @@ $query = "SELECT `Status`,DATE_FORMAT(Frist, '%d/%m/%Y'),Gruppe_FK,DATE_FORMAT(B
     <?php
     if($result = mysqli_query($remoteConnection,$query)){
         while($row = mysqli_fetch_assoc($result)){
+            $date1 = $row['Frist'];
+            $date2 = $row['Beendet'];
+            $datetime1 = date_create($date1);
+            $datetime2 = date_create($date2);
             echo '<tr ';
-            if($row['Status'] == 1) {
-                echo 'class ="table-success" ';
-            }
-            else if ($row['Status'] == 0) {
+            if($datetime1 < $datetime2) {
                 echo ' class ="table-danger" ';
+            }
+            else if ($datetime1 >= $datetime2) {
+                echo 'class ="table-success" ';
             }
             else {
                 ;
             }
-            echo '><td>',$row["DATE_FORMAT(Frist, '%d/%m/%Y')"],'</td>';
+            echo '><td>',$row['Frist'],'</td>';
             echo '<td>',$row['Bezeichnung'],'</td>';
-            echo '<td>',$row["DATE_FORMAT(Beendet, '%d/%m/%Y')"],'</td>';
+            echo '<td>',$row['Beendet'],'</td>';
             echo '</tr>';
         }
     }

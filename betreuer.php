@@ -18,7 +18,7 @@
     <div class ="row pb-3">
         <div class ="col-9">
             <h3>
-                Gruppe <?php echo $gruppe;?>
+                Gruppe <?php echo $_GET['gruppe'];?>
             </h3>
         </div>
         <div class="col-3 justify-content-end" style="justify-content: flex-end;">

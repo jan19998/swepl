@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <header>
     <div class="row pb-3">
         <div class="col-11">

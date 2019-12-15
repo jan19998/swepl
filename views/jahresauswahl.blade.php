@@ -1,12 +1,4 @@
-<?php
-$remoteConnection = mysqli_connect(
-    "127.0.0.1", "root", "", "swepl"
-);
-
-session_start();
-
-?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -42,29 +34,20 @@ session_start();
     <div class="row">
         <div class="col-3">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <?php
-                $kennung = array();
-                $query = 'SELECT Kennung FROM Semester ORDER BY Kennung DESC';
-                if ($result = mysqli_query($remoteConnection, $query)) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $test = $row['Kennung'];
-                        array_push($kennung, $test);
-                        echo '<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">' . $row['Kennung'] . '</a>';
-                    }
-                }
-                ?>
-
+                    @for($i = 0; $i < count($kennung); ++$i)
+                    <a class="nav-link"data-toggle="pill" href="#v-pills-{{$i}}" role="tab">{{$kennung[$i]['Kennung']}}</a>
+                @endfor
             </div>
         </div>
         <div class="col-9">
             <div class="tab-content" id="v-pills-tabContent">
-                @foreach($kennung as $inkl_var)
-                   <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                @for($i = 0; $i < count($kennung); ++$i)
+                    <div class="tab-pane fade" id="v-pills-{{$i}}" role="tabpanel" >
                         @include('jahresauswahl_gruppe',[
-                                 'semester' => $inkl_var
+                                 'semester' => $kennung[$i]['Kennung']
                                  ])
                     </div>
-                @endforeach
+                @endfor
             </div>
         </div>
     </div>

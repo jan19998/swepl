@@ -1,3 +1,5 @@
 <p><?php
- echo $semester?>
+ echo $semester;
+ echo 'test';
+ ?>
 </p>

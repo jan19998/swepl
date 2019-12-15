@@ -43,13 +43,13 @@ session_start();
         <div class="col-3">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <?php
-                $kennung = [];
+                $kennung = array();
                 $query = 'SELECT Kennung FROM Semester ORDER BY Kennung DESC';
                 if ($result = mysqli_query($remoteConnection, $query)) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $test = $row['Kennung'];
                         array_push($kennung, $test);
-                        echo '<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home_'.$row['Kennung'].'" role="tab" aria-controls="v-pills-home" aria-selected="false">' . $row['Kennung'] . '</a>';
+                        echo '<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">' . $row['Kennung'] . '</a>';
                     }
                 }
                 ?>
@@ -59,7 +59,7 @@ session_start();
         <div class="col-9">
             <div class="tab-content" id="v-pills-tabContent">
                 @foreach($kennung as $inkl_var)
-                    <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                   <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                         @include('jahresauswahl_gruppe',[
                                  'semester' => $inkl_var
                                  ])

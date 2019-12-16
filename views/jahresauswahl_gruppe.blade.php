@@ -8,7 +8,7 @@
         if ($result = mysqli_query($remoteConnection,$query)){
             while($row = mysqli_fetch_assoc($result)){
                 echo '<div class="col-12">';
-                    echo '<p><a href="betreuer.php?gruppe='.$row['Gruppennummer'].'&semester='.$semester.'">Gruppe '.$row['Gruppennummer'].'</a><br>';
+                    echo '<p><a class="link" href="betreuer.php?gruppe='.$row['Gruppennummer'].'&semester='.$semester.'">Gruppe '.$row['Gruppennummer'].'</a><br>';
                     echo 'Termin test </p>';
                 echo '</div>';
             }

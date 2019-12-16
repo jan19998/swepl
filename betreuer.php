@@ -12,13 +12,19 @@
 </head>
 
 <body>
-<?php $gruppe = 'e9'?>
+<?php
+session_start();
+if(isset($_GET['semester']) && isset($_GET['gruppe'])){
+    $_SESSION['semester'] = $_GET['semester'];
+    $_SESSION['gruppe'] = $_GET['gruppe'];
+}
+?>
 <div class ="container">
     <?php include('snippets/header.php');?>
     <div class ="row pb-3">
         <div class ="col-9">
             <h3>
-                Gruppe <?php echo $_GET['gruppe'];?>
+                Gruppe <?php echo $_SESSION['gruppe'];?>
             </h3>
         </div>
         <div class="col-3 justify-content-end" style="justify-content: flex-end;">

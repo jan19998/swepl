@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
 
         $rows = mysqli_num_rows($query);
         if($rows == 1){
-            header("Location: betreuer.php"); // Zur Betreuer Seite weitelreiten
+            header("Location: jahresauswahl.php"); // Zur Betreuer Seite weitelreiten
 
             //************************************************************************
             //Hier fehlt noch die Unterscheidung zwischen Betreuer und Dozent

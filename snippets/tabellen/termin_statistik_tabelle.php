@@ -1,6 +1,4 @@
 <?php
-$semester = 'ws19/20';
-$gruppe = 'e9';
 $anzahlTermineinsgesamt = 0;
 $anzahlTermine = 0;
 
@@ -10,18 +8,18 @@ $remoteConnection = mysqli_connect(
 $query1 ='SELECT CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum
 From Termin t 
 JOIN Gruppe g ON t.Gruppe_FK = g.ID
-	WHERE g.Gruppennummer = "'.$gruppe.'"
+	WHERE g.Gruppennummer = "'.$_SESSION['gruppe'].'"
 	AND t.Gruppe_FK = g.ID
-    AND t.Semester_FK = "'.$semester.'"
+    AND t.Semester_FK = "'.$_SESSION['semester'].'"
 GROUP BY datum;';
 $query2 ='SELECT CONCAT(s.Vorname," ", s.Nachname) AS Name, s.Matrikelnummer AS Matrikelnummer, CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum, i.Anwesend AS Anwesend
 FROM Student  s
 JOIN `ist bei`  i ON i.Student_FK = s.ID
 JOIN Termin t ON i.Termin_FK = t.ID
 JOIN Gruppe g ON t.Gruppe_FK = g.ID
-	WHERE g.Gruppennummer = "'.$gruppe.'"
+	WHERE g.Gruppennummer = "'.$_SESSION['gruppe'].'"
 	AND t.Gruppe_FK = g.ID
-    AND t.Semester_FK = "'.$semester.'"
+    AND t.Semester_FK = "'.$_SESSION['semester'].'"
 GROUP BY s.Matrikelnummer,datum;';
 ?>
 

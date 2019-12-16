@@ -8,8 +8,8 @@ $remoteConnection = mysqli_connect(
 );
 
 $query = 'SELECT m.Bezeichnung,m.`Status` FROM Meilenstein m,Gruppe g
-          WHERE g.Semester_FK = "'.$semester.'"
-          AND g.Gruppennummer = "'.$gruppe.'"
+          WHERE g.Semester_FK = "'.$_SESSION['semester'].'"
+          AND g.Gruppennummer = "'.$_SESSION['gruppe'].'"
           AND m.Gruppe_FK = g.ID';
 
 ?>

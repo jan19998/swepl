@@ -1,16 +1,9 @@
-<?php
-$remoteConnection = mysqli_connect(
- "127.0.0.1", "root", "", "swepl"
-);
-
-session_start();
-
-?>
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
  <meta charset="UTF-8">
  <title>SWEPl</title>
+ <link rel="stylesheet" href="css/swepl.css">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -23,7 +16,7 @@ session_start();
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
  crossorigin="anonymous"></script>
- <link rel="stylesheet" href="../css/swepl.css">
+ <link rel="stylesheet" href="css/swepl.css">
 </head>
 
 <body>
@@ -42,29 +35,20 @@ session_start();
  <div class="row">
  <div class="col-3">
  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
- <?php
- $kennung = array();
- $query = 'SELECT Kennung FROM Semester ORDER BY Kennung DESC';
- if ($result = mysqli_query($remoteConnection, $query)) {
- while ($row = mysqli_fetch_assoc($result)) {
- $test = $row['Kennung'];
- array_push($kennung, $test);
- echo '<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">' . $row['Kennung'] . '</a>';
- }
- }
- ?>
-
+ <?php for($i = 0; $i < count($kennung); ++$i): ?>
+ <a class="nav-link"data-toggle="pill" href="#v-pills-<?php echo static::e($i); ?>" role="tab"><?php echo static::e($kennung[$i]['Kennung']); ?></a>
+ <?php endfor; ?>
  </div>
  </div>
  <div class="col-9">
  <div class="tab-content" id="v-pills-tabContent">
- <?php $__currentLoopData = $kennung; $this->addLoop($__currentLoopData); foreach($__currentLoopData as $inkl_var): $this->incrementLoopIndices(); $loop = $this->getFirstLoop(); ?>
- <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+ <?php for($i = 0; $i < count($kennung); ++$i): ?>
+ <div class="tab-pane fade" id="v-pills-<?php echo static::e($i); ?>" role="tabpanel" >
  <?php echo $this->runChild('jahresauswahl_gruppe',[
- 'semester' => $inkl_var
+ 'semester' => $kennung[$i]['Kennung']
  ]); ?>
  </div>
- <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php endfor; ?>
  </div>
  </div>
  </div>

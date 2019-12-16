@@ -1,6 +1,4 @@
 <?php
-    $semester = 'ws19/20';
-    $gruppe = 'e9';
     $email = "";
     $i = 0;
 
@@ -9,9 +7,9 @@ $remoteConnection = mysqli_connect(
 );
 
 $query1 = 'SELECT s.`E-Mail` FROM swepl.Student s,swepl.Gruppe g 
-                       WHERE g.Semester_FK = "'.$semester.'"
-                       AND s.Semester_FK = "'.$semester.'"
-                       AND g.Gruppennummer = "'.$gruppe.'"
+                       WHERE g.Semester_FK = "'.$_SESSION['semester'].'"
+                       AND s.Semester_FK = "'.$_SESSION['semester'].'"
+                       AND g.Gruppennummer = "'.$_SESSION['gruppe'].'"
                        AND g.ID = s.Gruppe_FK';
 if($result1 = mysqli_query($remoteConnection,$query1)){
     while($row = mysqli_fetch_assoc($result1)){
@@ -25,9 +23,9 @@ if($result1 = mysqli_query($remoteConnection,$query1)){
 }
 
 $query2 = 'SELECT s.Vorname,s.Nachname,s.Matrikelnummer,s.`E-Mail` FROM swepl.Student s,swepl.Gruppe g 
-              WHERE s.Semester_FK = "' . $semester . '" 
-              AND g.Semester_FK = "'.$semester.'"
-              AND g.Gruppennummer = "'.$gruppe.'"
+              WHERE s.Semester_FK = "' . $_SESSION['semester'] . '" 
+              AND g.Semester_FK = "'.$_SESSION['semester'].'"
+              AND g.Gruppennummer = "'.$_SESSION['gruppe'].'"
               AND g.ID = s.Gruppe_FK;';
 
 ?>

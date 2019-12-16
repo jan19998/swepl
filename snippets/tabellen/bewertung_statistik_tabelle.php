@@ -1,6 +1,4 @@
 <?php
-    $semester = 'ws19/20';
-    $gruppe = 'e9';
     $positiv = 0;
     $neutral = 0;
     $negativ = 0;
@@ -13,9 +11,9 @@
                b.Bewertung
                FROM Bewertung b, Termin t, Gruppe g
                WHERE t.ID = b.Termin_FK
-               AND t.Semester_FK = "'.$semester.'"
+               AND t.Semester_FK = "'.$_SESSION['semester'].'"
                AND t.Gruppe_FK = g.ID
-               AND g.Gruppennummer = "'.$gruppe.'"';
+               AND g.Gruppennummer = "'.$_SESSION['gruppe'].'"';
 
     if($result = mysqli_query($remoteConnection,$query)) {
         while ($row = mysqli_fetch_assoc($result)) {

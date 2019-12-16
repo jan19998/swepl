@@ -50,7 +50,7 @@ include('snippets/login.php');
                 <input type="password" style="width:90%"  maxlength="250" name="passwort"><br>
 
                 <legend id ="legend2"></legend>
-                <input type="submit" class="btn" name="submit" value="Login">  <span><?php echo $error; ?></span>
+                <input type="submit" class="btn" name="submit" value="Login"> <span><?php echo $error; ?></span>
             </fieldset>
 
         </form>

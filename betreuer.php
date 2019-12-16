@@ -42,7 +42,7 @@ if(isset($_GET['semester']) && isset($_GET['gruppe'])){
         </div>
         <div class ="col-9">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade  show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
+                <div class="tab-pane fade  show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><?php include('snippets/terminuebersicht.php');?></div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><?php include('snippets/kursteilnehmer.php');?></div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"><?php include('snippets/tabellen/meilenstein_erreicht_tabelle.php');include('snippets/formular_beendeter_meilenstein.php');?></div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"><?php include('snippets/statistiken.php')?></div>

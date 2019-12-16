@@ -19,16 +19,24 @@ if(isset($_POST['submit'])){
         //Datenbank nach eingegebener Email und Passwort durchsuchen
         $query = mysqli_query($remoteConnection, "SELECT * FROM swepl.benutzer WHERE `E-Mail`='$user' AND Passwort='$pass'");
 
+
         //Wenn ein passender Eintrag gefunden wird ist Anzahl der rows ==1
+        //************************************************************************
+        //Hier fehlt noch die Unterscheidung zwischen Betreuer und Dozent
+        $Dozent = mysqli_fetch_object($query); //Variable um auf "IstDozent" von Benutzer zuzugreifen
         $rows = mysqli_num_rows($query);
-        if($rows == 1){
+
+        //Unterscheidung zwischen Dozent und Betreuer
+        if($rows == 1 && $Dozent->IstDozent == 0) { //Bedingung noch nicht korrekt?
             //Session registrieren
             //Wir speichern die eingegebene Email-Adresse als Session Variable in 'user' ab
             $_SESSION['user'] = $_POST['email'];
             header("Location: jahresauswahl.php"); // Zur Betreuer Seite weitelreiten
+        }
 
-            //************************************************************************
-            //Hier fehlt noch die Unterscheidung zwischen Betreuer und Dozent
+        else if ($rows == 1 && $Dozent->IstDozent == 1){
+           $_SESSION['user'] = $_POST['email'];
+            header("Location: dozent.php");
         }
         else
         {

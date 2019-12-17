@@ -80,7 +80,8 @@ include('snippets/login.php');
 <div class="row justify-content-center">
     <?php include('snippets/footer_startseite.php');?>
 </div>
-
+<?php    var_dump(password_verify('abc','$2y$10$uS9J4l99AKSUMrPSPFKbze2ks0Fx14lKlwcsAEuKcFCWw5ZibwbLG'));
+;?>
 </body>
 </html>
 

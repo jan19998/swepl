@@ -20,8 +20,7 @@ if(isset($_POST['submit'])){
     {
         //Variable für Email und Passwort erstellen
         $user=$_POST['email'];
-        $pass=$_POST['passwort'];
-
+        $pass=null;
         //Datenbankverbindung herstellen
         $remoteConnection = mysqli_connect("127.0.0.1", "root", "", "swepl");
         //Datenbank auswählen
@@ -29,11 +28,11 @@ if(isset($_POST['submit'])){
         //Datenbank nach eingegebener Email und Passwort durchsuchen
         $query = mysqli_query($remoteConnection, "SELECT * FROM swepl.benutzer WHERE `E-Mail`='$user' AND Passwort='$pass'");
 
-
         //Wenn ein passender Eintrag gefunden wird ist Anzahl der rows ==1
         $Dozent = mysqli_fetch_object($query); //Variable um auf "IstDozent" von Benutzer zuzugreifen
+        $daten = mysqli_fetch_assoc($query);
+        $pass = password_verify($_POST['passwort'],$query['Passwort']);
         $rows = mysqli_num_rows($query);
-
         //Unterscheidung zwischen Dozent und Betreuer
         if($rows == 1 && $Dozent->IstDozent == 0) {
             //Session registrieren

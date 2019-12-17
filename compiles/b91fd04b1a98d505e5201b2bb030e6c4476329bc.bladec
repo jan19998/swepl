@@ -12,7 +12,11 @@
 </head>
 <body>
 <div class="container">
- <?php include('snippets/header.php');?>
+ <?php include('snippets/header.php');
+ if(!isset($_SESSION['rolle'])){
+ header("Location: startseite.php");
+ }
+ ?>
  <div class="row">
  <div class="col-12">
  <h1 class ="password_change_successful">Passwort erfolgreich geändert.</h1>

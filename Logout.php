@@ -24,7 +24,7 @@
                 <!--empty-->
             </div>
         </div>
-        <h1>Auf Wiedersehen!</h1>
+        <h1 style="text-align: center">Auf Wiedersehen!</h1>
         <?php
         session_start();
         session_destroy();

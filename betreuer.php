@@ -12,14 +12,11 @@
 </head>
 
 <body>
-<?php
-if(isset($_GET['semester']) && isset($_GET['gruppe'])){
-    $_SESSION['semester'] = $_GET['semester'];
-    $_SESSION['gruppe'] = $_GET['gruppe'];
-}
-?>
 <div class ="container">
-    <?php include('snippets/header.php');?>
+    <?php include('snippets/header.php');
+    if(isset($_GET['semester']) && isset($_GET['gruppe'])){
+    $_SESSION['semester'] = $_GET['semester'];
+    $_SESSION['gruppe'] = $_GET['gruppe'];}?>
     <div class ="row pb-3">
         <div class ="col-9">
             <h3>

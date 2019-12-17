@@ -16,7 +16,7 @@ include('snippets/login.php');
 </head>
 
 <body>
-<div class ="container-fluid">
+<div class ="container">
     <?php include('snippets/header_startseite.php.');?>
 
     <div class ="row justify-content-center" id="Überschrift" >
@@ -35,7 +35,7 @@ include('snippets/login.php');
     ?>
 
     <div class="row justify-content-center" id="inhalt">
-        <div class="col-1"></div>
+        <div class="col-3">
         <form action="?login=1" method="post">
             <fieldset id="login"> <!-- Um die Umrandung um das Login Feld bearbeiten und setzen zu können setzen wir hier eine id -->
                 <legend id="legend1">Login</legend>
@@ -54,26 +54,30 @@ include('snippets/login.php');
             </fieldset>
 
         </form>
-
-
-
-        <!--Inhalt 1-->
-        <!-- Beschreibung -->
-        <div class="col-8" id="beschreibung">
-
-            <div class="row justify-content-between">
-                <p class="blockStart">
-                    Nutzen Sie jetzt den Planungs- und Organisationsdienst für das Software Engineering Praktikum der FH Aachen. </p>
-
-
-                <p class=""blockstart">
-                Das Tool bietet Dozierenden und Betreuern von Praktikumsgruppen eine Bandbreite von Funktionen, die die Planung und Verwaltung der einzelnen Projekte erheblich erleichtern.</p>
-                <div class="col-12" id="swe_picture">
+        </div>
+        <div class="col-9">
+            <!--Inhalt 1-->
+            <!-- Beschreibung -->
+           <div class="row">
+               <div class="col-9">
+                   <p>Nutzen Sie jetzt den Planungs- und Organisationsdienst für das Software Engineering Praktikum der FH Aachen.</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-9">
+                    <p> Das Tool bietet Dozierenden und Betreuern von Praktikumsgruppen eine Bandbreite von Funktionen, die die Planung und Verwaltung der einzelnen Projekte erheblich erleichtern.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-9">
                     <img src="pictures/swe.jpg"    id="swepicture" alt="SWE" class="img-fluid" >
+
                 </div>
             </div>
 
         </div>
+
+
     </div>
 
 </div>

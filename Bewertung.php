@@ -8,29 +8,32 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/swepl.css">
+    <link rel="stylesheet" href="css/swepl.css">
 </head>
 
 <body>
-<?php $semester = 'ws19/20';
-$gruppe = 'e9';
-$email = "";
-$i = 0;
+<?php //$semester = 'ws19/20';
+//$gruppe = 'e9';
+//$email = "";
+//$i = 0;
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root", "", "swepl"
 ); ?>
-<?php $id = (int) $_GET['id']; //ID übergeben für Termin_ID
-$grpfk = (int) $_GET['grpfk']; //ID übergeben für Gruppen_ID
-$query = 'SELECT termin.Datum,termin.Gruppe_FK,gruppe.ID FROM termin JOIN gruppe on termin.Gruppe_FK = gruppe.ID where termin.ID = ' .$id;
-$result = mysqli_query($remoteConnection, $query);
-$row = mysqli_fetch_assoc($result);
-$date = new DateTime($row['Datum']);
-$query2 = 'SELECT Vorname,Nachname,ID FROM student where Gruppe_FK = '.$grpfk.' ORDER BY Nachname DESC'; // Ihre SQL Query aus HeidiSQL
-$name = mysqli_query($remoteConnection, $query2);
+<?php
 ?>
 <?php $gruppe = 'e9' ?>
 <div class ="container">
-    <?php include('snippets/header.php');?>
+    <?php include('snippets/header.php');
+    $gruppe = $_SESSION['gruppe']; //ID übergeben für Termin_ID
+    $semester = $_SESSION['semester']; //ID übergeben für Gruppen_ID
+    $query = "SELECT Termin.Datum,Gruppe.Semester_FK,Gruppe.ID,Gruppe.Gruppennummer FROM Gruppe
+                      JOIN Termin ON Termin.Gruppe_FK = Gruppe.ID
+                      WHERE Gruppe.Gruppennummer = '$gruppe' AND Gruppe.Semester_FK = '$semester';";
+    $result = mysqli_query($remoteConnection, $query);
+    $row = mysqli_fetch_assoc($result);
+    $date = new DateTime($row['Datum']);
+    $query2 = "SELECT Vorname,Nachname,ID FROM student where Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester') ORDER BY Nachname DESC;"; // Ihre SQL Query aus HeidiSQL
+    $name = mysqli_query($remoteConnection, $query2);   ?>
     <div class ="row pb-3">
         <div class ="col-9">
             <h3>
@@ -43,7 +46,7 @@ $name = mysqli_query($remoteConnection, $query2);
     </div>
     <div class="row">
        <div class="col-12">
-           <form action="bewertungsubmit.php<?php echo '?id='.$id.'&&grpfk= '.$grpfk ?>" method="post">
+           <form action="bewertungsubmit.php<?php /*echo '?id='.$id.'&&grpfk= '.$grpfk */?>" method="post">
                <fieldset class="border border-dark">
                    <legend class="w-auto">Bewertung der Gruppe</legend>
                    <div class="row">
@@ -61,7 +64,7 @@ $name = mysqli_query($remoteConnection, $query2);
                             </div>
                        </div>
                        <div class="col-4">
-                            <p class="pl-4">Eigene bewertung der Gruppe</p>
+                            <p class="pl-4">Eigene Bewertung der Gruppe</p>
                        </div>
                        <div class="col-8">
                            <div class="col-4">
@@ -102,7 +105,6 @@ $name = mysqli_query($remoteConnection, $query2);
                                    </tr>
                                    <?php
                                }
-
                                ?>
                                </tbody>
                            </table>

@@ -12,7 +12,11 @@
 </head>
 <body>
  <div class="container">
- <?php include('snippets/header.php');?>
+ <?php include('snippets/header.php');
+ if(!isset($_SESSION['rolle'])){
+ header("Location: startseite.php");
+ }
+ ?>
  <div class="row">
  <div class="col-3"></div>
  <div class="col-6">

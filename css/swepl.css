@@ -71,6 +71,11 @@ input[type=submit] {
     color: #F0F0F0;
 }
 
+.btn:active{
+    background-color: #005550;
+    color: #F0F0F0;
+}
+
 #ms_table_scroll{
     max-height: 300px;
 }

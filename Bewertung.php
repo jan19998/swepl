@@ -24,6 +24,9 @@ $remoteConnection = mysqli_connect(
 <?php $gruppe = 'e9' ?>
 <div class ="container">
     <?php include('snippets/header.php');
+    if(!isset($_SESSION['rolle']) || $_SESSION['rolle'] != "Betreuer"){
+        header("Location: startseite.php");
+    }
     $gruppe = $_SESSION['gruppe']; //ID übergeben für Termin_ID
     $semester = $_SESSION['semester']; //ID übergeben für Gruppen_ID
     $query = "SELECT Termin.Datum,Gruppe.Semester_FK,Gruppe.ID,Gruppe.Gruppennummer FROM Gruppe
@@ -41,7 +44,7 @@ $remoteConnection = mysqli_connect(
             </h3>
         </div>
         <div class="col-3 justify-content-end" style="justify-content: flex-end;">
-            <a href="#" class="btn border-0 btn-primary">Zurück zur Kursübersicht</a>
+            <a href="betreuer.php" class="btn border-0 btn-primary">Zurück zur Terminauswahl</a>
         </div>
     </div>
     <div class="row">

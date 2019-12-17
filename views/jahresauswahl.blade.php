@@ -20,11 +20,12 @@
 </head>
 
 <body>
-@if(!isset($_SESSION['rolle']) || $_SESSION['rolle'] != "Betreuer")
-    <?php header("Location: startseite.php");?>
-@endif
 <div class="container">
     <?php include('snippets/header.php');?>
+
+        @if(!isset($_SESSION['rolle']) || $_SESSION['rolle'] != "Betreuer")
+            <?php header("Location: startseite.php");?>
+        @endif
     <div class="row pb-3">
         <div class="col-9">
             <h3>

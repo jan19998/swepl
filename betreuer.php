@@ -13,7 +13,6 @@
 
 <body>
 <?php
-session_start();
 if(isset($_GET['semester']) && isset($_GET['gruppe'])){
     $_SESSION['semester'] = $_GET['semester'];
     $_SESSION['gruppe'] = $_GET['gruppe'];

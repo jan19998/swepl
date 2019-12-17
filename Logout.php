@@ -25,6 +25,7 @@
             </div>
         </div>
         <h1 style="text-align: center">Auf Wiedersehen!</h1>
+        <p style="text-align: center"><a href="startseite.php">Zurück zur Startseite</a></p>
         <?php
         session_start();
         session_destroy();

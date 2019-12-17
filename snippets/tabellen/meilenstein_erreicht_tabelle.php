@@ -1,8 +1,8 @@
 <?php
 //session_start()
 //$gruppen_id = $_SESSION['selected_group_id']
-$semester = 'ws19/20';
-$gruppe = 'e9';
+$semester = $_SESSION['semester'];
+$gruppe = $_SESSION['gruppe'];
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root","","swepl"
 );
@@ -12,7 +12,7 @@ Meilenstein_Global.Bezeichnung
 FROM Meilenstein
 JOIN Meilenstein_Global on Meilenstein_Global.ID = Meilenstein.Meilenstein_FK
 WHERE Meilenstein.Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester')";
-var_dump($query);
+//var_dump($query);
 ?>
 <table class ="table">
     <thead>

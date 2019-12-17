@@ -8,10 +8,13 @@ $remoteConnection = mysqli_connect(
 if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) {
     $date = $_POST['date_of_completion'];
     $milestone =  $_POST['selected_milestone'];
-    $update1 = 'UPDATE Meilenstein SET Beendet =';
+    $update1 = 'UPDATE Meilenstein JOIN Meilenstein_Global ON Meilenstein.Meilenstein_FK = Meilenstein_Global.ID
+                SET Meilenstein.Beendet =';
     $update1 .= " STR_TO_DATE('$date','%Y-%m-%d'), `Status` = 1 ";
-    $update1 .= "WHERE Gruppe_FK = (SELECT ID FROM Gruppe WHERE Gruppennummer= '$gruppen_id' AND Semester_FK = '$semester') ";
-    $update1 .= " AND Bezeichnung = '$milestone';";
+    $update1 .= "WHERE Meilenstein.Gruppe_FK = (SELECT ID FROM Gruppe WHERE Gruppennummer= '$gruppen_id') 
+                AND Meilenstein_Global.Semester_FK = '$semester' ";
+    $update1 .= "AND Meilenstein_Global.Bezeichnung = '$milestone';";
+   echo $update1;
     mysqli_autocommit($remoteConnection,false);
     mysqli_query($remoteConnection,$update1);
     if(!mysqli_commit($remoteConnection)) {
@@ -30,7 +33,12 @@ echo '<legend> Meilenstein updaten </legend>';
      echo ' <label for="meilenstein_auswahlen">Meilenstein auswählen</label>';
       echo '</option>'     ;
 
-$query = "SELECT Gruppe_FK,Bezeichnung FROM Meilenstein WHERE Gruppe_FK =1";
+$query = "SELECT Meilenstein.Meilenstein_FK,Meilenstein.Gruppe_FK, Meilenstein.Beendet,Meilenstein.`Status`,Meilenstein_Global.Frist,
+Meilenstein_Global.Bezeichnung 
+FROM Meilenstein
+JOIN Meilenstein_Global on Meilenstein_Global.ID = Meilenstein.Meilenstein_FK
+WHERE Meilenstein.Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester')";
+
 if($result = mysqli_query($remoteConnection,$query)){
                 while($row = mysqli_fetch_assoc($result)){
                     echo '<option>',$row['Bezeichnung'],'</option>';

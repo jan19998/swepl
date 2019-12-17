@@ -30,8 +30,7 @@ $name = mysqli_query($remoteConnection, $query2);
 ?>
 <?php $gruppe = 'e9' ?>
 <div class ="container">
-    <?php include('header.php');?>
-
+    <?php include('snippets/header.php');?>
     <div class ="row pb-3">
         <div class ="col-9">
             <h3>
@@ -121,7 +120,7 @@ $name = mysqli_query($remoteConnection, $query2);
            </form>
        </div>
     </div>
-    <?php include('footer.php');?>
+    <?php include('snippets/footer.php');?>
 </div>
 </body>
 </html>

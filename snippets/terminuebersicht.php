@@ -13,7 +13,7 @@
             //$query = "SELECT Datum FROM Termin WHERE Gruppen_FK = '$gruppe' AND '$semester';";
             if($result = mysqli_query($remoteConnection,$query)) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<p><a class="link" href="#">'.$row['Datum'].'</a></p>';
+                    echo '<p><a class="link" href="Bewertung.php">'.$row['Datum'].'</a></p>';
                 }
             }
         ?>

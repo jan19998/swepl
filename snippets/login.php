@@ -2,6 +2,16 @@
 session_start();
 
 $error=''; //Um die Error message zu speichern;
+if(isset($_SESSION['rolle']))
+{
+    if($_SESSION['rolle'] == "Betreuer")
+    {
+        header("Location: jahresauswahl.php");
+    }
+    else if($_SESSION['rolle'] == "Dozent") {
+        header("Location: dozent.php");
+    }
+}
 if(isset($_POST['submit'])){
     if(empty($_POST['email']) || empty($_POST['passwort'])){
         $error = "Falsches Passwort";
@@ -29,11 +39,13 @@ if(isset($_POST['submit'])){
             //Session registrieren
             //Wir speichern die eingegebene Email-Adresse als Session Variable in 'user' ab
             $_SESSION['user'] = $_POST['email'];
+            $_SESSION['rolle'] = "Betreuer";
             header("Location: jahresauswahl.php"); // Zur Betreuer Seite weiterleiten
         }
 
         else if ($rows == 1 && $Dozent->IstDozent == 1){
            $_SESSION['user'] = $_POST['email'];
+           $_SESSION['rolle'] = "Dozent";
             header("Location: dozent.php");
         }
         else

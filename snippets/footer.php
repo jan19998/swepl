@@ -10,5 +10,6 @@
     </div>
     <?php
     mysqli_close($connect);
+    //$db->close();
     ?>
 </footer>

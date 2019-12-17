@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS `ist bei`;
 DROP TABLE IF EXISTS `betreut`;
 DROP TABLE IF EXISTS `Bewertung`;
 DROP TABLE IF EXISTS `Meilenstein`;
+DROP TABLE IF EXISTS `Meilenstein_Global`;
 DROP TABLE IF EXISTS `Student`;
 DROP TABLE IF EXISTS `Termin`;
 DROP TABLE IF EXISTS `Gruppe`;
@@ -16,7 +17,7 @@ CREATE TABLE Benutzer(
 	Benutzer VARCHAR(15) NOT NULL UNIQUE,
 	Vorname VARCHAR(50) NOT NULL,
 	Nachname VARCHAR(50) NOT NULL,
-	Passwort VARCHAR(60) NOT NULL,
+	Passwort CHAR(60) NOT NULL,
 	IstDozent BOOL NOT NULL,
 	`E-Mail` VARCHAR(50) NOT NULL UNIQUE
 );
@@ -55,15 +56,25 @@ CREATE TABLE Termin(
 	CONSTRAINT `Termin ist für Gruppe` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE SET NULL
 );
 
+CREATE TABLE Meilenstein_Global(
+ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+Semester_FK VARCHAR(7),
+Frist DATE NOT NULL,
+Bezeichnung VARCHAR(255),
+Beschreibung VARCHAR(255),
+CONSTRAINT Meilenstein_Global PRIMARY KEY (ID),
+CONSTRAINT `Meilenstein ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE
+);
+
 CREATE TABLE Meilenstein(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Meilenstein_FK INT UNSIGNED,
 	Gruppe_FK INT UNSIGNED,
-	Frist DATE NOT NULL,
 	Beendet DATE DEFAULT NULL,
 	`Status` BOOL NOT NULL DEFAULT FALSE,
-	Bezeichnung VARCHAR(255) NOT NULL,
 	CONSTRAINT Meilenstein_primär PRIMARY KEY (ID),
-	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID)
+	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID),
+	CONSTRAINT `Meilenstein erbt von` FOREIGN KEY (Meilenstein_FK) REFERENCES `Meilenstein`(ID)
 );
 
 CREATE TABLE Bewertung(

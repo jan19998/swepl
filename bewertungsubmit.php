@@ -23,21 +23,16 @@ $ampel = $_POST['ampel'];
 
 $update = "INSERT INTO bewertung (Termin_FK,Ampelstatus,Bewertung,Kommentar) value ('$id','$ampel','$bewertung','$bemerkung');";
 if (mysqli_query($remoteConnection, $update) === true) {
+    $i = 0;
     while ($val = mysqli_fetch_array($result)) {
-        if ($checkbox[0] == $val['ID']) {
+        if ($checkbox[$i] == $val['ID']) {
             $update2 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) value ('1','$val[ID]','$id');";
             var_dump($update2);
             echo '<br>';
             if (mysqli_query($remoteConnection, $update2) === true) {
                 echo 'update 1<br>';
             }
-        } else if ($checkbox[1] == $val['ID']) {
-            $update2 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) value ('1','$val[ID]','$id');";
-            var_dump($update2);
-            echo '<br>';
-            if (mysqli_query($remoteConnection, $update2) === true) {
-                echo 'update 1<br>';
-            }
+            $i++;
         } else {
             $update3 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) value ('0','$val[ID]','$id');";
             var_dump($update3);

@@ -33,7 +33,6 @@
             </h3>
         </div>
         <div class="col-3 justify-content-end" style="justify-content: flex-end;">
-            <a href="#" class="btn border-0 btn-primary">Zurück zur Kursübersicht</a>
         </div>
     </div>
     <div class="row">

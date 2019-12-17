@@ -1,6 +1,6 @@
 <?php
-session_start();
 Use eftec\bladeone\BladeOne;
+session_start();
 require __DIR__. '/vendor/autoload.php';
 $views = __DIR__ . '/views';
 $cache = __DIR__ . '/cache';
@@ -13,21 +13,21 @@ if(isset($_POST['new_password']) and $_POST['new_password'] != "" and isset($_PO
     $remoteConnection = mysqli_connect(
         "127.0.0.1", "root", "", "swepl"
     );
-    $query = "SELECT Passwort from Benutzer where `E-Mail` = '$email';";
-    if ($result = mysqli_query($remoteConnection, $query)) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $old_password = $row['Passwort'];
-        }
-    }
-
-
 
     if ($_POST['new_password'] != $_POST['new_password_confirmation']) {
         array_push($fehlermeldungen, 'Die Passwörter müssen gleich sein.');
     }
-    if (($_POST['new_password'] == $_POST['new_password_confirmation']) /*and !(passwort_verfiy($_POST['new_password'],$old_password))*/) {
+    if (($_POST['new_password'] == $_POST['new_password_confirmation'])) {
+        mysqli_autocommit($remoteConnection,false);
         $query1 = "UPDATE Benutzer SET Passwort = '$new_passwort' where `E-Mail` = '$email'; ";
         mysqli_query($remoteConnection, $query1);
+        if(!mysqli_commit($remoteConnection)) {
+            mysqli_rollback($remoteConnection);
+            echo 'Fehler beim Ändern des Passwortes.';
+        }
+        else {
+            mysqli_commit($remoteConnection);
+        }
         $blade = new BladeOne();
         echo $blade->run("password_change_successful");
     } else {

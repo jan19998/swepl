@@ -25,7 +25,7 @@
  <div class="row">
  <div class="col-12">
  <!--Diese Verlinkung müsste man anpassen, jenachdem, ob der Dozent oder der Betrueer angemeldet ist-->
- <h3 class ="password_change_successful"><a class="link" href="betreuer.php">Zurück zur Übersicht</a></h3>
+ <h3 class ="password_change_successful"><a class="link" href="http://localhost/swepl/jahresauswahl.php">Zurück zur Übersicht</a></h3>
  </div>
  </div>
  <?php include('snippets/footer.php');?>

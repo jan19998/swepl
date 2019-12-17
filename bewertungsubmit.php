@@ -9,13 +9,16 @@ $remoteConnection = mysqli_connect(
 );
 //$id = (int)$_GET['id'];
 //$grpfk = (int)$_GET['grpfk'];
-$query = "SELECT ID FROM student WHERE Gruppe_FK = Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester');";
+$query = "SELECT ID FROM student WHERE Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester');";
 $result = mysqli_query($remoteConnection, $query);
 $checkbox = $_POST['checkbox'];
 $bewertung = $_POST['bewertung'];
 $bemerkung = $_POST['bemerkung'];
 $ampel = $_POST['ampel'];
-$update = "INSERT INTO bewertung (Termin_FK,Ampelstatus,Bewertung,Kommentar) values((SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester'),'$ampel','$bewertung','$bemerkung');";
+$termin = $_GET['id'];
+$update = "INSERT INTO bewertung (Termin_FK,Ampelstatus,Bewertung,Kommentar) values((SELECT ID FROM Termin WHERE Datum= '$termin' 
+AND Semester_FK = '$semester' AND Gruppe_FK = (SELECT ID FROM Gruppe 
+WHERE Gruppennummer= '$gruppe' AND Semester_FK = '$semester')),'$ampel','$bewertung','$bemerkung');";
 if (mysqli_query($remoteConnection, $update) === true) {
     $i = 0;
     while ($val = mysqli_fetch_array($result)) {

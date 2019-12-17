@@ -36,11 +36,12 @@ $remoteConnection = mysqli_connect(
     $row = mysqli_fetch_assoc($result);
     $date = new DateTime($row['Datum']);
     $query2 = "SELECT Vorname,Nachname,ID FROM student where Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester') ORDER BY Nachname DESC;"; // Ihre SQL Query aus HeidiSQL
-    $name = mysqli_query($remoteConnection, $query2);   ?>
+    $name = mysqli_query($remoteConnection, $query2);
+    $datum = new DateTime($_GET['termin'])?>
     <div class ="row pb-3">
         <div class ="col-9">
             <h3>
-                Gruppe <?php echo $gruppe .' '.'KW'.$date->format('W'). ' ' .$row['Datum'] ?>
+                Gruppe <?php echo $gruppe .' '.'KW'.$date->format('W'). ' ' .$datum->format('d.m.Y') ?>
             </h3>
         </div>
         <div class="col-3 justify-content-end" style="justify-content: flex-end;">
@@ -49,7 +50,7 @@ $remoteConnection = mysqli_connect(
     </div>
     <div class="row">
        <div class="col-12">
-           <form action="bewertungsubmit.php<?php /*echo '?id='.$id.'&&grpfk= '.$grpfk */?>" method="post">
+           <form action="bewertungsubmit.php<?php echo '?id='.$_GET['termin']?>" method="post">
                <fieldset class="border border-dark">
                    <legend class="w-auto">Bewertung der Gruppe</legend>
                    <div class="row">

@@ -14,7 +14,7 @@
             if($result = mysqli_query($remoteConnection,$query)) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $date = $row['Datum'];
-                    echo '<p><a class="link" href="Bewertung.php">KW'.date_format(new DateTime($date),'W').', '.date_format(new DateTime($date),'d.m.Y').'</a></p>';
+                    echo '<p><a class="link" href="Bewertung.php?termin=',$date,'">KW'.date_format(new DateTime($date),'W').', '.date_format(new DateTime($date),'d.m.Y').'</a></p>';
                 }
             }
         ?>

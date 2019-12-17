@@ -13,7 +13,7 @@
     <meta http-equiv="refresh" content="5; URL=startseite.php">
 </head>
 <body>
-
+<div class="container">
         <div class="row pb-3">
             <div class="col-11">
                 <a href="startseite.php">
@@ -39,5 +39,5 @@
                 </div>
             </div>
         </footer>
-
+</div>
 </body>

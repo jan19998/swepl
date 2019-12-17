@@ -59,20 +59,14 @@ include('snippets/login.php');
             <!--Inhalt 1-->
             <!-- Beschreibung -->
            <div class="row">
-               <div class="col-9">
                    <p>Nutzen Sie jetzt den Planungs- und Organisationsdienst für das Software Engineering Praktikum der FH Aachen.</p>
-               </div>
            </div>
             <div class="row">
-                <div class="col-9">
                     <p> Das Tool bietet Dozierenden und Betreuern von Praktikumsgruppen eine Bandbreite von Funktionen, die die Planung und Verwaltung der einzelnen Projekte erheblich erleichtern.</p>
-                </div>
             </div>
             <div class="row">
-                <div class="col-9">
                     <img src="pictures/swe.jpg"    id="swepicture" alt="SWE" class="img-fluid" >
 
-                </div>
             </div>
 
         </div>

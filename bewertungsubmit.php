@@ -1,27 +1,21 @@
 <?php
 session_start();
-
-$semester = 'ws19/20';
-$gruppe = 'e9';
-$email = "";
-$i = 0;
+$semester = $_SESSION['semester'];
+$gruppe = $_SESSION['gruppe'];
+//$email = "";
+//$i = 0;
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root", "", "swepl"
 );
-$id = (int)$_GET['id'];
-$grpfk = (int)$_GET['grpfk'];
-$checkbox = $_POST['checkbox'];
-
-$query = "SELECT ID FROM student WHERE Gruppe_FK = " . $grpfk;
+//$id = (int)$_GET['id'];
+//$grpfk = (int)$_GET['grpfk'];
+$query = "SELECT ID FROM student WHERE Gruppe_FK = Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester');";
 $result = mysqli_query($remoteConnection, $query);
-
-
+$checkbox = $_POST['checkbox'];
 $bewertung = $_POST['bewertung'];
 $bemerkung = $_POST['bemerkung'];
 $ampel = $_POST['ampel'];
-
-
-$update = "INSERT INTO bewertung (Termin_FK,Ampelstatus,Bewertung,Kommentar) value ('$id','$ampel','$bewertung','$bemerkung');";
+$update = "INSERT INTO bewertung (Termin_FK,Ampelstatus,Bewertung,Kommentar) values((SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester'),'$ampel','$bewertung','$bemerkung');";
 if (mysqli_query($remoteConnection, $update) === true) {
     $i = 0;
     while ($val = mysqli_fetch_array($result)) {

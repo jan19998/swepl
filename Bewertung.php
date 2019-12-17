@@ -46,7 +46,7 @@ $remoteConnection = mysqli_connect(
     </div>
     <div class="row">
        <div class="col-12">
-           <form action="bewertungsubmit.php<?php echo '?id='.$id.'&&grpfk= '.$grpfk ?>" method="post">
+           <form action="bewertungsubmit.php<?php /*echo '?id='.$id.'&&grpfk= '.$grpfk */?>" method="post">
                <fieldset class="border border-dark">
                    <legend class="w-auto">Bewertung der Gruppe</legend>
                    <div class="row">
@@ -64,7 +64,7 @@ $remoteConnection = mysqli_connect(
                             </div>
                        </div>
                        <div class="col-4">
-                            <p class="pl-4">Eigene bewertung der Gruppe</p>
+                            <p class="pl-4">Eigene Bewertung der Gruppe</p>
                        </div>
                        <div class="col-8">
                            <div class="col-4">
@@ -105,7 +105,6 @@ $remoteConnection = mysqli_connect(
                                    </tr>
                                    <?php
                                }
-
                                ?>
                                </tbody>
                            </table>

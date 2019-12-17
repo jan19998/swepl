@@ -7,7 +7,12 @@ $remoteConnection = mysqli_connect(
     "127.0.0.1", "root","","swepl"
 );
 //hier müsste man das WHERE anpassen mit der GruppenID, die in der Session gespeichert wurde
-$query = "SELECT `Status`,Frist,Gruppe_FK,Beendet,Bezeichnung  FROM Meilenstein WHERE Gruppe_FK =1 ORDER BY Frist";
+$query = "SELECT Meilenstein.Meilenstein_FK,Meilenstein.Gruppe_FK, Meilenstein.Beendet,Meilenstein.`Status`,Meilenstein_Global.Frist,
+Meilenstein_Global.Bezeichnung 
+FROM Meilenstein
+JOIN Meilenstein_Global on Meilenstein_Global.ID = Meilenstein.Meilenstein_FK
+WHERE Meilenstein.Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester')";
+var_dump($query);
 ?>
 <table class ="table">
     <thead>

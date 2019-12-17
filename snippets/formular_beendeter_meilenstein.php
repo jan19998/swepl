@@ -10,7 +10,7 @@ if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) 
     $milestone =  $_POST['selected_milestone'];
     $update1 = 'UPDATE Meilenstein SET Beendet =';
     $update1 .= " STR_TO_DATE('$date','%Y-%m-%d'), `Status` = 1 ";
-    $update1 .= "WHERE Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppen_id' AND Semester_FK = '$semester') ";
+    $update1 .= "WHERE Gruppe_FK = (SELECT ID FROM Gruppe WHERE Gruppennummer= '$gruppen_id' AND Semester_FK = '$semester') ";
     $update1 .= " AND Bezeichnung = '$milestone';";
     mysqli_autocommit($remoteConnection,false);
     mysqli_query($remoteConnection,$update1);

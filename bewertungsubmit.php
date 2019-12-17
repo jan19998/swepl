@@ -23,7 +23,8 @@ if (mysqli_query($remoteConnection, $update) === true) {
     $i = 0;
     while ($val = mysqli_fetch_array($result)) {
         if ($checkbox[$i] == $val['ID']) {
-            $update2 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) value ('1','$val[ID]','$id');";
+            $update2 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) values ('1','$val[ID]',(SELECT ID FROM Termin WHERE Datum= '$termin' 
+                        AND Semester_FK = '$semester' AND Gruppe_FK = (SELECT ID FROM Gruppe WHERE Gruppennummer= '$gruppe' AND Semester_FK = '$semester')));";
             var_dump($update2);
             echo '<br>';
             if (mysqli_query($remoteConnection, $update2) === true) {

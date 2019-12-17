@@ -58,8 +58,8 @@
 <!-- Damit Footer immer unten in der Mitte ist-->
 <div class="row justify-content-center">
     <?php include('snippets/footer_startseite.php');
-    var_dump(password_hash('PasswortChangeTest',PASSWORD_BCRYPT));
-    var_dump(password_verify('PasswortChangeTest','$2y$10$Wi0c07wtW6yIDtO.Mmdc9.XI5FFVoEu6a2rr4xOBhm.pY/jXFBrE2'));?>
+    //var_dump(password_hash('PasswortChangeTest',PASSWORD_BCRYPT));
+    //var_dump(password_verify('PasswortChangeTest','$2y$10$Wi0c07wtW6yIDtO.Mmdc9.XI5FFVoEu6a2rr4xOBhm.pY/jXFBrE2'));?>
 </div>
 </body>
 </html>

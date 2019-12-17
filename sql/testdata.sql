@@ -1,6 +1,6 @@
 USE swepl;
 INSERT INTO Benutzer(Passwort,`E-Mail`) VALUES
-('$2y$10$Wi0c07wtW6yIDtO.Mmdc9.XI5FFVoEu6a2rr4xOBhm.pY/jXFBrE2','benutzer1@live.de');
+('$2y$10$F.NRMT/RYj/LlUQBkPKBjOAnIYJSZ2KywRTs8/7daAePWThssdZvq','benutzer1@live.de');
 
 INSERT INTO Semester(Kennung) VALUES 
 ('ws17/18'),

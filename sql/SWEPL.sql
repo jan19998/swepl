@@ -74,7 +74,7 @@ CREATE TABLE Meilenstein(
 	`Status` BOOL NOT NULL DEFAULT FALSE,
 	CONSTRAINT Meilenstein_primär PRIMARY KEY (ID),
 	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID),
-	CONSTRAINT `Meilenstein erbt von` FOREIGN KEY (Meilenstein_FK) REFERENCES `Meilenstein`(ID)
+	CONSTRAINT `Meilenstein erbt von` FOREIGN KEY (Meilenstein_FK) REFERENCES `Meilenstein_Global`(ID)
 );
 
 CREATE TABLE Bewertung(

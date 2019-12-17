@@ -7,10 +7,11 @@ $remoteConnection = mysqli_connect(
     "127.0.0.1", "root","","swepl"
 );
 
-$query = 'SELECT m.Bezeichnung,m.`Status` FROM Meilenstein m,Gruppe g
+$query = 'SELECT mg.Bezeichnung,m.`Status` FROM Meilenstein m,Gruppe g,Meilenstein_Global mg
           WHERE g.Semester_FK = "'.$_SESSION['semester'].'"
           AND g.Gruppennummer = "'.$_SESSION['gruppe'].'"
-          AND m.Gruppe_FK = g.ID';
+          AND m.Gruppe_FK = g.ID
+          AND m.Meilenstein_FK = mg.ID';
 
 ?>
 <div id="ms_table_scroll" class="table-responsive">

@@ -102,52 +102,67 @@ INSERT INTO Student(Vorname,Nachname,Matrikelnummer,`E-Mail`,Semester_FK,Gruppe_
 ('e9test7','ws19/20',311111117,'e9test7ws19/20@testmail.com','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
 ('e9test8','ws19/20',311111118,'e9test8ws19/20@testmail.com','ws19/20',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20'));
 
-INSERT INTO Meilenstein(Frist,Bezeichnung,Gruppe_FK) VALUES
-('2017-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws17/18')),
-('2017-11-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws17/18')),
-('2017-12-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e3' AND Semester_FK = 'ws17/18')),
+INSERT INTO Meilenstein_Global(Frist,Bezeichnung,Semester_FK) VALUES 
+('2017-10-2','Lastenheft','ws17/18'),
+('2017-10-2','Lastenheft','ws17/18'),
+
+('2017-10-2','Lastenheft','ws18/19'),
+('2017-10-2','Lastenheft','ws18/19'),
+('2017-10-2','Lastenheft','ws18/19'),
+
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+
+('2017-10-2','Lastenheft1','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20'),
+('2017-10-2','Lastenheft','ws19/20');
 
 
-('2018-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws18/19')),
-('2018-11-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws18/19')),
-('2018-12-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e3' AND Semester_FK = 'ws18/19')),
+INSERT INTO Meilenstein(Meilenstein_FK,Gruppe_FK) VALUES
+(1,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws17/18')),
+(2,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws17/18')),
+(3,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e3' AND Semester_FK = 'ws17/18')),
 
 
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws19/20')),
-('2019-11-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws19/20')),
+(4,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws18/19')),
+(5,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws18/19')),
+(6,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e3' AND Semester_FK = 'ws18/19')),
 
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-3','Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-3','Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-3','Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-3','Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-3','Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-3','Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-3','Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-2','Lastenheft',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-3','Lastenheft1',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-10-4','Lastenheft2',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20'));
 
-INSERT INTO Meilenstein(Frist,Beendet,Bezeichnung,`Status`,Gruppe_FK) VALUES
-('2017-12-20','2017-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws17/18')),
-('2017-12-21','2017-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws17/18')),
-('2017-12-22','2017-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e3' AND Semester_FK = 'ws17/18')),
+(7,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws19/20')),
+(8,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws19/20')),
 
-('2018-12-20','2018-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws18/19')),
-('2018-12-21','2018-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws18/19')),
-('2018-12-22','2018-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e3' AND Semester_FK = 'ws18/19')),
-
-('2019-12-20','2019-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws19/20')),
-('2019-12-21','2019-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws19/20')),
-('2019-12-2','2019-12-2','Kundenpräsentation', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-12-6','2019-12-2','Kundenpräsentation1', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
-('2019-12-7','2019-12-2','Kundenpräsentation2', (Select ROUND(RAND())),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20'));
+(9,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(10,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(11,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(12,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(13,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(14,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(15,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(16,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(17,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(18,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(19,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(20,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(21,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(22,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(23,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(24,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
+(25,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20'));
 
 INSERT INTO Termin(Datum,Semester_FK,Gruppe_FK) VALUES
 ('2017-10-1','ws17/18',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws17/18')),

@@ -60,7 +60,7 @@ CREATE TABLE Meilenstein_Global(
 ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 Semester_FK VARCHAR(7),
 Frist DATE NOT NULL,
-Bezeichnung VARCHAR(255),
+Bezeichnung VARCHAR(255) NOT NULL,
 Beschreibung VARCHAR(255),
 CONSTRAINT Meilenstein_Global PRIMARY KEY (ID),
 CONSTRAINT `Meilenstein ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE

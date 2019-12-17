@@ -93,4 +93,3 @@ CREATE TABLE `betreut`(
 );
 
 SHOW WARNINGS;
-UPDATE Meilenstein SET `Status` = 1 WHERE (SELECT DATEDIFF(Beendet,Frist)) <= 0;

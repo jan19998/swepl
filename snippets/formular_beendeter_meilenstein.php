@@ -1,8 +1,6 @@
 <?php
-//session_start()
-//$gruppen_id = $_SESSION['selected_group_id']
-$semester = 'ws19/20';
-$gruppe = 'e9';
+$gruppen_id = $_SESSION['gruppe'];
+$semester = $_SESSION['semester'];
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root", "", "swepl"
 );
@@ -11,16 +9,11 @@ if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) 
     $date = $_POST['date_of_completion'];
     $milestone =  $_POST['selected_milestone'];
     $update1 = 'UPDATE Meilenstein SET Beendet =';
-    $update1 .= " STR_TO_DATE('$date','%Y-%m-%d') ";
-    $update1 .= "WHERE Gruppe_FK = 1 AND Bezeichnung = ";
-    $update1 .= " '$milestone' ;";
-    $update2 = ' UPDATE Meilenstein SET `Status` = 1';
-    $update2 .= "WHERE Gruppe_FK = 1 AND Bezeichnung = ";
-    $update2 .= " '$milestone' ;";
+    $update1 .= " STR_TO_DATE('$date','%Y-%m-%d'), `Status` = 1 ";
+    $update1 .= "WHERE Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppen_id' AND Semester_FK = '$semester') ";
+    $update1 .= " AND Bezeichnung = '$milestone';";
     mysqli_autocommit($remoteConnection,false);
     mysqli_query($remoteConnection,$update1);
-    mysqli_query($remoteConnection,$update2);
-
     if(!mysqli_commit($remoteConnection)) {
         echo 'error bei transaktion';
         mysqli_rollback($remoteConnection);

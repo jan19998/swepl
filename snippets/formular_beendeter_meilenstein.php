@@ -25,7 +25,7 @@ if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) 
 
     echo '<a class ="link" href = "http://localhost/swepl/betreuer.php">Tabelle updaten.</a>';
 }
-echo '<form action=http://localhost/swepl/betreuer.php method="POST">';
+echo '<form action=betreuer.php method="POST">';
 echo'<div class="form-group">';
 echo '<legend> Meilenstein updaten </legend>';
     echo ' <select name ="selected_milestone">';

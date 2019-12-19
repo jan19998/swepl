@@ -7,7 +7,7 @@ $gruppe = $_SESSION['gruppe'];
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root", "", "swepl"
 );
-//$id = (int)$_GET['id'];
+$id = (int)$_GET['id'];
 //$grpfk = (int)$_GET['grpfk'];
 $query = "SELECT ID FROM student WHERE Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester');";
 $result = mysqli_query($remoteConnection, $query);
@@ -53,6 +53,7 @@ if (mysqli_query($remoteConnection, $update) === true) {
         }
     }
     mysqli_commit($remoteConnection);
+    header('Location:betreuer.php');
 } else {
     echo 'failed';
      mysqli_rollback($remoteConnection);

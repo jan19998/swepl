@@ -60,7 +60,7 @@ $remoteConnection = mysqli_connect(
                        <div class="col-8">
                             <div class="col-4">
                                 <select name="ampel" required>
-                                    <option disable selected>Ampelstatus</option>
+                                    <option disabled selected>Ampelstatus</option>
                                     <option>Grün</option>
                                     <option>Gelb</option>
                                     <option>Rot</option>
@@ -73,7 +73,7 @@ $remoteConnection = mysqli_connect(
                        <div class="col-8">
                            <div class="col-4">
                                <select name="bewertung" required>
-                                   <option disable selected>Bewertung wählen</option>
+                                   <option disabled selected>Bewertung wählen</option>
                                    <option>+</option>
                                    <option>-</option>
                                    <option>0</option>

@@ -922,4 +922,11 @@ INSERT INTO Bewertung(Ampelstatus,Bewertung,Termin_FK,Kommentar) VALUES
 ('Gelb','+',(SELECT `ID` FROM `Termin` WHERE `Datum`='2019-10-7' AND `Gruppe_FK`=(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),"erste Konzepte liegen vor"),
 ('Grün','+',(SELECT `ID` FROM `Termin` WHERE `Datum`='2019-10-8' AND `Gruppe_FK`=(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),"Programm wurde vorgeführt");
 
+
+INSERT INTO `betreut`(Benutzer_FK,Gruppe_FK) VALUES 
+((SELECT `ID` FROM `Benutzer` WHERE `Benutzer`='Benutzer1'),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws18/19')),
+((SELECT `ID` FROM `Benutzer` WHERE `Benutzer`='Benutzer1'),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws18/19')),
+((SELECT `ID` FROM `Benutzer` WHERE `Benutzer`='Benutzer1'),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws19/20')),
+((SELECT `ID` FROM `Benutzer` WHERE `Benutzer`='Benutzer1'),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws19/20')),
+((SELECT `ID` FROM `Benutzer` WHERE `Benutzer`='Benutzer1'),(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20'));
 SHOW WARNINGS;

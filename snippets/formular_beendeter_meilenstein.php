@@ -28,7 +28,7 @@ if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) 
 echo '<form action=betreuer.php method="POST">';
 echo'<div class="form-group">';
 echo '<legend> Meilenstein updaten </legend>';
-    echo ' <select name ="selected_milestone">';
+    echo ' <select class ="form-control" name ="selected_milestone">';
     echo ' <option selected>';
      echo ' <label for="meilenstein_auswahlen">Meilenstein auswählen</label>';
       echo '</option>'     ;
@@ -48,7 +48,7 @@ if($result = mysqli_query($remoteConnection,$query)){
 echo'</div>';
 echo'<div class="form-group">';
 echo ' <label for="datum_auswahlen">Datum der Fertigstellung wählen</label>';
-        echo '<input type ="date" name="date_of_completion">';
+        echo '<input class ="form-control w-25"  type ="date" name="date_of_completion">';
 echo'</div>';
        echo '<input type ="submit" class ="btn border-0 btn-primary" value="Datum der Fertigstellung eintragen">';
 echo '</form>';

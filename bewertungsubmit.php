@@ -7,14 +7,32 @@ $gruppe = $_SESSION['gruppe'];
 $remoteConnection = mysqli_connect(
     "127.0.0.1", "root", "", "swepl"
 );
-$id = (int)$_GET['id'];
+//$id = (int)$_GET['id'];
 //$grpfk = (int)$_GET['grpfk'];
 $query = "SELECT ID FROM student WHERE Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester');";
 $result = mysqli_query($remoteConnection, $query);
 $checkbox = $_POST['checkbox'];
-$bewertung = $_POST['bewertung'];
-$bemerkung = $_POST['bemerkung'];
-$ampel = $_POST['ampel'];
+//$bewertung = $_POST['bewertung'];
+if(isset($_POST['bewertung']) && $_POST['bewertung'] != "Bewertung wählen"){
+$bewertung = $_POST['bewertung'];}
+else{
+    $_SESSION['id'] = $id;
+    $_SESSION['grpfk'] = $grpfk;
+    $_SESSION['fehler'] = "Sie haben keine Bewertung abgegeben!!!<br>";
+    header("Location: Bewertung.php");
+}
+//$bemerkung = $_POST['bemerkung'];
+if (isset($_POST['bemerkung'])){
+$bemerkung = $_POST['bemerkung'];}
+//$ampel = $_POST['ampel'];
+if (isset($_POST['ampel']) && $_POST['ampel'] != "Ampelstatus"){
+$ampel = $_POST['ampel'];}
+else{
+    $_SESSION['id'] = $id;
+    $_SESSION['grpfk'] = $grpfk;
+    $_SESSION['fehler2'] = "Sie haben keinen Ampelstatus abgegeben!!!<br>";
+    header("Location: Bewertung.php");
+}
 $termin = $_GET['id'];
 mysqli_begin_transaction($remoteConnection);
 $update = "INSERT INTO bewertung (Termin_FK,Ampelstatus,Bewertung,Kommentar) values((SELECT ID FROM Termin WHERE Datum= '$termin' 

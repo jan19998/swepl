@@ -1,4 +1,4 @@
-<div style="display: none" id="gruppenTable">
+<div class="none" id="gruppenTable">
     <div id="gruppetoolbar" class="ml-3">
         <button type="button" id="createGruppeButton" class="btn" data-toggle="modal"
                 data-target="#createGruppeModal">
@@ -7,6 +7,7 @@
     </div>
     <table
         id="tablegruppen"
+        data-locale="de-DE"
         data-search="true"
         data-toggle="table"
         data-toolbar="#gruppetoolbar"

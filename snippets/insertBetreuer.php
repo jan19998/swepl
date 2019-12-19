@@ -3,7 +3,7 @@ require_once "dbconnect.php";
 $db = new dbconnect();
 
 $benutzer = $_POST['createBetreuerBenutzername'];
-$passwort = $_POST['createBetreuerPasswort'];
+$passwort = password_hash($_POST['createBetreuerPasswort'], PASSWORD_BCRYPT);
 $vorname = $_POST['createBetreuerVorname'];
 $nachname = $_POST['createBetreuerNachname'];
 $email = $_POST['createBetreuerEmail'];

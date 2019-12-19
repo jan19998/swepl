@@ -36,6 +36,7 @@
                     <div class="row">
                         <div class="col">
                             <?php include "snippets/tabellen/jahreTable.php"; ?>
+                            <button type="button" onclick="deljahr()" class="btn mt-2 btn-block">Löschen</button>
                         </div>
                         <div class="col">
                             <?php include "snippets/tabellen/studentenTable.php"; ?>
@@ -45,13 +46,13 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="me" role="tabpanel">
-                    test2
+                    <?php include "snippets/tabellen/meilensteineTable.php"; ?>
                 </div>
                 <div class="tab-pane fade" id="im" role="tabpanel">
                     <form action="snippets/import.php" method="post" name="uploadCSV" enctype="multipart/form-data">
                         <div class="row form-group">
                             <label for="file">Wähle CSV Datei</label>
-                            <input class="form-control-file" type="file" name="file" id="file" accept=".csv">
+                            <input class="form-control-file" type="file" name="file" id="file" accept=".csv" required>
                         </div>
                         <div class="row">
                             <button type="submit" id="submit" name="import" class="btn">Importieren</button>
@@ -70,10 +71,12 @@
 <script src="jQuery_v3.4.1.js"></script>
 <script src="bootstrap-4.4.1-dist/js/bootstrap.bundle.js"></script>
 <script src="bootstrap-table-master/dist/bootstrap-table.js"></script>
+<script src="bootstrap-table-master/dist/locale/bootstrap-table-de-DE.min.js"></script>
 <script src="js/studentenJS.js"></script>
 <script src="js/betreuerJS.js"></script>
 <script src="js/gruppenJS.js"></script>
 <script src="js/jahreJS.js"></script>
+<script src="js/meilensteineJS.js"></script>
 <script>
     var $tablestudenten = $("#tablestudenten");
     var $tablebetreuer = $("#tablebetreuer");
@@ -99,7 +102,7 @@
         $.ajax({
             url: "snippets/retrieveBetreuer.php",
             type: "post",
-            //data: {rjahr: jahr},
+            data: {rjahr: jahr},
             success: function (response) {
                 $tablebetreuer.bootstrapTable('load', JSON.parse(response));
                 $("#betreuerTable").show();
@@ -127,6 +130,7 @@
 <?php include "snippets/modal/betreuerModal.php"; ?>
 <?php include "snippets/modal/gruppenModal.php"; ?>
 <?php include "snippets/modal/jahreModal.php"; ?>
+<?php include "snippets/modal/meilensteineModal.php"; ?>
 
 <!-- Modal -->
 <div id="deleteModal" class="modal fade" role="dialog">

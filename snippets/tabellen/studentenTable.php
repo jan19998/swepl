@@ -1,4 +1,4 @@
-<div style="display: none" id="studentenTable">
+<div class="none" id="studentenTable">
     <div id="studenttoolbar" class="ml-3">
         <button type="button" id="createStudentButton" class="btn" data-toggle="modal"
                 data-target="#createStudentModal">
@@ -9,6 +9,7 @@
         id="tablestudenten"
         data-search="true"
         data-toggle="table"
+        data-locale="de-DE"
         data-toolbar="#studenttoolbar"
         data-detail-view="true"
         data-toolbar-align="right"

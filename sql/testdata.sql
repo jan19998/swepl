@@ -1,6 +1,8 @@
 USE swepl;
-INSERT INTO Benutzer(Passwort,`E-Mail`) VALUES
-('$2y$10$F.NRMT/RYj/LlUQBkPKBjOAnIYJSZ2KywRTs8/7daAePWThssdZvq','benutzer1@live.de');
+
+INSERT INTO Benutzer(Benutzer,Passwort,IstDozent,`E-Mail`) VALUES
+('Benutzer1','$2y$10$F.NRMT/RYj/LlUQBkPKBjOAnIYJSZ2KywRTs8/7daAePWThssdZvq',0,'benutzer1@live.de'), -- Passwort PasswortChangeTest
+('Dozent1','$1$EK4qiF3L$s1lIpt.qFUir2v51GnqBs/',1,'dozent1@live.de'); -- Passwort Dozent
 
 INSERT INTO Semester(Kennung) VALUES 
 ('ws17/18'),

@@ -6,7 +6,7 @@ $db = new dbconnect();
 $jahr = $_POST['rjahr'];
 $_SESSION['jahr'] = $jahr;
 
-$result = mysqli_query($db->getConnection(), "Select ID id, Gruppennummer gruppenname
+$result = mysqli_query($db->getConnection(), "Select ID id, Gruppennummer gruppenname, Raum raum
     from gruppe where Semester_FK='$jahr'");
 $gruppen = mysqli_fetch_all($result, MYSQLI_ASSOC);
 

@@ -90,7 +90,7 @@ function editGruppe(id = null) {
         dataType: 'json',
         success: function (response) {
             $("#editGruppeGruppenname").val(response.Gruppennummer);
-            $("#editGruppeRaum").val("");
+            $("#editGruppeRaum").val(response.Raum);
             $("#editGruppeTermine").val("");
             $("#editGruppeBetreuer").val("");
             $("#editGruppeStudenten").val("");

@@ -23,6 +23,8 @@ WHERE Gruppennummer= '$gruppe' AND Semester_FK = '$semester')),'$ampel','$bewert
 if (mysqli_query($remoteConnection, $update) === true) {
     $i = 0;
     while ($val = mysqli_fetch_array($result)) {
+        var_dump($i);
+        var_dump($val);
          if(count($checkbox)<=$i){
             $i = 0;
         }
@@ -40,7 +42,8 @@ if (mysqli_query($remoteConnection, $update) === true) {
             }
             $i++;
         } else {
-            $update3 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) value ('0','$val[ID]','$id');";
+            $update3 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) value ('0','$val[ID]',(SELECT ID FROM Termin WHERE Datum= '$termin' 
+                        AND Semester_FK = '$semester' AND Gruppe_FK = (SELECT ID FROM Gruppe WHERE Gruppennummer= '$gruppe' AND Semester_FK = '$semester')));";
             var_dump($update3);
             echo '<br>';
             if (mysqli_query($remoteConnection, $update3) === true) {
@@ -53,7 +56,7 @@ if (mysqli_query($remoteConnection, $update) === true) {
         }
     }
     mysqli_commit($remoteConnection);
-    header('Location:betreuer.php');
+    //header('Location:betreuer.php');
 } else {
     echo 'failed';
      mysqli_rollback($remoteConnection);

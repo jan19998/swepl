@@ -27,6 +27,17 @@ $remoteConnection = mysqli_connect(
     if(!isset($_SESSION['rolle']) || $_SESSION['rolle'] != "Betreuer"){
         header("Location: startseite.php");
     }
+    
+    <?php
+    if (isset($_SESSION['fehler'])){
+        echo $_SESSION['fehler'];
+        unset($_SESSION['fehler']);
+    }
+    if (isset($_SESSION['fehler2'])){
+        echo $_SESSION['fehler2'];
+        unset($_SESSION['fehler2']);
+    }
+    ?>
     $gruppe = $_SESSION['gruppe']; //ID übergeben für Termin_ID
     $semester = $_SESSION['semester']; //ID übergeben für Gruppen_ID
     $query = "SELECT Termin.Datum,Gruppe.Semester_FK,Gruppe.ID,Gruppe.Gruppennummer FROM Gruppe

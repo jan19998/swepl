@@ -1,4 +1,4 @@
-<div style="display: none" id="betreuerTable">
+<div class="none" id="betreuerTable">
     <div id="betreuertoolbar" class="ml-3">
         <button type="button" id="createBetreuerButton" class="btn" data-toggle="modal"
                 data-target="#createBetreuerModal">
@@ -7,6 +7,7 @@
     </div>
     <table
         id="tablebetreuer"
+        data-locale="de-DE"
         data-search="true"
         data-toggle="table"
         data-toolbar="#betreuertoolbar"

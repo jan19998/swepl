@@ -61,6 +61,14 @@ input[type=submit] {
     color: #005550;
 }
 
+.b:active {
+    background-color: #00b5ad;
+}
+
+.none{
+    display: none;
+}
+
 .btn{
     background-color: #00b5ad;
     color: #F0F0F0;

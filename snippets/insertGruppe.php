@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "dbconnect.php";
 $db = new dbconnect();
 
@@ -7,9 +8,10 @@ $termine = $_POST['createGruppeTermine'];
 $raum = $_POST['createGruppeRaum'];
 $betreuer = $_POST['createGruppeBetreuer'];
 $studenten = $_POST['createGruppeStudenten'];
+$semester = $_SESSION['jahr'];
 
-$query = "insert into gruppe(Gruppennummer)
-    values('$gruppenname')";
+$query = "insert into gruppe(Gruppennummer, Semester_FK)
+    values('$gruppenname', '$semester')";
 
 mysqli_query($db->getConnection(), $query);
 

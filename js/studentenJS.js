@@ -44,6 +44,7 @@ $(document).ready()
                 data: form.serialize(),
                 dataType: 'json',
                 success: function (response) {
+                    alert(response);
                     $tablestudenten.bootstrapTable('insertRow', {
                         index: 0,
                         row: {

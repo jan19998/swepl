@@ -1,3 +1,34 @@
+function dropdownJahrFormatter(value, row, index) {
+    return '<div class="btn-group dropright">'
+        + '<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">'
+        + row['jahr']
+        + '</button>'
+        + '<div class="dropdown-menu">'
+        + '<button type="button" class="dropdown-item b" onclick="showStudenten('
+        + "'"
+        + row['jahr']
+        + "'"
+        + ')">'
+        + 'Studenten'
+        + '</button>'
+        + '<button type="button" class="dropdown-item b" onclick="showGruppen('
+        + "'"
+        + row['jahr']
+        + "'"
+        + ')">'
+        + 'Gruppen'
+        + '</button>'
+        + '<button type="button" class="dropdown-item b" onclick="showBetreuer('
+        + "'"
+        + row['jahr']
+        + "'"
+        + ')">'
+        + 'Betreuer'
+        + '</button>'
+        + '</div>'
+        + '</div>'
+}
+
 $(document).ready()
 {
 
@@ -5,36 +36,16 @@ $(document).ready()
         $("#createJahrForm")[0].reset();
         $("#createJahrForm").unbind("submit").bind("submit", function () {
             var form = $(this);
-            var jahr = $("#createJahrMatrikel").val();
+            var jahr = $("#createJahr").val();
             $.ajax({
                 url: form.attr('action'),
                 type: form.attr('method'),
                 data: form.serialize(),
                 success: function (response) {
-                    var dropdown = JSON.stringify('<div class="btn-group dropright">'
-                        + '<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">'
-                        + jahr
-                        + '</button>'
-                        + '<div class="dropdown-menu">'
-                        + '<button type="button" onclick="showStudenten(`'
-                        + jahr
-                        + '`)" class="dropdown-item">'
-                        + 'Studenten'
-                        + '</button>'
-                        + '<button type="button" onclick="showGruppen(`'
-                        + '`)" class="dropdown-item">'
-                        + 'Gruppen'
-                        + '</button>'
-                        + '<button type="button" onclick="showBetreuer(`'
-                        + '`)" class="dropdown-item">'
-                        + 'Betreuer'
-                        + '</button>'
-                        + '</div>'
-                        + '</div>');
-                    $tablestudenten.bootstrapTable('insertRow', {
+                    $("#tablejahre").bootstrapTable('insertRow', {
                         index: 0,
                         row: {
-                            jahr: dropdown
+                            jahr: jahr
                         }
                     });
                     $("#createJahrForm")[0].reset();
@@ -45,4 +56,33 @@ $(document).ready()
         });
     });
 
+}
+
+function deljahr() {
+    $.ajax({
+        url: "snippets/retrieveJahre.php",
+        type: "get",
+        success: function (response) {
+            document.getElementById("deleteJahrSelect").innerHTML = "";
+
+            JSON.parse(response).forEach(function(data, index) {
+                $("#deleteJahrSelect").append("<option>" + data.jahr + "</option>");
+            });
+            $("#deleteJahrModal").modal();
+            $("#deleteJahrForm").unbind("submit").bind("submit", function () {
+                var form = $(this);
+                var jahr = $("#deleteJahrSelect").val();
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: {djahr: jahr},
+                    success: function (response) {
+                        $("#tablejahre").bootstrapTable("removeByUniqueId", jahr);
+                        $("#deleteJahrModal").modal("hide");
+                    }
+                });
+                return false;
+            });
+        }
+    });
 }

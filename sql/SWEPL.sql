@@ -12,23 +12,26 @@ DROP TABLE IF EXISTS `Gruppe`;
 DROP TABLE IF EXISTS `Benutzer`;
 DROP TABLE IF EXISTS `Semester`;
 
+CREATE TABLE Semester(
+	Kennung VARCHAR(7) NOT NULL, CONSTRAINT `Semester_primär` PRIMARY KEY (Kennung)
+);
+
 CREATE TABLE Benutzer(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	Benutzer VARCHAR(15) NOT NULL UNIQUE,
+	Semester_FK VARCHAR(7) DEFAULT NULL,
 	Vorname VARCHAR(50) NOT NULL,
 	Nachname VARCHAR(50) NOT NULL,
 	Passwort CHAR(60) NOT NULL,
 	IstDozent BOOL NOT NULL,
-	`E-Mail` VARCHAR(50) NOT NULL UNIQUE
-);
-
-CREATE TABLE Semester(
-	Kennung VARCHAR(7) NOT NULL, CONSTRAINT `Semester_primär` PRIMARY KEY (Kennung)
+	`E-Mail` VARCHAR(50) NOT NULL UNIQUE,
+	CONSTRAINT `Benutzer gehört zu Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE 
 );
 
 CREATE TABLE Gruppe(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Semester_FK VARCHAR(7),
+	Raum VARCHAR(7),
 	Gruppennummer VARCHAR(3) NOT NULL, CONSTRAINT Gruppe_primär PRIMARY KEY (ID),
 	CONSTRAINT `Gruppe ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE
 );
@@ -73,8 +76,8 @@ CREATE TABLE Meilenstein(
 	Beendet DATE DEFAULT NULL,
 	`Status` BOOL NOT NULL DEFAULT FALSE,
 	CONSTRAINT Meilenstein_primär PRIMARY KEY (ID),
-	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID),
-	CONSTRAINT `Meilenstein erbt von` FOREIGN KEY (Meilenstein_FK) REFERENCES `Meilenstein_Global`(ID)
+	CONSTRAINT `Gruppe hat Meilenstein` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE CASCADE,
+	CONSTRAINT `Meilenstein erbt von` FOREIGN KEY (Meilenstein_FK) REFERENCES `Meilenstein_Global`(ID) ON DELETE CASCADE
 );
 
 CREATE TABLE Bewertung(
@@ -83,7 +86,7 @@ CREATE TABLE Bewertung(
 	Ampelstatus ENUM('Grün','Gelb','Rot') NOT NULL,
 	Bewertung ENUM('+','-','0') NOT NULL,
 	Kommentar VARCHAR(255), CONSTRAINT Bewertung_primär PRIMARY KEY (ID),
-	CONSTRAINT `Termin wird bewertet` FOREIGN KEY (Termin_FK) REFERENCES `Termin`(ID)
+	CONSTRAINT `Termin wird bewertet` FOREIGN KEY (Termin_FK) REFERENCES `Termin`(ID) ON DELETE CASCADE
 );
 
 -- N:M Relation

@@ -16,32 +16,46 @@ $bewertung = $_POST['bewertung'];
 $bemerkung = $_POST['bemerkung'];
 $ampel = $_POST['ampel'];
 $termin = $_GET['id'];
+mysqli_begin_transaction($remoteConnection);
 $update = "INSERT INTO bewertung (Termin_FK,Ampelstatus,Bewertung,Kommentar) values((SELECT ID FROM Termin WHERE Datum= '$termin' 
 AND Semester_FK = '$semester' AND Gruppe_FK = (SELECT ID FROM Gruppe 
 WHERE Gruppennummer= '$gruppe' AND Semester_FK = '$semester')),'$ampel','$bewertung','$bemerkung');";
 if (mysqli_query($remoteConnection, $update) === true) {
     $i = 0;
     while ($val = mysqli_fetch_array($result)) {
+         if(count($checkbox)<=$i){
+            $i = 0;
+        }
         if ($checkbox[$i] == $val['ID']) {
             $update2 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) values ('1','$val[ID]',(SELECT ID FROM Termin WHERE Datum= '$termin' 
                         AND Semester_FK = '$semester' AND Gruppe_FK = (SELECT ID FROM Gruppe WHERE Gruppennummer= '$gruppe' AND Semester_FK = '$semester')));";
-            var_dump($update2);
+            //var_dump($update2);
             echo '<br>';
             if (mysqli_query($remoteConnection, $update2) === true) {
                 echo 'update 1<br>';
             }
+            else{
+                echo 'kein update <br>!';
+                mysqli_rollback($remoteConnection);
+            }
             $i++;
         } else {
             $update3 = "INSERT INTO `ist bei` (Anwesend,Student_FK,Termin_FK) value ('0','$val[ID]','$id');";
-            var_dump($update3);
+            //var_dump($update3);
             echo '<br>';
             if (mysqli_query($remoteConnection, $update3) === true) {
                 echo 'update 0 <br>';
             }
+            else{
+                echo 'kein update <br>!';
+                mysqli_rollback($remoteConnection);
+            }
         }
     }
+    mysqli_commit($remoteConnection);
 } else {
     echo 'failed';
+     mysqli_rollback($remoteConnection);
 }
 
 ?>

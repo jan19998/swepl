@@ -11,7 +11,7 @@ $studenten = $_POST['editGruppeStudenten'];
 $betreuer = $_POST['editGruppeBetreuer'];
 
 $query = "update gruppe
-    set Gruppennummer='$gruppenname'
+    set Gruppennummer='$gruppenname', Raum='$raum'
     where ID='$id'";
 
 mysqli_query($db->getConnection(), $query);

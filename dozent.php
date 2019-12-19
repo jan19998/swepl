@@ -13,7 +13,11 @@
 
 <div class="container">
 
-    <?php include("snippets/header.php") ?>
+    <?php include("snippets/header.php") ;
+    if(!isset($_SESSION['rolle']) || $_SESSION['rolle'] != "Dozent"){
+        header("Location: startseite.php");
+    }
+    ?>
 
     <div class="row">
 

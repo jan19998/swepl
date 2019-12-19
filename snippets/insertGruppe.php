@@ -11,7 +11,7 @@ $studenten = $_POST['createGruppeStudenten'];
 $semester = $_SESSION['jahr'];
 
 $query = "insert into gruppe(Gruppennummer, Semester_FK)
-    values('$gruppenname', '$semester')";
+    values('$gruppenname', '$semester', '$raum')";
 
 mysqli_query($db->getConnection(), $query);
 

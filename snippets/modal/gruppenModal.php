@@ -22,7 +22,7 @@
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createGruppeRaum">Raum</label>
                         <input class="mt-1 form-control col mr-3" type="text" id="createGruppeRaum"
-                               name="createGruppeRaum">
+                               name="createGruppeRaum" required>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createGruppeBetreuer">Betreuer</label>
@@ -71,7 +71,7 @@
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editGruppeRaum">Raum</label>
                         <input class="mt-1 form-control col mr-3" type="text" id="editGruppeRaum"
-                               name="editGruppeRaum">
+                               name="editGruppeRaum" required>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editGruppeBetreuer">Betreuer</label>

@@ -28,7 +28,7 @@ if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) 
 echo '<form action=betreuer.php method="POST">';
 echo'<div class="form-group">';
 echo '<legend> Meilenstein updaten </legend>';
-    echo ' <select class ="form-control" name ="selected_milestone">';
+    echo ' <select class ="form-control w-50" name ="selected_milestone">';
     echo ' <option selected>';
      echo ' <label for="meilenstein_auswahlen">Meilenstein auswählen</label>';
       echo '</option>'     ;

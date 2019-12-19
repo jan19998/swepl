@@ -7,7 +7,7 @@ $jahr = $_POST['rjahr'];
 $_SESSION['jahr'] = $jahr;
 
 $result = mysqli_query($db->getConnection(), "Select ID id, Nachname nachname, Vorname vorname, `E-Mail` email, Benutzer benutzername
-    from benutzer where IstDozent=0");
+    from benutzer where IstDozent=0 and Semester_FK='$jahr'");
 $betreuer = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 $db->close();

@@ -14,7 +14,7 @@ if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) 
     $update1 .= "WHERE Meilenstein.Gruppe_FK = (SELECT ID FROM Gruppe WHERE Gruppennummer= '$gruppen_id') 
                 AND Meilenstein_Global.Semester_FK = '$semester' ";
     $update1 .= "AND Meilenstein_Global.Bezeichnung = '$milestone';";
-   echo $update1;
+   //echo $update1;
     mysqli_autocommit($remoteConnection,false);
     mysqli_query($remoteConnection,$update1);
     if(!mysqli_commit($remoteConnection)) {
@@ -23,7 +23,7 @@ if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) 
     }
     mysqli_commit($remoteConnection);
 
-    echo '<a class ="link" href = "http://localhost/swepl/betreuer.php">Tabelle updaten.</a>';
+    echo '<a class ="link" href = betreuer.php>Tabelle updaten.</a>';
 }
 echo '<form action=betreuer.php method="POST">';
 echo'<div class="form-group">';

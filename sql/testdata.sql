@@ -134,7 +134,6 @@ INSERT INTO Meilenstein_Global(Frist,Bezeichnung,Semester_FK) VALUES
 ('2017-10-2','Lastenheft23','ws19/20'),
 ('2017-10-2','Lastenheft24','ws19/20');
 
-
 INSERT INTO Meilenstein(Meilenstein_FK,Gruppe_FK) VALUES
 (1,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws17/18')),
 (2,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e2' AND Semester_FK = 'ws17/18')),
@@ -164,6 +163,7 @@ INSERT INTO Meilenstein(Meilenstein_FK,Gruppe_FK) VALUES
 (22,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
 (23,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20')),
 (24,(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e9' AND Semester_FK = 'ws19/20'));
+
 
 INSERT INTO Termin(Datum,Semester_FK,Gruppe_FK) VALUES
 ('2017-10-1','ws17/18',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws17/18')),

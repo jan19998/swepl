@@ -12,11 +12,25 @@
 </head>
 <body>
 <div class="container">
- <?php include('snippets/header.php');
+ <?php //include('snippets/header.php');
  if(!isset($_SESSION['rolle'])){
  header("Location: startseite.php");
  }
  ?>
+ <header>
+ <div class="row pb-3">
+ <div class="col-11">
+ <a href="startseite.php">
+ <img class="logo img-fluid" alt="SWEpl Logo" src="pictures/swepl.png" width="100" height="100">
+ </a>
+ </div>
+ <div class="col-1 align-self-center justify-content-end ">
+ <form action="Logout.php">
+ <button class="btn" type="submit" value="logout">Logout</button>
+ </form>
+ </div>
+ </div>
+ </header>
  <div class="row">
  <div class="col-12">
  <h1 class ="password_change_successful">Passwort erfolgreich geändert.</h1>
@@ -25,10 +39,33 @@
  <div class="row">
  <div class="col-12">
  <!--Diese Verlinkung müsste man anpassen, jenachdem, ob der Dozent oder der Betrueer angemeldet ist-->
- <h3 class ="password_change_successful"><a class="link" href="http://localhost/swepl/jahresauswahl.php">Zurück zur Übersicht</a></h3>
+ <h3 class ="password_change_successful">
+ <?php
+ if(isset($_SESSION['rolle']) and $_SESSION['rolle'] == 'Betreuer'){
+ echo '<a class="link" href="http://localhost/swepl/jahresauswahl.php">Zurück zur Übersicht</a>';
+ }
+ else if(isset($_SESSION['rolle']) and $_SESSION['rolle'] == 'Dozent') {
+ echo '<a class="link" href="http://localhost/swepl/dozent.php">Zurück zur Übersicht</a>';
+ }
+ else {
+ header("Location: startseite.php");
+ }
+ ?>
+ </h3>
  </div>
  </div>
- <?php include('snippets/footer.php');?>
+ <footer>
+ <div class="row justify-content-center pt-3">
+ <div class="col justify-content-center">
+ <ul class="list-group list-group-horizontal justify-content-center">
+ <li class="list-group-item border-left-0 border-top-0 border-bottom-0 border-right-0"><a class="link" href="https://www.fh-aachen.de/Impressum" target="_blank" rel="noopener noreferrer">Impressum & Datenschutz</a></li>
+ <li class="list-group-item border-top-0 border-bottom-0 border-right-0"><a class="link" href="https://www.fh-aachen.de/" target="_blank" rel="noopener noreferrer">FH-Aachen</a></li>
+ <li class="list-group-item border-top-0 border-bottom-0 border-right-0"><a class="link" href="passwort_aendern_controller.php">Passwort ändern</a></li>
+ </ul>
+ </div>
+ </div>
+ </footer>
+ <?php //include('snippets/footer.php');?>
 </div>
 </body>
 </html>

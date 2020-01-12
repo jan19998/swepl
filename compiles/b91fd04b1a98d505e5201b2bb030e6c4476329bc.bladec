@@ -42,10 +42,10 @@
  <h3 class ="password_change_successful">
  <?php
  if(isset($_SESSION['rolle']) and $_SESSION['rolle'] == 'Betreuer'){
- echo '<a class="link" href="http://localhost/swepl/jahresauswahl.php">Zurück zur Übersicht</a>';
+ echo '<a class="link" href="jahresauswahl.php">Zurück zur Übersicht</a>';
  }
  else if(isset($_SESSION['rolle']) and $_SESSION['rolle'] == 'Dozent') {
- echo '<a class="link" href="http://localhost/swepl/dozent.php">Zurück zur Übersicht</a>';
+ echo '<a class="link" href="../dozent.php">Zurück zur Übersicht</a>';
  }
  else {
  header("Location: startseite.php");

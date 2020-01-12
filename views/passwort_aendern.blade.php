@@ -31,6 +31,13 @@
             header("Location: startseite.php");
         }
         ?>
+        <div class ="row pb-3">
+            <div class ="col-9">
+            </div>
+            <div class="col-3 justify-content-end" style="justify-content: flex-end;">
+                <a href="jahresauswahl.php" class="btn border-0 btn-primary">Zurück zur Kursübersicht</a>
+            </div>
+        </div>
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">

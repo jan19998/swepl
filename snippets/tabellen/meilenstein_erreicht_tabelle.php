@@ -13,7 +13,6 @@ Inner JOIN Gruppe on Semester.Kennung = Gruppe.Semester_FK
 LEFT JOIN Meilenstein ON Meilenstein_Global.ID = Meilenstein.Meilenstein_FK AND Gruppe.ID = Meilenstein.Gruppe_FK
 Where Gruppe.ID = (Select ID from Gruppe where Gruppennummer = '$gruppe' and Semester_FK = '$semester')
 ;";
-//echo $query;
 ?>
 <table class ="table">
     <thead>
@@ -47,15 +46,25 @@ Where Gruppe.ID = (Select ID from Gruppe where Gruppennummer = '$gruppe' and Sem
         else {
             ;
         }
+            if($row['Frist'] != null) {
+                $date1= new DateTime($row['Frist']);
+                echo '><td>',$date1->format("d.m.y"),'</td>';
+            }
+            else {
+                echo '<td>',$row['Frist'],'</td>';
+            }
 
-        echo '><td>',$row['Frist'],'</td>';
+
 
         echo '<td>',$row['Bezeichnung'],'</td>';
-
-
-        echo '<td>',$row['Beendet'],'</td>';
-
-
+        if($row['Beendet'] != null) {
+            $date3= new DateTime($row['Beendet']);
+            echo '<td>',$date3->format("d.m.y")
+            ,'</td>';
+        }
+        else {
+            echo '<td>',$row['Beendet'],'</td>';
+        }
         echo '</tr>';
        }
 

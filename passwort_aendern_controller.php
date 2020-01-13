@@ -1,6 +1,6 @@
 <?php
 Use eftec\bladeone\BladeOne;
-//session_start(); //Wird schon in Header gestartet
+session_start(); //Wird schon in Header gestartet
 require __DIR__. '/vendor/autoload.php';
 $views = __DIR__ . '/views';
 $cache = __DIR__ . '/cache';

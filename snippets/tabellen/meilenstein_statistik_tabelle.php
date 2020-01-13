@@ -9,7 +9,6 @@ $remoteConnection = mysqli_connect(
 
 $query = 'SELECT mg.Bezeichnung,m.`Status` FROM Meilenstein m,Gruppe g,Meilenstein_Global mg
           WHERE g.Semester_FK = "'.$_SESSION['semester'].'"
-          AND g.Gruppennummer = "'.$_SESSION['gruppe'].'"
           AND m.Gruppe_FK = g.ID
           AND m.Meilenstein_FK = mg.ID';
 

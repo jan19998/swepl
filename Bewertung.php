@@ -96,7 +96,7 @@ $remoteConnection = mysqli_connect(
                            <p class="pl-4">Weitere Anmerkungen</p>
                        </div>
                        <div class="col-8">
-                           <textarea rows="6" cols="75" name="bemerkung" placeholder="Geben Sie eine Anmerkung ein, wenn Sie möchten..."></textarea>
+                           <textarea rows="6"  class="bewertungTextArea" name="bemerkung" placeholder="Geben Sie eine Anmerkung ein, wenn Sie möchten..."></textarea>
                        </div>
                    </div>
                    <div class="row pt-4 pr-4">

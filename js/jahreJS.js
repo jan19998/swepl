@@ -25,6 +25,13 @@ function dropdownJahrFormatter(value, row, index) {
         + ')">'
         + 'Betreuer'
         + '</button>'
+        + '<button type="button" class="dropdown-item b" onclick="showTermine('
+        + "'"
+        + row['jahr']
+        + "'"
+        + ')">'
+        + 'Termine'
+        + '</button>'
         + '</div>'
         + '</div>'
 }
@@ -41,7 +48,7 @@ $(document).ready()
                 url: form.attr('action'),
                 type: form.attr('method'),
                 data: form.serialize(),
-                success: function (response) {
+                success: function () {
                     $("#tablejahre").bootstrapTable('insertRow', {
                         index: 0,
                         row: {
@@ -53,6 +60,20 @@ $(document).ready()
                 }
             });
             return false;
+        });
+    });
+
+    $('#import').on('show.bs.tab', function (e) {
+        $.ajax({
+            url: "snippets/retrieveJahre.php",
+            type: "get",
+            success: function (response) {
+                document.getElementById("semester").innerHTML = "";
+
+                JSON.parse(response).forEach(function(data, index) {
+                    $("#semester").append("<option>" + data.jahr + "</option>");
+                });
+            }
         });
     });
 
@@ -68,6 +89,7 @@ function deljahr() {
             JSON.parse(response).forEach(function(data, index) {
                 $("#deleteJahrSelect").append("<option>" + data.jahr + "</option>");
             });
+
             $("#deleteJahrModal").modal();
             $("#deleteJahrForm").unbind("submit").bind("submit", function () {
                 var form = $(this);
@@ -76,7 +98,7 @@ function deljahr() {
                     url: form.attr('action'),
                     type: form.attr('method'),
                     data: {djahr: jahr},
-                    success: function (response) {
+                    success: function () {
                         $("#tablejahre").bootstrapTable("removeByUniqueId", jahr);
                         $("#deleteJahrModal").modal("hide");
                     }

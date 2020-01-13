@@ -16,4 +16,10 @@ $query = "update student
 
 mysqli_query($db->getConnection(), $query);
 
+$query = "select Gruppennummer from gruppe where ID='$gruppe'";
+$result = mysqli_query($db->getConnection(), $query);
+$gruppenname = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
 $db->close();
+
+echo json_encode($gruppenname[0]['Gruppennummer']);

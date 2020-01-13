@@ -30,37 +30,48 @@ $(document).ready()
 {
 
     $("#createStudentButton").on("click", function () {
-        $("#createStudentForm")[0].reset();
-        $("#createStudentForm").unbind("submit").bind("submit", function () {
-            var form = $(this);
-            var matrikel = $("#createStudentMatrikel").val();
-            var nachname = $("#createStudentNachname").val();
-            var vorname = $("#createStudentVorname").val();
-            var email = $("#createStudentEmail").val();
-            var gruppe = $("#createStudentGruppe").val();
-            $.ajax({
-                url: form.attr('action'),
-                type: form.attr('method'),
-                data: form.serialize(),
-                dataType: 'json',
-                success: function (response) {
-                   // alert(response);
-                    $tablestudenten.bootstrapTable('insertRow', {
-                        index: 0,
-                        row: {
-                            id: response,
-                            matrikelnummer: matrikel,
-                            vorname: vorname,
-                            nachname: nachname,
-                            gruppe: gruppe,
-                            email: email
+        $.ajax({
+            url: "snippets/retrieveGruppenname.php",
+            type: "post",
+            success: function (response) {
+                document.getElementById("createStudentGruppe").innerHTML = "";
+
+                JSON.parse(response).forEach(function (data, index) {
+                    $("#createStudentGruppe").append("<option value='" + data.ID + "'" + ">" + data.Gruppennummer + "</option>");
+                });
+
+                $("#createStudentForm")[0].reset();
+                $("#createStudentForm").unbind("submit").bind("submit", function () {
+                    var form = $(this);
+                    var matrikel = $("#createStudentMatrikel").val();
+                    var nachname = $("#createStudentNachname").val();
+                    var vorname = $("#createStudentVorname").val();
+                    var email = $("#createStudentEmail").val();
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: form.attr('method'),
+                        data: form.serialize(),
+                        dataType: 'json',
+                        success: function (response) {
+                            alert(response);
+                            $tablestudenten.bootstrapTable('insertRow', {
+                                index: 0,
+                                row: {
+                                    id: response.id,
+                                    matrikelnummer: matrikel,
+                                    vorname: vorname,
+                                    nachname: nachname,
+                                    gruppe: response.gruppe,
+                                    email: email
+                                }
+                            });
+                            $("#createStudentForm")[0].reset();
+                            $("#createStudentModal").modal("hide");
                         }
                     });
-                    $("#createStudentForm")[0].reset();
-                    $("#createStudentModal").modal("hide");
-                }
-            });
-            return false;
+                    return false;
+                });
+            }
         });
     });
 
@@ -82,47 +93,61 @@ function delStudent(id = null) {
 }
 
 function editStudent(id = null) {
-    $("#editStudentModal").modal();
-    $("#editStudentId").val(0);
     $.ajax({
-        url: 'snippets/retrieveSingleStudent.php',
-        type: 'post',
-        data: {rid: id},
-        dataType: 'json',
-        success: function (response) {
-            $("#editStudentMatrikel").val(response.Matrikelnummer);
-            $("#editStudentNachname").val(response.Nachname);
-            $("#editStudentVorname").val(response.Vorname);
-            $("#editStudentGruppe").val(response.Gruppe_FK);
-            $("#editStudentEmail").val(response['E-Mail']);
-            $("#editStudentId").val(response['ID']);
-            $("#editStudentForm").unbind("submit").bind("submit", function () {
-                var form = $(this);
-                var id = $("#editStudentId").val();
-                var matrikel = $("#editStudentMatrikel").val();
-                var nachname = $("#editStudentNachname").val();
-                var vorname = $("#editStudentVorname").val();
-                var email = $("#editStudentEmail").val();
-                var gruppe = $("#editStudentGruppe").val();
-                $.ajax({
-                    url: form.attr('action'),
-                    type: form.attr('method'),
-                    data: form.serialize(),
-                    success: function () {
-                        $tablestudenten.bootstrapTable("updateByUniqueId", {
-                            id: id,
-                            row: {
-                                matrikelnummer: matrikel,
-                                nachname: nachname,
-                                vorname: vorname,
-                                email: email,
-                                gruppe: gruppe
+        url: "snippets/retrieveGruppenname.php",
+        type: "post",
+        success: function (gruppen) {
+            $("#editStudentModal").modal();
+            $("#editStudentId").val(0);
+            $.ajax({
+                url: 'snippets/retrieveSingleStudent.php',
+                type: 'post',
+                data: {rid: id},
+                dataType: 'json',
+                success: function (response) {
+                    document.getElementById("editStudentGruppe").innerHTML = "";
+
+                    JSON.parse(gruppen).forEach(function (data, index) {
+                        if (data.Gruppennummer == response.Gruppennummer)
+                            $("#editStudentGruppe").append("<option selected value='" + data.ID + "'" + ">" + data.Gruppennummer + "</option>");
+                        else
+                            $("#editStudentGruppe").append("<option value='" + data.ID + "'" + ">" + data.Gruppennummer + "</option>");
+                    });
+
+                    $("#editStudentMatrikel").val(response.Matrikelnummer);
+                    $("#editStudentNachname").val(response.Nachname);
+                    $("#editStudentVorname").val(response.Vorname);
+                    $("#editStudentEmail").val(response['E-Mail']);
+                    $("#editStudentId").val(response['ID']);
+                    $("#editStudentForm").unbind("submit").bind("submit", function () {
+                        var form = $(this);
+                        var id = $("#editStudentId").val();
+                        var matrikel = $("#editStudentMatrikel").val();
+                        var nachname = $("#editStudentNachname").val();
+                        var vorname = $("#editStudentVorname").val();
+                        var email = $("#editStudentEmail").val();
+                        var gruppe = $("#editStudentGruppe").val();
+                        $.ajax({
+                            url: form.attr('action'),
+                            type: form.attr('method'),
+                            data: form.serialize(),
+                            success: function (gruppenname) {
+                                $tablestudenten.bootstrapTable("updateByUniqueId", {
+                                    id: id,
+                                    row: {
+                                        matrikelnummer: matrikel,
+                                        nachname: nachname,
+                                        vorname: vorname,
+                                        email: email,
+                                        gruppe: JSON.parse(gruppenname)
+                                    }
+                                });
+                                $("#editStudentModal").modal("hide");
                             }
                         });
-                        $("#editStudentModal").modal("hide");
-                    }
-                });
-                return false;
+                        return false;
+                    });
+                }
             });
         }
     });

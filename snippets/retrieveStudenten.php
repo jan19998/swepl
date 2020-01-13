@@ -7,8 +7,11 @@ $db = new dbconnect();
 $jahr = $_POST['rjahr'];
 $_SESSION['jahr'] = $jahr;
 
-$result = mysqli_query($db->getConnection(), "Select ID id, Matrikelnummer matrikelnummer, Nachname nachname, Vorname vorname, Gruppe_FK gruppe, `E-Mail` email
-    from student where Semester_FK='$jahr' order by Matrikelnummer");
+$result = mysqli_query($db->getConnection(), "Select student.ID id, Matrikelnummer matrikelnummer,
+        Nachname nachname, Vorname vorname, gruppe.Gruppennummer gruppe, `E-Mail` email
+        from student
+        left JOIN gruppe ON student.Gruppe_FK=gruppe.ID
+        where student.Semester_FK='$jahr' order by Matrikelnummer");
 $studenten = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $db->close();
 

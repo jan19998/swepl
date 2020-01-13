@@ -3,22 +3,26 @@ require_once "dbconnect.php";
 
 $db = new dbconnect();
 
-if (isset($_POST["import"])) {
+$error = "";
 
-    $fileName = $_FILES["file"]["tmp_name"];
+$semester = $_POST["semester"];
 
-    if ($_FILES["file"]["size"] > 0) {
+$fileName = $_FILES["file"]["tmp_name"];
 
-        $file = fopen($fileName, "r");
+if ($_FILES["file"]["size"] > 0) {
 
-        while (($column = fgetcsv($file, 10000, ";")) !== FALSE) {
-            $query = "INSERT into student (Nachname,Vorname,`E-Mail`,Matrikelnummer)
-                   values ('$column[0]','$column[1]','$column[2]','$column[3]')";
-            $result = mysqli_query($db->getConnection(), $query);
+    $file = fopen($fileName, "r");
+
+    while (($column = fgetcsv($file, 10000, ";")) !== FALSE) {
+        $query = "INSERT into student (Nachname,Vorname,`E-Mail`,Matrikelnummer, Semester_FK)
+                   values ('$column[0]','$column[1]','$column[2]','$column[3]', '$semester')";
+        $result = mysqli_query($db->getConnection(), $query);
+        if (!$result) {
+            $error = $error . 'Der Student mit der Matrikelnr.: ' . $column[3] . " existiert schon!\n";
         }
     }
 }
 
 $db->close();
 
-header('location: ' . $_SERVER['HTTP_REFERER']);
+echo $error;

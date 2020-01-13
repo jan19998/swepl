@@ -16,7 +16,11 @@ $query = "insert into benutzer(Vorname, Nachname, `E-Mail`, Passwort, Benutzer, 
 
 mysqli_query($db->getConnection(), $query);
 
-if(!mysqli_error($db->getConnection()))
-    echo mysqli_insert_id($db->getConnection());
+if(!mysqli_error($db->getConnection())) {
+    $id = mysqli_insert_id($db->getConnection());
+    mysqli_query($db->getConnection(), "insert into betreut(Benutzer_FK, Gruppe_FK) values('$id', '$gruppe')");
+    $gruppe = mysqli_fetch_all(mysqli_query($db->getConnection(), "select Gruppennummer from gruppe where ID='$gruppe'"), MYSQLI_ASSOC);
+    echo json_encode(array("id" => $id, "gruppe" => $gruppe[0]['Gruppennummer']));
+}
 
 $db->close();

@@ -21,10 +21,10 @@
         <tr>
             <th data-field="id" data-visible="false">ID</th>
             <th data-field="gruppenname" data-sortable="true">Gruppenname</th>
-            <th data-field="termine">Termine</th>
+            <th data-field="termine" data-visible="false">Termine</th>
             <th data-field="raum">Raum</th>
             <th data-field="betreuer">Betreuer</th>
-            <th data-field="studenten">Studenten</th>
+            <th data-field="studenten" data-visible="false">Studenten</th>
             <th data-field="operate" data-formatter="operateGruppeFormatter"
                 data-events="window.operateGruppeEvents">Operate
             </th>

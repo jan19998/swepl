@@ -45,9 +45,9 @@ CREATE TABLE Student(
 	Matrikelnummer INT(9) UNSIGNED NOT NULL,
 	`E-Mail` VARCHAR(50) NOT NULL,
 	CONSTRAINT Student_primär PRIMARY KEY (ID),
+	CONSTRAINT vorhanden UNIQUE(Semester_FK, Matrikelnummer),
 	CONSTRAINT `Student ist in Gruppe` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE SET NULL,
-	CONSTRAINT `Student ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE,
-	UNIQUE (Semester_FK,Matrikelnummer)
+	CONSTRAINT `Student ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE
 );
 
 CREATE TABLE Termin(

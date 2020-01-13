@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Dozent</title>
-    <link rel="stylesheet" href="bootstrap-4.4.1-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bootstrap-table-master/dist/bootstrap-table.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+    <!--<link rel="stylesheet" href="bootstrap-4.4.1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap-table-master/dist/bootstrap-table.css">-->
     <script src="https://kit.fontawesome.com/1b3fa84305.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/swepl.css">
 </head>
@@ -13,8 +16,8 @@
 
 <div class="container">
 
-    <?php include("snippets/header.php") ;
-    if(!isset($_SESSION['rolle']) || $_SESSION['rolle'] != "Dozent"){
+    <?php include("snippets/header.php");
+    if (!isset($_SESSION['rolle']) || $_SESSION['rolle'] != "Dozent") {
         header("Location: startseite.php");
     }
     ?>
@@ -30,11 +33,11 @@
                     <a class="nav-link" data-toggle="pill" href="#me" role="tab">Meilenstein</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#im" role="tab">Importieren</a>
+                    <a class="nav-link" data-toggle="pill" href="#im" role="tab" id="import">Importieren</a>
                 </li>
             </ul>
         </div>
-        <div class="col">
+        <div class="col-10">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="ve" role="tabpanel">
                     <div class="row">
@@ -46,6 +49,7 @@
                             <?php include "snippets/tabellen/studentenTable.php"; ?>
                             <?php include "snippets/tabellen/betreuerTable.php"; ?>
                             <?php include "snippets/tabellen/gruppenTable.php"; ?>
+                            <?php include "snippets/tabellen/termineTable.php"; ?>
                         </div>
                     </div>
                 </div>
@@ -53,13 +57,19 @@
                     <?php include "snippets/tabellen/meilensteineTable.php"; ?>
                 </div>
                 <div class="tab-pane fade" id="im" role="tabpanel">
-                    <form action="snippets/import.php" method="post" name="uploadCSV" enctype="multipart/form-data">
-                        <div class="row form-group">
+                    <form action="snippets/import.php" method="post" id="importstudent"
+                          enctype="multipart/form-data">
+                        <div class="form-group">
                             <label for="file">Wähle CSV Datei</label>
                             <input class="form-control-file" type="file" name="file" id="file" accept=".csv" required>
                         </div>
-                        <div class="row">
-                            <button type="submit" id="submit" name="import" class="btn">Importieren</button>
+                        <div class="form-group">
+                            <label for="semester">Wähle Semester</label>
+                            <select class="form-control w-50" name="semester" id="semester" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="submit" class="btn">Importieren<i id="loading" class="fas fa-circle-notch fa-spin none"></i></button>
                         </div>
                     </form>
                 </div>
@@ -73,22 +83,69 @@
 </div>
 
 <script src="jQuery_v3.4.1.js"></script>
-<script src="bootstrap-4.4.1-dist/js/bootstrap.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/locale/bootstrap-table-de-DE.min.js"></script>
+<!--<script src="bootstrap-4.4.1-dist/js/bootstrap.bundle.js"></script>
 <script src="bootstrap-table-master/dist/bootstrap-table.js"></script>
-<script src="bootstrap-table-master/dist/locale/bootstrap-table-de-DE.min.js"></script>
+<script src="bootstrap-table-master/dist/locale/bootstrap-table-de-DE.min.js"></script>-->
 <script src="js/studentenJS.js"></script>
 <script src="js/betreuerJS.js"></script>
 <script src="js/gruppenJS.js"></script>
 <script src="js/jahreJS.js"></script>
 <script src="js/meilensteineJS.js"></script>
+<script src="js/termineJS.js"></script>
 <script>
     var $tablestudenten = $("#tablestudenten");
     var $tablebetreuer = $("#tablebetreuer");
     var $tablegruppen = $("#tablegruppen");
+    var $tabletermine = $("#tabletermine");
+
+    $(document).ready()
+    {
+        $("#importstudent").unbind("submit").bind("submit", function () {
+            $("#loading").css("display", "block");
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $("#loading").css("display", "none");
+                    if(response.length > 0)
+                        alert(response);
+                }
+            });
+            return false;
+        });
+    }
+    
+    function showTermine(jahr) {
+        $("#betreuerTable").hide();
+        $("#gruppenTable").hide();
+        $("#studentenTable").hide();
+        $.ajax({
+            url: "snippets/retrieveTermine.php",
+            type: "post",
+            data: {rjahr: jahr},
+            success: function (response) {
+                $tabletermine.bootstrapTable('load', JSON.parse(response));
+                $("#termineTable").show();
+            }
+        });
+    }
 
     function showStudenten(jahr) {
         $("#betreuerTable").hide();
         $("#gruppenTable").hide();
+        $("#termineTable").hide();
         $.ajax({
             url: "snippets/retrieveStudenten.php",
             type: "post",
@@ -103,6 +160,7 @@
     function showBetreuer(jahr) {
         $("#studentenTable").hide();
         $("#gruppenTable").hide();
+        $("#termineTable").hide();
         $.ajax({
             url: "snippets/retrieveBetreuer.php",
             type: "post",
@@ -117,6 +175,7 @@
     function showGruppen(jahr) {
         $("#studentenTable").hide();
         $("#betreuerTable").hide();
+        $("#termineTable").hide();
         $.ajax({
             url: "snippets/retrieveGruppen.php",
             type: "post",
@@ -135,6 +194,7 @@
 <?php include "snippets/modal/gruppenModal.php"; ?>
 <?php include "snippets/modal/jahreModal.php"; ?>
 <?php include "snippets/modal/meilensteineModal.php"; ?>
+<?php include "snippets/modal/termineModal.php"; ?>
 
 <!-- Modal -->
 <div id="deleteModal" class="modal fade" role="dialog">
@@ -146,7 +206,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Wollen sie die zeile wirklich löschen?</p>
+                <p>Wollen sie die Zeile wirklich löschen?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="deletesubmit">Speichern

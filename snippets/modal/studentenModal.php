@@ -26,8 +26,9 @@
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createStudentGruppe">Gruppe</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="createStudentGruppe"
-                               name="createStudentGruppe" required>
+                        <select class="mt-1 form-control col mr-3" id="createStudentGruppe"
+                                name="createStudentGruppe" required>
+                        </select>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 mb-2 col-4" for="createStudentEmail">E-Mail</label>
@@ -75,8 +76,9 @@
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editStudentGruppe">Gruppe</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="editStudentGruppe"
-                               name="editStudentGruppe" required>
+                        <select class="mt-1 form-control col mr-3" id="editStudentGruppe"
+                                name="editStudentGruppe" required>
+                        </select>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 mb-2 col-4" for="editStudentEmail">E-Mail</label>

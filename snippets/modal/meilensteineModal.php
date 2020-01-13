@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div id="createMeilensteinModal" class="modal fade" role="dialog">
+<div id="createMeilensteinModal" class="modal fade" role="dialog" xmlns="http://www.w3.org/1999/html">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -21,8 +21,8 @@
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createMeilensteinSemester">Semester</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="createMeilensteinSemester"
-                               name="createMeilensteinSemester">
+                        <select class="mt-1 form-control col mr-3" id="createMeilensteinSemester"
+                                name="createMeilensteinSemester"></select>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createMeilensteinBeschreibung">Beschreibung</label>
@@ -65,8 +65,8 @@
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editMeilensteinSemester">Semester</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="editMeilensteinSemester"
-                               name="editMeilensteinSemester">
+                        <select class="mt-1 form-control col mr-3" id="editMeilensteinSemester"
+                               name="editMeilensteinSemester"></select>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editMeilensteinBeschreibung">Beschreibung</label>

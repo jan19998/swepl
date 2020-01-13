@@ -15,24 +15,9 @@
                                name="createGruppeGruppenname" required>
                     </div>
                     <div class="row form-group">
-                        <label class="mt-1 col-4" for="createGruppeTermine">Termine</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="createGruppeTermine"
-                               name="createGruppeTermine">
-                    </div>
-                    <div class="row form-group">
                         <label class="mt-1 col-4" for="createGruppeRaum">Raum</label>
                         <input class="mt-1 form-control col mr-3" type="text" id="createGruppeRaum"
                                name="createGruppeRaum" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 col-4" for="createGruppeBetreuer">Betreuer</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="createGruppeBetreuer"
-                               name="createGruppeBetreuer">
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 mb-2 col-4" for="createGruppeStudenten">Studenten</label>
-                        <input class="mt-1 mb-2 form-control col mr-3" type="text" id="createGruppeStudenten"
-                               name="createGruppeStudenten">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -64,24 +49,9 @@
                                name="editGruppeGruppenname" required>
                     </div>
                     <div class="row form-group">
-                        <label class="mt-1 col-4" for="editGruppeTermine">Termine</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="editGruppeTermine"
-                               name="editGruppeTermine">
-                    </div>
-                    <div class="row form-group">
                         <label class="mt-1 col-4" for="editGruppeRaum">Raum</label>
                         <input class="mt-1 form-control col mr-3" type="text" id="editGruppeRaum"
                                name="editGruppeRaum" required>
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 col-4" for="editGruppeBetreuer">Betreuer</label>
-                        <input class="mt-1 form-control col mr-3" type="text" id="editGruppeBetreuer"
-                               name="editGruppeBetreuer">
-                    </div>
-                    <div class="row form-group">
-                        <label class="mt-1 mb-2 col-4" for="editGruppeStudenten">Studenten</label>
-                        <input class="mt-1 mb-2 form-control col mr-3" type="text" id="editGruppeStudenten"
-                               name="editGruppeStudenten">
                     </div>
                 </div>
                 <div class="modal-footer">

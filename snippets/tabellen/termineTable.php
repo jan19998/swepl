@@ -21,7 +21,7 @@
             <th data-field="gruppe">Gruppe</th>
             <th data-field="datum">Datum</th>
             <th data-field="operate" data-formatter="operateTerminFormatter"
-                data-events="window.operateTerminEvents">Operate
+                data-events="window.operateTerminEvents">Bearbeiten
             </th>
         </tr>
         </thead>

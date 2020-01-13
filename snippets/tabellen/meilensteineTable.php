@@ -33,7 +33,7 @@ $db->close();
             <th data-field="beschreibung" data-visible="false">Beschreibung</th>
             <th data-field="semester">Semester</th>
             <th data-field="operate" data-formatter="operateMeilensteinFormatter"
-                data-events="window.operateMeilensteinEvents">Operate
+                data-events="window.operateMeilensteinEvents">Bearbeiten
             </th>
         </tr>
         </thead>

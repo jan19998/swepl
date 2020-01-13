@@ -26,7 +26,7 @@
             <th data-field="gruppe" data-sortable="true">Gruppe</th>
             <th data-field="email" data-visible="false">E-Mail</th>
             <th data-field="operate" data-formatter="operateStudentFormatter"
-                data-events="window.operateStudentEvents">Operate
+                data-events="window.operateStudentEvents">Bearbeiten
             </th>
         </tr>
         </thead>

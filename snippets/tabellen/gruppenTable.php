@@ -26,7 +26,7 @@
             <th data-field="betreuer">Betreuer</th>
             <th data-field="studenten" data-visible="false">Studenten</th>
             <th data-field="operate" data-formatter="operateGruppeFormatter"
-                data-events="window.operateGruppeEvents">Operate
+                data-events="window.operateGruppeEvents">Bearbeiten
             </th>
         </tr>
         </thead>

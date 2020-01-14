@@ -32,7 +32,8 @@ CREATE TABLE Gruppe(
 	ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Semester_FK VARCHAR(7),
 	Raum VARCHAR(7) NOT NULL,
-	`STD_Termin` DATETIME NOT NULL,
+	Wochentag ENUM('Montag','Dienstag','Mittwoch','Donnerstag','Freitag') NOT NULL,
+	Uhrzeit TIME NOT NULL,
 	Gruppennummer VARCHAR(3) NOT NULL, CONSTRAINT Gruppe_primär PRIMARY KEY (ID),
 	CONSTRAINT `Gruppe ist in Semester` FOREIGN KEY (Semester_FK) REFERENCES `Semester`(Kennung) ON DELETE CASCADE
 );

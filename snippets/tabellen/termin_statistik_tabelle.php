@@ -8,10 +8,11 @@ $remoteConnection = mysqli_connect(
 $query1 ='SELECT CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum
 From Termin t 
 JOIN Gruppe g ON t.Gruppe_FK = g.ID
-	WHERE g.Gruppennummer = "'.$_SESSION['gruppe'].'"
+WHERE EXISTS (SELECT i.Student_FK FROM `ist bei` i WHERE  i.Termin_FK = t.ID)
+	AND g.Gruppennummer = "'.$_SESSION['gruppe'].'"
 	AND t.Gruppe_FK = g.ID
     AND t.Semester_FK = "'.$_SESSION['semester'].'"
-GROUP BY datum;';
+GROUP BY t.Datum;';
 $query2 ='SELECT CONCAT(s.Vorname," ", s.Nachname) AS Name, s.Matrikelnummer AS Matrikelnummer, CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum, i.Anwesend AS Anwesend
 FROM Student  s
 JOIN `ist bei`  i ON i.Student_FK = s.ID
@@ -20,7 +21,7 @@ JOIN Gruppe g ON t.Gruppe_FK = g.ID
 	WHERE g.Gruppennummer = "'.$_SESSION['gruppe'].'"
 	AND t.Gruppe_FK = g.ID
     AND t.Semester_FK = "'.$_SESSION['semester'].'"
-GROUP BY s.Matrikelnummer,datum;';
+GROUP BY s.Matrikelnummer,t.Datum;';
 ?>
 
 <div class="table-responsive">

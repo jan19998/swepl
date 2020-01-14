@@ -241,7 +241,7 @@
                 <p>Wollen sie die Zeile wirklich löschen?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="deletesubmit">Speichern
+                <button type="button" class="btn btn-default" id="deletesubmit">Löschen
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen
                 </button>

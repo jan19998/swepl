@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-default" id="deleteJahrSubmit">Speichern
+                    <button type="submit" class="btn btn-default" id="deleteJahrSubmit">Löschen
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen
                     </button>

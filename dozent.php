@@ -52,11 +52,31 @@
                             <?php include "snippets/tabellen/termineTable.php"; ?>
                         </div>
                     </div>
+                    <i data-toggle="tooltip"
+                       data-html="true"
+                       data-placement="right"
+                       title="
+                        In der linken Tabelle sehen Sie die vorhandenen Semester.<br><br>
+                        Mit dem Plus Button können Sie weitere erstellen. Mit dem Löschen Button entfernen.<br><br>
+                        Beim Semester können Sie wählen was Sie aus diesem Semester sehen wollen.
+                        Darauf hin sehen Sie eine weiter Tabelle mit den Inhalten.<br><br>
+                        Mit dem Plus Button über der Tabelle können weitere Einträge erstellt werden, mit dem Stift Button editiert und dem Mülleimer gelöscht.
+                        Mit dem Plus Button in jeder Zeile erhalten Sie weiter Informationen zum Eintrag."
+                       class="far fa-question-circle"></i>
                 </div>
                 <div class="tab-pane fade" id="me" role="tabpanel">
                     <?php include "snippets/tabellen/meilensteineTable.php"; ?>
+                    <i data-toggle="tooltip"
+                       data-html="true"
+                       data-placement="right"
+                       title="
+                        In der Tabelle sehen Sie die vorhandenen Meilensteine.<br><br>
+                        Mit dem Plus Button über der Tabelle können weitere Einträge erstellt werden, mit dem Stift Button editiert und dem Mülleimer gelöscht.
+                        Mit dem Plus Button in jeder Zeile erhalten Sie weiter Informationen zum Eintrag."
+                       class="far fa-question-circle"></i>
                 </div>
                 <div class="tab-pane fade" id="im" role="tabpanel">
+                    <h3>Studentenimport</h3>
                     <form action="snippets/import.php" method="post" id="importstudent"
                           enctype="multipart/form-data">
                         <div class="form-group">
@@ -69,13 +89,21 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <button type="submit" id="submit" class="btn">Importieren<i id="loading" class="fas fa-circle-notch fa-spin none"></i></button>
+                            <button type="submit" id="submit" class="btn">
+                                Importieren
+                                <i id="loading" class="fas fa-circle-notch fa-spin none"></i>
+                            </button>
                         </div>
                     </form>
+                    <i data-toggle="tooltip"
+                       data-html="true"
+                       data-placement="right"
+                       title="
+                        Wählen Sie eine Datei im csv Format mit ; als Trennzeichen und ein Semester in das die Studenten importiert werden sollen."
+                       class="far fa-question-circle"></i>
                 </div>
             </div>
         </div>
-
     </div>
 
     <?php include("snippets/footer.php") ?>
@@ -108,6 +136,10 @@
 
     $(document).ready()
     {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
         $("#importstudent").unbind("submit").bind("submit", function () {
             $("#loading").css("display", "block");
             var form = $(this);
@@ -119,14 +151,14 @@
                 contentType: false,
                 success: function (response) {
                     $("#loading").css("display", "none");
-                    if(response.length > 0)
+                    if (response.length > 0)
                         alert(response);
                 }
             });
             return false;
         });
     }
-    
+
     function showTermine(jahr) {
         $("#betreuerTable").hide();
         $("#gruppenTable").hide();

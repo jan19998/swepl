@@ -54,14 +54,15 @@ WHERE be.`E-Mail` ='".$_SESSION['user']."'ORDER BY s.Kennung DESC;";
         <div class="col-3">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     @for($i = 0; $i < count($kennung); ++$i)
-                    <a class="nav-link"data-toggle="pill" href="#v-pills-{{$i}}" role="tab">{{$kennung[$i]['Kennung']}}</a>
+                    <a class="nav-link  @if($i == 0) active @endif " data-toggle="pill" href="#v-pills-{{$i}}" role="tab">{{$kennung[$i]['Kennung']}}</a>
                 @endfor
             </div>
         </div>
         <div class="col-9">
             <div class="tab-content" id="v-pills-tabContent">
+                @if(count($kennung) == 0) Keine Semester Gefunden @endif
                 @for($i = 0; $i < count($kennung); ++$i)
-                    <div class="tab-pane fade" id="v-pills-{{$i}}" role="tabpanel" >
+                    <div class="tab-pane fade @if($i == 0) show active @endif" id="v-pills-{{$i}}" role="tabpanel" >
                         @include('jahresauswahl_gruppe',[
                                  'semester' => $kennung[$i]['Kennung']
                                  ])

@@ -17,17 +17,17 @@
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createMeilensteinFrist">Frist</label>
                         <input class="mt-1 form-control col mr-3" type="date" id="createMeilensteinFrist"
-                               name="createMeilensteinFrist">
+                               name="createMeilensteinFrist" required>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createMeilensteinSemester">Semester</label>
                         <select class="mt-1 form-control col mr-3" id="createMeilensteinSemester"
-                                name="createMeilensteinSemester"></select>
+                                name="createMeilensteinSemester" required></select>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createMeilensteinBeschreibung">Beschreibung</label>
                         <input class="mt-1 form-control col mr-3" type="text" id="createMeilensteinBeschreibung"
-                               name="createMeilensteinBeschreibung">
+                               name="createMeilensteinBeschreibung" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -61,17 +61,17 @@
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editMeilensteinFrist">Frist</label>
                         <input class="mt-1 form-control col mr-3" type="date" id="editMeilensteinFrist"
-                               name="editMeilensteinFrist">
+                               name="editMeilensteinFrist" required>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editMeilensteinSemester">Semester</label>
                         <select class="mt-1 form-control col mr-3" id="editMeilensteinSemester"
-                               name="editMeilensteinSemester"></select>
+                               name="editMeilensteinSemester" required></select>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editMeilensteinBeschreibung">Beschreibung</label>
                         <input class="mt-1 form-control col mr-3" type="text" id="editMeilensteinBeschreibung"
-                               name="editMeilensteinBeschreibung">
+                               name="editMeilensteinBeschreibung" required>
                     </div>
                 </div>
                 <div class="modal-footer">

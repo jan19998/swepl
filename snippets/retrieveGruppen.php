@@ -9,7 +9,7 @@ $_SESSION['jahr'] = $jahr;
 
 
 
-$query = "SELECT g.ID id, g.Gruppennummer gruppenname, g.Raum raum, group_concat(distinct ben.Benutzer) betreuer,
+$query = "SELECT g.ID id, g.Gruppennummer gruppenname, g.Wochentag wochentag, g.Uhrzeit uhrzeit, g.Raum raum, group_concat(distinct ben.Benutzer) betreuer,
     group_concat(distinct s.Vorname) studenten, group_concat(distinct t.Datum) termine
     from gruppe g
     LEFT join betreut bet on bet.Gruppe_FK=g.ID

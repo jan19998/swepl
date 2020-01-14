@@ -19,6 +19,16 @@
                         <input class="mt-1 form-control col mr-3" type="text" id="createGruppeRaum"
                                name="createGruppeRaum" required>
                     </div>
+                    <div class="row form-group">
+                        <label class="mt-1 col-4" for="createGruppeUhrzeit">Uhrzeit</label>
+                        <input class="mt-1 form-control col mr-3" type="time" id="createGruppeUhrzeit"
+                               name="createGruppeUhrzeit" required>
+                    </div>
+                    <div class="row form-group">
+                        <label class="mt-1 col-4" for="createGruppeWochentag">Wochentag</label>
+                        <input class="mt-1 form-control col mr-3" type="text" id="createGruppeWochentag"
+                               name="createGruppeWochentag" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default" id="createGruppeSubmit">Speichern
@@ -52,6 +62,16 @@
                         <label class="mt-1 col-4" for="editGruppeRaum">Raum</label>
                         <input class="mt-1 form-control col mr-3" type="text" id="editGruppeRaum"
                                name="editGruppeRaum" required>
+                    </div>
+                    <div class="row form-group">
+                        <label class="mt-1 col-4" for="editGruppeUhrzeit">Uhrzeit</label>
+                        <input class="mt-1 form-control col mr-3" type="time" id="editGruppeUhrzeit"
+                               name="editGruppeUhrzeit" required>
+                    </div>
+                    <div class="row form-group">
+                        <label class="mt-1 col-4" for="editGruppeWochentag">Wochentag</label>
+                        <input class="mt-1 form-control col mr-3" type="text" id="editGruppeWochentag"
+                               name="editGruppeWochentag" required>
                     </div>
                 </div>
                 <div class="modal-footer">

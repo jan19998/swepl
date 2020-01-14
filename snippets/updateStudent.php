@@ -10,16 +10,24 @@ $nachname = $_POST['editStudentNachname'];
 $email = $_POST['editStudentEmail'];
 $gruppe = $_POST['editStudentGruppe'];
 
-$query = "update student
+if ($gruppe != "keine")
+    $query = "update student
     set Matrikelnummer='$matrikel', Vorname='$vorname', Nachname='$nachname', Gruppe_FK ='$gruppe', `E-Mail`='$email'
+    where ID='$id'";
+else
+    $query = "update student
+    set Matrikelnummer='$matrikel', Vorname='$vorname', Nachname='$nachname', `E-Mail`='$email', Gruppe_FK=null
     where ID='$id'";
 
 mysqli_query($db->getConnection(), $query);
 
-$query = "select Gruppennummer from gruppe where ID='$gruppe'";
-$result = mysqli_query($db->getConnection(), $query);
-$gruppenname = mysqli_fetch_all($result, MYSQLI_ASSOC);
+if ($gruppe != "keine") {
+    $query = "select Gruppennummer from gruppe where ID='$gruppe'";
+    $result = mysqli_query($db->getConnection(), $query);
+    $gruppenname = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    echo json_encode($gruppenname[0]['Gruppennummer']);
+}else
+    echo json_encode(null);
 
 $db->close();
 
-echo json_encode($gruppenname[0]['Gruppennummer']);

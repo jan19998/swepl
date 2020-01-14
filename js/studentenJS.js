@@ -35,6 +35,7 @@ $(document).ready()
             type: "post",
             success: function (response) {
                 document.getElementById("createStudentGruppe").innerHTML = "";
+                $("#createStudentGruppe").append("<option value='keine' selected>Keine Gruppe</option>");
 
                 JSON.parse(response).forEach(function (data, index) {
                     $("#createStudentGruppe").append("<option value='" + data.ID + "'" + ">" + data.Gruppennummer + "</option>");
@@ -105,6 +106,10 @@ function editStudent(id = null) {
                 dataType: 'json',
                 success: function (response) {
                     document.getElementById("editStudentGruppe").innerHTML = "";
+                    if(!response.Gruppennummer)
+                        $("#editStudentGruppe").append("<option selected value='keine'>Keine Gruppe</option>");
+                    else
+                        $("#editStudentGruppe").append("<option value='keine'>Keine Gruppe</option>");
 
                     JSON.parse(gruppen).forEach(function (data, index) {
                         if (data.Gruppennummer == response.Gruppennummer)
@@ -125,7 +130,6 @@ function editStudent(id = null) {
                         var nachname = $("#editStudentNachname").val();
                         var vorname = $("#editStudentVorname").val();
                         var email = $("#editStudentEmail").val();
-                        var gruppe = $("#editStudentGruppe").val();
                         $.ajax({
                             url: form.attr('action'),
                             type: form.attr('method'),

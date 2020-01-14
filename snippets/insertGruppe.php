@@ -6,9 +6,11 @@ $db = new dbconnect();
 $gruppenname = $_POST['createGruppeGruppenname'];
 $raum = $_POST['createGruppeRaum'];
 $semester = $_SESSION['jahr'];
+$wochentag = $_POST['createGruppeWochentag'];
+$uhrzeit = $_POST['createGruppeUhrzeit'];
 
-$query = "insert into gruppe(Gruppennummer, Semester_FK, Raum)
-    values('$gruppenname', '$semester', '$raum')";
+$query = "insert into gruppe(Gruppennummer, Semester_FK, Raum, Wochentag, Uhrzeit)
+    values('$gruppenname', '$semester', '$raum', '$wochentag', '$uhrzeit')";
 
 mysqli_query($db->getConnection(), $query);
 

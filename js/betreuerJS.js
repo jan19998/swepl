@@ -35,6 +35,7 @@ $(document).ready()
             type: "post",
             success: function (gruppen) {
                 document.getElementById("createBetreuerGruppe").innerHTML = "";
+                $("#createBetreuerGruppe").append("<option selected value='keine'>Keine Gruppe</option>");
 
                 JSON.parse(gruppen).forEach(function (data, index) {
                     $("#createBetreuerGruppe").append("<option value='" + data.ID + "'" + ">" + data.Gruppennummer + "</option>");
@@ -47,7 +48,6 @@ $(document).ready()
                     var nachname = $("#createBetreuerNachname").val();
                     var vorname = $("#createBetreuerVorname").val();
                     var email = $("#createBetreuerEmail").val();
-                    var gruppe = $("#createBetreuerGruppe").val();
                     $.ajax({
                         url: form.attr('action'),
                         type: form.attr('method'),
@@ -106,6 +106,10 @@ function editBetreuer(id = null) {
                 dataType: 'json',
                 success: function (response) {
                     document.getElementById("editBetreuerGruppe").innerHTML = "";
+                    if(response.Gruppennummer == null)
+                        $("#editBetreuerGruppe").append("<option selected value='keine'>Keine Gruppe</option>");
+                    else
+                        $("#editBetreuerGruppe").append("<option value='keine'>Keine Gruppe</option>");
 
                     JSON.parse(gruppen).forEach(function (data, index) {
                         if (data.Gruppennummer == response.Gruppennummer)
@@ -124,7 +128,6 @@ function editBetreuer(id = null) {
                         var nachname = $("#editBetreuerNachname").val();
                         var vorname = $("#editBetreuerVorname").val();
                         var email = $("#editBetreuerEmail").val();
-                        var gruppe = $("#editBetreuerGruppe").val();
                         var benutzername = $("#editBetreuerBenutzername").val();
                         $.ajax({
                             url: form.attr('action'),

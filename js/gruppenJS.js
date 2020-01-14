@@ -2,6 +2,8 @@ function detailGruppeFormatter(index, row) {
     return 'Gruppenname: ' + row['gruppenname'] + '<br>'
         + 'Termine: ' + row['termine'] + '<br>'
         + 'Raum: ' + row['raum'] + '<br>'
+        + 'Wochentag: ' + row['wochentag'] + '<br>'
+        + 'Uhrzeit: ' + row['uhrzeit'] + '<br>'
         + 'Betreuer: ' + row['betreuer'] + '<br>'
         + 'Studenten: ' + row['studenten'];
 }
@@ -35,6 +37,8 @@ $(document).ready()
             var form = $(this);
             var gruppenname = $("#createGruppeGruppenname").val();
             var raum = $("#createGruppeRaum").val();
+            var wochentag = $("#createGruppeWochentag").val();
+            var uhrzeit = $("#createGruppeUhrzeit").val();
             $.ajax({
                 url: form.attr('action'),
                 type: form.attr('method'),
@@ -46,7 +50,12 @@ $(document).ready()
                         row: {
                             id: response,
                             gruppenname: gruppenname,
-                            raum: raum
+                            termine: null,
+                            betreuer: null,
+                            studenten: null,
+                            raum: raum,
+                            wochentag: wochentag,
+                            uhrzeit: uhrzeit + ':00'
                         }
                     });
                     $("#createGruppeForm")[0].reset();
@@ -86,16 +95,16 @@ $(document).ready()
             success: function (response) {
                 $("#editGruppeGruppenname").val(response.Gruppennummer);
                 $("#editGruppeRaum").val(response.Raum);
-                $("#editGruppeTermine").val("");
-                $("#editGruppeBetreuer").val("");
+                $("#editGruppeWochentag").val(response.Wochentag);
+                $("#editGruppeUhrzeit").val(response.Uhrzeit);
                 $("#editGruppeId").val(response['ID']);
                 $("#editGruppeForm").unbind("submit").bind("submit", function () {
                     var form = $(this);
                     var id = $("#editGruppeId").val();
                     var gruppenname = $("#editGruppeGruppenname").val();
-                    var termine = $("#editGruppeTermine").val();
                     var raum = $("#editGruppeRaum").val();
-                    var betreuer = $("#editGruppeBetreuer").val();
+                    var wochentag = $("#editGruppeWochentag").val();
+                    var uhrzeit = $("#editGruppeUhrzeit").val();
                     $.ajax({
                         url: form.attr('action'),
                         type: form.attr('method'),
@@ -106,9 +115,9 @@ $(document).ready()
                                 row: {
                                     id: id,
                                     gruppenname: gruppenname,
-                                    termine: termine,
                                     raum: raum,
-                                    betreuer: betreuer,
+                                    wochentag: wochentag,
+                                    uhrzeit: uhrzeit + ':00'
                                 }
                             });
                             $("#editGruppeModal").modal("hide");

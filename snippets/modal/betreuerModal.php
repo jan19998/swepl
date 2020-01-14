@@ -27,7 +27,7 @@
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="createBetreuerGruppe">Gruppe</label>
                         <select class="mt-1 form-control col mr-3" id="createBetreuerGruppe"
-                                name="createBetreuerGruppe"></select>
+                                name="createBetreuerGruppe" required></select>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 mb-2 col-4" for="createBetreuerEmail">E-Mail</label>
@@ -81,7 +81,7 @@
                     <div class="row form-group">
                         <label class="mt-1 col-4" for="editBetreuerGruppe">Gruppe</label>
                         <select class="mt-1 form-control col mr-3" id="editBetreuerGruppe"
-                                name="editBetreuerGruppe"></select>
+                                name="editBetreuerGruppe" required></select>
                     </div>
                     <div class="row form-group">
                         <label class="mt-1 mb-2 col-4" for="editBetreuerEmail">E-Mail</label>

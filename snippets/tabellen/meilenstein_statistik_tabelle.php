@@ -7,10 +7,13 @@ $remoteConnection = mysqli_connect(
     "127.0.0.1", "root","","swepl"
 );
 
-$query = 'SELECT mg.Bezeichnung,m.`Status` FROM Meilenstein m,Gruppe g,Meilenstein_Global mg
-          WHERE g.Semester_FK = "'.$_SESSION['semester'].'"
-          AND m.Gruppe_FK = g.ID
-          AND m.Meilenstein_FK = mg.ID';
+$query = 'SELECT Frist, Bezeichnung,Meilenstein.`Status`
+FROM Meilenstein_Global 
+iNNER JOIN Semester ON Semester.Kennung = Meilenstein_Global.Semester_FK
+Inner JOIN Gruppe on Semester.Kennung = Gruppe.Semester_FK
+LEFT JOIN Meilenstein ON Meilenstein_Global.ID = Meilenstein.Meilenstein_FK AND Gruppe.ID = Meilenstein.Gruppe_FK
+Where Gruppe.ID = (Select ID from Gruppe where Gruppennummer = "'.$_SESSION['gruppe'].'" and Semester_FK = "'.$_SESSION['semester'].'")
+;';
 
 ?>
 <div id="ms_table_scroll" class="table-responsive">
@@ -31,17 +34,21 @@ $query = 'SELECT mg.Bezeichnung,m.`Status` FROM Meilenstein m,Gruppe g,Meilenste
                         echo $row['Bezeichnung'];
                     echo '</td>';
                     echo '<td>';
-                        if ($row['Status']) {
+                        if ($row['Status'] == 1) {
                             echo '<i class="fa fa-check"></i>';
-                        } else {
+                        } else if($row['Status'] == 0) {
+                            echo '<i class="fa fa-times"></i>';
+                        } else{
                             echo '<i class="fa fa-times"></i>';
                         }
                     echo '</td>';
                     echo '<td>';
-                        if (!$row['Status']) {
+                        if ($row['Status'] == 0) {
                             echo '<i class="fa fa-check"></i>';
-                        } else {
+                        } else if($row['Status'] == 1){
                             echo '<i class="fa fa-times"></i>';
+                        } else {
+                            echo '<i class="fa fa-check"></i>';
                         }
                     echo '</td>';
                 echo '</tr>';

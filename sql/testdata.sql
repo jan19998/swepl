@@ -10,16 +10,16 @@ INSERT INTO Semester(Kennung) VALUES
 ('ws18/19'),
 ('ws19/20');
 
-INSERT INTO Gruppe(Gruppennummer,Semester_FK) VALUES
-('e1','ws17/18'),
-('e2','ws17/18'),
-('e3','ws17/18'),
-('e1','ws18/19'),
-('e2','ws18/19'),
-('e3','ws18/19'),
-('e1','ws19/20'),
-('e2','ws19/20'),
-('e9','ws19/20');
+INSERT INTO Gruppe(Gruppennummer,Semester_FK, Raum, Wochentag, Uhrzeit) VALUES
+('e1','ws17/18','G111','Montag','11:00:00'),
+('e2','ws17/18','G112','Dienstag','11:45:00'),
+('e3','ws17/18','G113','Mittwoch','12:30:00'),
+('e1','ws18/19','G114','Donnerstag','13:15:00'),
+('e2','ws18/19','G115','Freitag','15:00:00'),
+('e3','ws18/19','G116','Montag','15:45:00'),
+('e1','ws19/20','G117','Dienstag','11:00:00'),
+('e2','ws19/20','G118','Mittwoch','11:45:00'),
+('e9','ws19/20','G119','Donnerstag','12:30:00');
 
 INSERT INTO Student(Vorname,Nachname,Matrikelnummer,`E-Mail`,Semester_FK,Gruppe_FK) VALUES 
 ('e1test1','ws17/18',111111111,'e1test1ws17/18@testmail.com','ws17/18',(SELECT `ID` FROM `Gruppe` WHERE `Gruppennummer`='e1' AND Semester_FK = 'ws17/18')),

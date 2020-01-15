@@ -23,7 +23,7 @@
             <th data-field="gruppenname" data-sortable="true">Gruppenname</th>
             <th data-field="termine" data-visible="false">Termine</th>
             <th data-field="raum">Raum</th>
-            <th data-field="urhzeit">Uhrzeit</th>
+            <th data-field="uhrzeit">Uhrzeit</th>
             <th data-field="wochentag">Wochentag</th>
             <th data-field="betreuer" data-visible="false">Betreuer</th>
             <th data-field="studenten" data-visible="false">Studenten</th>
@@ -32,6 +32,5 @@
             </th>
         </tr>
         </thead>
-
     </table>
 </div>

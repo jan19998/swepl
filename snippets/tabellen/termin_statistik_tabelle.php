@@ -1,8 +1,8 @@
 <?php
-$anzahlTermineinsgesamt = 0;
-$anzahlTermine = 0;
+$letztematrikelnummer = (string)"NULL";
+$positiondatum = (int)0;
 
-$query1 ='SELECT CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum
+$query1 ='SELECT CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datumausgabe, t.Datum
 From Termin t 
 JOIN Gruppe g ON t.Gruppe_FK = g.ID
 WHERE EXISTS (SELECT i.Student_FK FROM `ist bei` i WHERE  i.Termin_FK = t.ID)
@@ -10,7 +10,7 @@ WHERE EXISTS (SELECT i.Student_FK FROM `ist bei` i WHERE  i.Termin_FK = t.ID)
 	AND t.Gruppe_FK = g.ID
     AND t.Semester_FK = "'.$_SESSION['semester'].'"
 GROUP BY t.Datum;';
-$query2 ='SELECT CONCAT(s.Vorname," ", s.Nachname) AS Name, s.Matrikelnummer AS Matrikelnummer, CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum, i.Anwesend AS Anwesend
+$query2 ='SELECT CONCAT(s.Vorname," ", s.Nachname) AS Name, s.Matrikelnummer AS Matrikelnummer, t.Datum, i.Anwesend AS Anwesend
 FROM Student  s
 JOIN `ist bei`  i ON i.Student_FK = s.ID
 JOIN Termin t ON i.Termin_FK = t.ID
@@ -19,8 +19,22 @@ JOIN Gruppe g ON t.Gruppe_FK = g.ID
 	AND t.Gruppe_FK = g.ID
     AND t.Semester_FK = "'.$_SESSION['semester'].'"
 GROUP BY s.Matrikelnummer,t.Datum;';
-?>
 
+$arraytermmin = array();
+if($result = mysqli_query($remoteConnection,$query1)) {
+    while ($row = mysqli_fetch_assoc($result))
+    {
+        array_push($arraytermmin,$row);
+    };
+};
+$arrayanwesenheit = array();
+if($result = mysqli_query($remoteConnection,$query2)) {
+    while ($row = mysqli_fetch_assoc($result)) {
+array_push($arrayanwesenheit,$row);
+    };
+};
+
+?>
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -29,9 +43,8 @@ GROUP BY s.Matrikelnummer,t.Datum;';
             <th scope="col" class="text-center table_width_statisitc">Name</th>
             <?php
             if($result = mysqli_query($remoteConnection,$query1)) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<th scope="col " class="text-center">' . $row['Datum'] . '</th>';
-                    $anzahlTermineinsgesamt++;
+                for($i = 0; $i < count($arraytermmin); ++$i) {
+                    echo '<th scope="col " class="text-center">' . $arraytermmin[$i]['Datumausgabe'] . '</th>';
                 };
             };
             ?>
@@ -39,147 +52,62 @@ GROUP BY s.Matrikelnummer,t.Datum;';
         </thead>
         <tbody>
         <?php
-        if($result = mysqli_query($remoteConnection,$query2)) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                if($anzahlTermine == 0)
+        if(count($arrayanwesenheit) > 0) {
+            $i = 0;
+            while($i < count($arrayanwesenheit)) {
+                // Zeilenwechsel
+                if($letztematrikelnummer != $arrayanwesenheit[$i]['Matrikelnummer'])
                 {
-                    echo '<tr></tr><td class="text-center">' . $row['Matrikelnummer'] . '</td>
-                    <td class="text-center">' . $row['Name'] . '</td>';
+                    if($i != 0) {
+                        //letzten Spalten der Alten Zeile füllen
+                        while($positiondatum < count($arraytermmin)){
+                            echo '<td class="text-center"><i class="fa fa-question"></i></td>';
+                            $positiondatum++;
+                        }
+                        $positiondatum = 0;
+                    }
+                    // Matrikelnummer und Name schreiben
+                    echo '</tr><tr></tr><td class="text-center">' . $arrayanwesenheit[$i]['Matrikelnummer'] . '</td>
+                    <td class="text-center">' . $arrayanwesenheit[$i]['Name'] . '</td>';
                 }
-                echo '<td class="text-center">';
-                if ($row['Anwesend']) {
-                    echo '<i class="fa fa-check"></i>';
-                } else {
-                    echo '<i class="fa fa-times"></i>';
+                //Abbrechen wenn Position über das Datum Array fällt, sollte nicht möglich sein
+                elseif ($positiondatum == count($arraytermmin)){
+                    break;
                 }
-                echo '</td>';
-                $anzahlTermine++;
-                if ($anzahlTermine == $anzahlTermineinsgesamt )
-                {$anzahlTermine = 0;
-                echo '</tr>';}
+                $letztematrikelnummer = $arrayanwesenheit[$i]['Matrikelnummer'];
+                //Anwesenheit wenn Datum Stimmt
+                if($arrayanwesenheit[$i]['Datum'] == $arraytermmin[$positiondatum]['Datum'])
+                {
+                    if ($arrayanwesenheit[$i]['Anwesend']) {
+                        echo '<td class="text-center"><i class="fa fa-check"></i></td>';
+                    }
+                    else if (!$arrayanwesenheit[$i]['Anwesend']) {
+                        echo '<td class="text-center"><i class="fa fa-times"></i></td>';
+                    }
+                    $positiondatum++;
+                    $i++;
+                }
+                //Falls Datum nicht übereinstimmt
+                else {
+                    //Falls Termin Datum eine Spalte Weiter rechts sein müsste
+                    if($arrayanwesenheit[$i]['Datum'] > $arraytermmin[$positiondatum]['Datum']) {
+                        echo '<td class="text-center"><i class="fa fa-question"></i></td>';
+                        $positiondatum++;
+                    }
+                    // Falls die Spalte nicht exisitiert sollte nicht vor kommen
+                    else{
+                        $i++;
+                    }
+                }
             };
+            //Falls Letzte Person am ende keine Daten mehr hat
+            while ($positiondatum < count($arraytermmin)){
+                echo '<td class="text-center"><i class="fa fa-question"></i></td>';
+                $positiondatum++;
+            };
+            echo '</tr>';
         };
         ?>
         </tbody>
     </table>
 </div>
-
-<!--
-        <th>
-            Name
-        </th>
-        <td>Max Mustermann</td>
-        <td>Max Mustermann</td>
-        <td>Max Mustermann</td>
-        <th>10.10</th>
-            <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-            <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-            <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <th>10.10</th>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <th>10.10</th>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <th>10.10</th>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <th>10.10</th>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <th>10.10</th>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <th>10.10</th>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
-        <tr> <input class="checkbox" type="checkbox" checked disabled> </tr>
--->
-
-
-
-<!--
-        <tr>
-            <th scope="col position-static">Name</th>
-            <th scope="col">10.10</th>
-            <th scope="col">17.10</th>
-            <th scope="col">24.10</th>
-            <th scope="col">31.10</th>
-            <th scope="col">7.11</th>
-            <th scope="col">14.11</th>
-            <th scope="col">21.11</th>
-            <th scope="col">28.11</th>
-            <th scope="col">4.12</th>
-            <th scope="col">14.11</th>
-            <th scope="col">11.12</th>
-            <th scope="col">18.12</th>
-            <th scope="col">25.12</th>
-            <th scope="col">2.1</th>
-            <th scope="col">9.1</th>
-            <th scope="col">16.1</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row">Max Mustermann</th>
-            <td> <input class="checkbox" type="checkbox" checked disabled> </td>
-            <td><input class="checkbox" type="checkbox" disabled></td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <th scope="row">Max Mustermann</th>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <th scope="row">Max Mustermann</th>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-
--->

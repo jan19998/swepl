@@ -29,6 +29,12 @@
                         <input class="mt-1 form-control col mr-3" type="text" id="createGruppeWochentag"
                                name="createGruppeWochentag" required>
                     </div>
+                    <div class="row form-group">
+                        <label class="mt-1 col-4" for="createGruppeBetreuer">Wochentag</label>
+                        <select class="mt-1 form-control col mr-3" id="createGruppeBetreuer"
+                                name="createGruppeBetreuer[]" multiple required>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default" id="createGruppeSubmit">Speichern
@@ -72,6 +78,12 @@
                         <label class="mt-1 col-4" for="editGruppeWochentag">Wochentag</label>
                         <input class="mt-1 form-control col mr-3" type="text" id="editGruppeWochentag"
                                name="editGruppeWochentag" required>
+                    </div>
+                    <div class="row form-group">
+                        <label class="mt-1 col-4" for="editGruppeBetreuer">Wochentag</label>
+                        <select class="mt-1 form-control col mr-3" id="editGruppeBetreuer"
+                                name="editGruppeBetreuer[]" multiple required>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

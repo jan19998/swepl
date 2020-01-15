@@ -30,48 +30,35 @@ $(document).ready()
 {
 
     $("#createBetreuerButton").on("click", function () {
-        $.ajax({
-            url: "snippets/retrieveGruppenname.php",
-            type: "post",
-            success: function (gruppen) {
-                document.getElementById("createBetreuerGruppe").innerHTML = "";
-                $("#createBetreuerGruppe").append("<option selected value='keine'>Keine Gruppe</option>");
-
-                JSON.parse(gruppen).forEach(function (data, index) {
-                    $("#createBetreuerGruppe").append("<option value='" + data.ID + "'" + ">" + data.Gruppennummer + "</option>");
-                });
-
-                $("#createBetreuerForm")[0].reset();
-                $("#createBetreuerForm").unbind("submit").bind("submit", function () {
-                    var form = $(this);
-                    var benutzername = $("#createBetreuerBenutzername").val();
-                    var nachname = $("#createBetreuerNachname").val();
-                    var vorname = $("#createBetreuerVorname").val();
-                    var email = $("#createBetreuerEmail").val();
-                    $.ajax({
-                        url: form.attr('action'),
-                        type: form.attr('method'),
-                        data: form.serialize(),
-                        dataType: 'json',
-                        success: function (response) {
-                            $tablebetreuer.bootstrapTable('insertRow', {
-                                index: 0,
-                                row: {
-                                    id: response.id,
-                                    benutzername: benutzername,
-                                    vorname: vorname,
-                                    nachname: nachname,
-                                    gruppe: response.gruppe,
-                                    email: email
-                                }
-                            });
-                            $("#createBetreuerForm")[0].reset();
-                            $("#createBetreuerModal").modal("hide");
+        $("#createBetreuerForm")[0].reset();
+        $("#createBetreuerForm").unbind("submit").bind("submit", function () {
+            var form = $(this);
+            var benutzername = $("#createBetreuerBenutzername").val();
+            var nachname = $("#createBetreuerNachname").val();
+            var vorname = $("#createBetreuerVorname").val();
+            var email = $("#createBetreuerEmail").val();
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: form.serialize(),
+                dataType: 'json',
+                success: function (response) {
+                    $tablebetreuer.bootstrapTable('insertRow', {
+                        index: 0,
+                        row: {
+                            id: response.id,
+                            benutzername: benutzername,
+                            vorname: vorname,
+                            nachname: nachname,
+                            gruppe: null,
+                            email: email
                         }
                     });
-                    return false;
-                });
-            }
+                    $("#createBetreuerForm")[0].reset();
+                    $("#createBetreuerModal").modal("hide");
+                }
+            });
+            return false;
         });
     });
 
@@ -93,63 +80,44 @@ function delBetreuer(id = null) {
 }
 
 function editBetreuer(id = null) {
+    $("#editBetreuerModal").modal();
+    $("#editBetreuerId").val(0);
     $.ajax({
-        url: "snippets/retrieveGruppenname.php",
-        type: "post",
-        success: function (gruppen) {
-            $("#editBetreuerModal").modal();
-            $("#editBetreuerId").val(0);
-            $.ajax({
-                url: 'snippets/retrieveSingleBetreuer.php',
-                type: 'post',
-                data: {rid: id},
-                dataType: 'json',
-                success: function (response) {
-                    document.getElementById("editBetreuerGruppe").innerHTML = "";
-                    if(response.Gruppennummer == null)
-                        $("#editBetreuerGruppe").append("<option selected value='keine'>Keine Gruppe</option>");
-                    else
-                        $("#editBetreuerGruppe").append("<option value='keine'>Keine Gruppe</option>");
-
-                    JSON.parse(gruppen).forEach(function (data, index) {
-                        if (data.Gruppennummer == response.Gruppennummer)
-                            $("#editBetreuerGruppe").append("<option selected value='" + data.ID + "'" + ">" + data.Gruppennummer + "</option>");
-                        else
-                            $("#editBetreuerGruppe").append("<option value='" + data.ID + "'" + ">" + data.Gruppennummer + "</option>");
-                    });
-                    $("#editBetreuerNachname").val(response.Nachname);
-                    $("#editBetreuerVorname").val(response.Vorname);
-                    $("#editBetreuerEmail").val(response['E-Mail']);
-                    $("#editBetreuerId").val(response['ID']);
-                    $("#editBetreuerBenutzername").val(response.Benutzer);
-                    $("#editBetreuerForm").unbind("submit").bind("submit", function () {
-                        var form = $(this);
-                        var id = $("#editBetreuerId").val();
-                        var nachname = $("#editBetreuerNachname").val();
-                        var vorname = $("#editBetreuerVorname").val();
-                        var email = $("#editBetreuerEmail").val();
-                        var benutzername = $("#editBetreuerBenutzername").val();
-                        $.ajax({
-                            url: form.attr('action'),
-                            type: form.attr('method'),
-                            data: form.serialize(),
-                            success: function (gruppenname) {
-                                $tablebetreuer.bootstrapTable("updateByUniqueId", {
-                                    id: id,
-                                    row: {
-                                        benutzername: benutzername,
-                                        nachname: nachname,
-                                        vorname: vorname,
-                                        email: email,
-                                        gruppe: JSON.parse(gruppenname)
-                                    }
-                                });
-                                $("#editBetreuerModal").modal("hide");
+        url: 'snippets/retrieveSingleBetreuer.php',
+        type: 'post',
+        data: {rid: id},
+        dataType: 'json',
+        success: function (response) {
+            $("#editBetreuerNachname").val(response.Nachname);
+            $("#editBetreuerVorname").val(response.Vorname);
+            $("#editBetreuerEmail").val(response['E-Mail']);
+            $("#editBetreuerId").val(response['ID']);
+            $("#editBetreuerBenutzername").val(response.Benutzer);
+            $("#editBetreuerForm").unbind("submit").bind("submit", function () {
+                var form = $(this);
+                var id = $("#editBetreuerId").val();
+                var nachname = $("#editBetreuerNachname").val();
+                var vorname = $("#editBetreuerVorname").val();
+                var email = $("#editBetreuerEmail").val();
+                var benutzername = $("#editBetreuerBenutzername").val();
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: form.serialize(),
+                    success: function () {
+                        $tablebetreuer.bootstrapTable("updateByUniqueId", {
+                            id: id,
+                            row: {
+                                benutzername: benutzername,
+                                nachname: nachname,
+                                vorname: vorname,
+                                email: email
                             }
                         });
-                        return false;
-                    });
-                }
+                        $("#editBetreuerModal").modal("hide");
+                    }
+                });
+                return false;
             });
         }
     });

@@ -3,9 +3,6 @@
 //$gruppen_id = $_SESSION['selected_group_id']
 $semester = $_SESSION['semester'];
 $gruppe = $_SESSION['gruppe'];
-$remoteConnection = mysqli_connect(
-    "127.0.0.1", "root","","swepl"
-);
 $query = "SELECT Frist, Bezeichnung,Meilenstein.Beendet
 FROM Meilenstein_Global 
 iNNER JOIN Semester ON Semester.Kennung = Meilenstein_Global.Semester_FK

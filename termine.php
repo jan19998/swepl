@@ -2,9 +2,7 @@
 $gruppe = 'e9';
 $email = "";
 $i = 0;
-$remoteConnection = mysqli_connect(
-    "127.0.0.1", "root", "", "swepl"
-); ?>
+?>
 <div class="row">
     <div class="col-12">
         <?php //$id = (int) $_GET['id'];
@@ -24,7 +22,6 @@ $remoteConnection = mysqli_connect(
 <?php
             }
         }
-        mysqli_close($remoteConnection);
         ?>
     </div>
 </div>

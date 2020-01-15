@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once __DIR__ ."/../vendor/autoload.php";
 $error=null; //Um die Error message zu speichern;
 if(isset($_SESSION['rolle']) and isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true)
 {
@@ -18,7 +18,16 @@ if(isset($_POST['email']) and $_POST['email'] != "" and isset($_POST['passwort']
         $user=$_POST['email'];
         $password = $_POST['passwort'];
         //Datenbankverbindung herstellen
-        $remoteConnection = mysqli_connect("127.0.0.1", "root", "", "swepl");
+    $dotenv = Dotenv\Dotenv::create(__DIR__, '/../.env');
+    $dotenv->load();
+    $dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PORT']);
+    $remoteConnection = mysqli_connect(
+        getenv('DB_HOST'),
+        getenv('DB_USER'),
+        getenv('DB_PASS'),
+        getenv('DB_NAME'),
+        (int)getenv('DB_PORT')
+    );
         //Datenbank auswählen
         $db = mysqli_select_db($remoteConnection, "swepl");
         //Datenbank nach eingegebener Email und Passwort durchsuchen

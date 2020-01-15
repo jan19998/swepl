@@ -2,10 +2,6 @@
     $email = "";
     $i = 0;
 
-$remoteConnection = mysqli_connect(
-        "127.0.0.1", "root","","swepl"
-);
-
 $query1 = 'SELECT s.`E-Mail` FROM swepl.Student s,swepl.Gruppe g 
                        WHERE g.Semester_FK = "'.$_SESSION['semester'].'"
                        AND s.Semester_FK = "'.$_SESSION['semester'].'"
@@ -53,6 +49,5 @@ $query2 = 'SELECT s.Vorname,s.Nachname,s.Matrikelnummer,s.`E-Mail` FROM swepl.St
             echo '</div>';
         }
     }
-    mysqli_close($remoteConnection);
     ?>
 </div>

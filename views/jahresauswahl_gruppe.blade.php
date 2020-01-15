@@ -1,7 +1,15 @@
 <div class="row">
     <?php
+    require_once __DIR__ ."/../vendor/autoload.php";
+    $dotenv = Dotenv\Dotenv::create(__DIR__, '/../.env');
+    $dotenv->load();
+    $dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PORT']);
     $remoteConnection = mysqli_connect(
-        "127.0.0.1", "root", "", "swepl"
+        getenv('DB_HOST'),
+        getenv('DB_USER'),
+        getenv('DB_PASS'),
+        getenv('DB_NAME'),
+        (int)getenv('DB_PORT')
     );
 
     $query = "SELECT g.Gruppennummer, g.Raum FROM Gruppe AS g

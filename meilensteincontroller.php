@@ -1,10 +1,19 @@
 <?php
 session_start();
+require_once __DIR__ ."/vendor/autoload.php";
+$dotenv = Dotenv\Dotenv::create(__DIR__, '.env');
+$dotenv->load();
+$dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PORT']);
+$remoteConnection = mysqli_connect(
+    getenv('DB_HOST'),
+    getenv('DB_USER'),
+    getenv('DB_PASS'),
+    getenv('DB_NAME'),
+    (int)getenv('DB_PORT')
+);
+
 $gruppen_id = $_SESSION['gruppe'];
 $semester = $_SESSION['semester'];
-$remoteConnection = mysqli_connect(
-    "127.0.0.1", "root", "", "swepl"
-);
 
 if(isset($_POST['date_of_completion']) and isset($_POST['selected_milestone'])) {
     $date = $_POST['date_of_completion'];

@@ -1,12 +1,20 @@
 <?php
+require __DIR__ ."/vendor/autoload.php";
+$dotenv = Dotenv\Dotenv::create(__DIR__, '.env');
+$dotenv->load();
+$dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PORT']);
+$remoteConnection = mysqli_connect(
+    getenv('DB_HOST'),
+    getenv('DB_USER'),
+    getenv('DB_PASS'),
+    getenv('DB_NAME'),
+    (int)getenv('DB_PORT')
+);
 session_start();
 $semester = $_SESSION['semester'];
 $gruppe = $_SESSION['gruppe'];
 //$email = "";
 //$i = 0;
-$remoteConnection = mysqli_connect(
-    "127.0.0.1", "root", "", "swepl"
-);
 //$id = (int)$_GET['id'];
 //$grpfk = (int)$_GET['grpfk'];
 $query = "SELECT ID FROM student WHERE Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester');";

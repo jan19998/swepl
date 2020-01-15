@@ -3,9 +3,6 @@
     $neutral = 0;
     $negativ = 0;
 
-    $remoteConnection = mysqli_connect(
-        "127.0.0.1", "root","","swepl"
-    );
 
     $query = 'SELECT 
                b.Bewertung

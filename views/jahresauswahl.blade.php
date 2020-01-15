@@ -35,7 +35,7 @@ INNER JOIN Gruppe AS g ON g.`Semester_FK` = s.Kennung
 INNER JOIN `betreut` AS b ON b.`Gruppe_FK` = g.ID
 INNER JOIN `Benutzer` AS be ON b.`Benutzer_FK` = be.`ID`
 WHERE be.`E-Mail` ='".$_SESSION['user']."'ORDER BY s.Kennung DESC;";
-    if ($result = mysqli_query($connect, $query)) {
+    if ($result = mysqli_query($remoteConnection, $query)) {
         while ($row = mysqli_fetch_assoc($result)) {
             array_push($kennung, $row);
         }

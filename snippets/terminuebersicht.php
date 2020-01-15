@@ -1,9 +1,6 @@
 <div class="row">
     <div class="col-12">
         <?php
-        $remoteConnection = mysqli_connect(
-            "127.0.0.1", "root", "", "swepl"
-        );
             $gruppe = $_SESSION['gruppe'];
             $semester = $_SESSION['semester'];
             $query = "SELECT Termin.Datum,Gruppe.Semester_FK,Gruppe.ID,Gruppe.Gruppennummer FROM Gruppe

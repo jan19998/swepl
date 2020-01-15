@@ -2,9 +2,6 @@
 $anzahlTermineinsgesamt = 0;
 $anzahlTermine = 0;
 
-$remoteConnection = mysqli_connect(
-    "127.0.0.1", "root","","swepl"
-);
 $query1 ='SELECT CONCAT( DAYOFMONTH(t.Datum),".",MONTH(t.Datum),".",YEAR(t.Datum)) AS Datum
 From Termin t 
 JOIN Gruppe g ON t.Gruppe_FK = g.ID

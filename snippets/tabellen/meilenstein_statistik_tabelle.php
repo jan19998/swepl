@@ -3,9 +3,6 @@
 $semester = 'ws19/20';
 $gruppe = 'e9';
 
-$remoteConnection = mysqli_connect(
-    "127.0.0.1", "root","","swepl"
-);
 
 $query = 'SELECT Frist, Bezeichnung,Meilenstein.`Status`
 FROM Meilenstein_Global 

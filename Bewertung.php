@@ -16,9 +16,7 @@
 //$gruppe = 'e9';
 //$email = "";
 //$i = 0;
-$remoteConnection = mysqli_connect(
-    "127.0.0.1", "root", "", "swepl"
-); ?>
+ ?>
 <?php
 ?>
 <?php $gruppe = 'e9' ?>

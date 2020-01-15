@@ -13,13 +13,25 @@
         </div>
     </div>
     <?php
-    $dbname = 'swepl';
+    /*$dbname = 'swepl';
     $dbuser = 'root';
     $dbpass = '';
     $dbhost = '127.0.0.1';
 
-    $connect = mysqli_connect($dbhost, $dbuser, $dbpass) or die("Unable to Connect to '$dbhost'");
-    mysqli_select_db($connect, $dbname) or die("Could not open the db '$dbname'");
+    $remoteConnection = mysqli_connect($dbhost, $dbuser, $dbpass) or die("Unable to Connect to '$dbhost'");
+    mysqli_select_db($remoteConnection, $dbname) or die("Could not open the db '$dbname'");*/
+
+    require_once __DIR__ ."/../vendor/autoload.php";
+    $dotenv = Dotenv\Dotenv::create(__DIR__, '/../.env');
+    $dotenv->load();
+    $dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PORT']);
+    $remoteConnection = mysqli_connect(
+        getenv('DB_HOST'),
+        getenv('DB_USER'),
+        getenv('DB_PASS'),
+        getenv('DB_NAME'),
+        (int)getenv('DB_PORT')
+    );
 
     //require_once "snippets/dbconnect.php";
     //$db = new dbconnect();

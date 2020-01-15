@@ -9,7 +9,7 @@
         </div>
     </div>
     <?php
-    mysqli_close($connect);
+    mysqli_close($remoteConnection);
     //$db->close();
     ?>
 </footer>

@@ -10,8 +10,15 @@ if(isset($_POST['new_password']) and $_POST['new_password'] != "" and isset($_PO
     $email = $_SESSION['user'];
     $old_password = null;
     $fehlermeldungen = array();
+    $dotenv = Dotenv\Dotenv::create(__DIR__, '.env');
+    $dotenv->load();
+    $dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PORT']);
     $remoteConnection = mysqli_connect(
-        "127.0.0.1", "root", "", "swepl"
+        getenv('DB_HOST'),
+        getenv('DB_USER'),
+        getenv('DB_PASS'),
+        getenv('DB_NAME'),
+        (int)getenv('DB_PORT')
     );
 
     if ($_POST['new_password'] != $_POST['new_password_confirmation']) {

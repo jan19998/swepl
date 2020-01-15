@@ -65,12 +65,12 @@
                    <legend class="w-auto">Bewertung der Gruppe</legend>
                    <div class="row">
                        <div class="col-4">
-                           <p class="pl-4">Ampelstatus der Gruppe</p>
+                           <label for="ampel" class="pl-4">Ampelstatus der Gruppe</label>
                        </div>
                        <div class="col-8">
                             <div class="col-4">
-                                <select name="ampel" required>
-                                    <option disabled selected>Ampelstatus</option>
+                                <select name="ampel" id="ampel" required>
+                                    <option disabled selected hidden value="">Ampelstatus</option>
                                     <option>Grün</option>
                                     <option>Gelb</option>
                                     <option>Rot</option>
@@ -78,12 +78,12 @@
                             </div>
                        </div>
                        <div class="col-4">
-                            <p class="pl-4">Eigene Bewertung der Gruppe</p>
+                            <label for="bewertung" class="pl-4">Eigene Bewertung der Gruppe</label>
                        </div>
                        <div class="col-8">
                            <div class="col-4">
-                               <select name="bewertung" required>
-                                   <option disabled selected>Bewertung wählen</option>
+                               <select name="bewertung" id="bewertung" required>
+                                   <option disabled selected hidden value="">Bewertung wählen</option>
                                    <option>+</option>
                                    <option>-</option>
                                    <option>0</option>

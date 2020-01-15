@@ -87,5 +87,3 @@ if (mysqli_query($remoteConnection, $update) === true) {
     echo 'failed';
      mysqli_rollback($remoteConnection);
 }
-
-?>

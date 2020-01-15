@@ -19,8 +19,10 @@ WHERE be.`E-Mail` = '".$_SESSION['user']."' AND g.Semester_FK = '".$semester."';
         if ($result = mysqli_query($remoteConnection,$query)){
             while($row = mysqli_fetch_assoc($result)){
                 echo '<div class="col-12">';
+
+                    $test = \DateTime::createFromFormat("h:i:s", $row['Uhrzeit'])->format("h:i");
                     echo '<p><a class="link" href="betreuer.php?gruppe='.$row['Gruppennummer'].'&semester='.$semester.'">Gruppe '.$row['Gruppennummer'].'</a><br>';
-                    echo 'Termin: '.$row['Wochentag'].' '.$row['Uhrzeit'].' , '.$row['Raum'].'</p>';
+                    echo 'Termin: '.$row['Wochentag'].' '.$test.' , '.$row['Raum'].'</p>';
                 echo '</div>';
             }
         }

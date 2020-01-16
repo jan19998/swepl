@@ -30,7 +30,7 @@
                                name="createGruppeWochentag" required>
                     </div>
                     <div class="row form-group">
-                        <label class="mt-1 col-4" for="createGruppeBetreuer">Wochentag</label>
+                        <label class="mt-1 col-4" for="createGruppeBetreuer">Betreuer</label>
                         <select class="mt-1 form-control col mr-3" id="createGruppeBetreuer"
                                 name="createGruppeBetreuer[]" multiple required>
                         </select>
@@ -80,7 +80,7 @@
                                name="editGruppeWochentag" required>
                     </div>
                     <div class="row form-group">
-                        <label class="mt-1 col-4" for="editGruppeBetreuer">Wochentag</label>
+                        <label class="mt-1 col-4" for="editGruppeBetreuer">Betreuer</label>
                         <select class="mt-1 form-control col mr-3" id="editGruppeBetreuer"
                                 name="editGruppeBetreuer[]" multiple required>
                         </select>

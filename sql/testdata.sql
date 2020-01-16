@@ -2,7 +2,7 @@ USE swepl;
 
 INSERT INTO Benutzer(Benutzer,Passwort,IstDozent,`E-Mail`) VALUES
 ('Benutzer1','$2y$10$F.NRMT/RYj/LlUQBkPKBjOAnIYJSZ2KywRTs8/7daAePWThssdZvq',0,'benutzer1@live.de'), -- Passwort PasswortChangeTest
-('Dozent1','$1$EK4qiF3L$s1lIpt.qFUir2v51GnqBs/',1,'dozent1@live.de'), -- Passwort Dozent
+-- ('Dozent1','$1$EK4qiF3L$s1lIpt.qFUir2v51GnqBs/',1,'dozent1@live.de'), -- Passwort Dozent
 ('Benutzer2','$1$sAmsRuEm$LmCm2kAxeBBo9FwB.i6Rk0',0,'benutzer2@live.de'); -- Passwort Betreuer
 
 INSERT INTO Semester(Kennung) VALUES 

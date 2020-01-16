@@ -109,4 +109,8 @@ CREATE TABLE `betreut`(
 	CONSTRAINT `Gruppe wird betreut` FOREIGN KEY (Gruppe_FK) REFERENCES `Gruppe`(ID) ON DELETE CASCADE
 );
 
+INSERT INTO Benutzer(Benutzer,Passwort,IstDozent,`E-Mail`) VALUES
+('Dozent1','$1$EK4qiF3L$s1lIpt.qFUir2v51GnqBs/',1,'dozent1@live.de'); -- Passwort Dozent
+
+
 SHOW WARNINGS;

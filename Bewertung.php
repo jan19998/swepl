@@ -45,7 +45,7 @@
     $result = mysqli_query($remoteConnection, $query);
     $row = mysqli_fetch_assoc($result);
     $date = new DateTime($row['Datum']);
-    $query2 = "SELECT Vorname,Nachname,ID FROM student where Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester') ORDER BY Nachname DESC;"; // Ihre SQL Query aus HeidiSQL
+    $query2 = "SELECT Vorname,Nachname,ID FROM student where Gruppe_FK = (SELECT Gruppe.ID FROM Gruppe WHERE Gruppe.Gruppennummer= '$gruppe' AND Semester_FK = '$semester') ORDER BY ID;"; // Ihre SQL Query aus HeidiSQL
     $name = mysqli_query($remoteConnection, $query2);
     $datum = new DateTime($_GET['termin'])?>
     <div class ="row pb-3">

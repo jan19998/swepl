@@ -46,11 +46,12 @@ mysqli_begin_transaction($remoteConnection);
 $update = "INSERT INTO bewertung (Termin_FK,Ampelstatus,Bewertung,Kommentar) values((SELECT ID FROM Termin WHERE Datum= '$termin' 
 AND Semester_FK = '$semester' AND Gruppe_FK = (SELECT ID FROM Gruppe 
 WHERE Gruppennummer= '$gruppe' AND Semester_FK = '$semester')),'$ampel','$bewertung','$bemerkung');";
+var_dump($checkbox);
 if (mysqli_query($remoteConnection, $update) === true) {
     $i = 0;
     while ($val = mysqli_fetch_array($result)) {
         //var_dump($i);
-        //var_dump($val);
+        var_dump($val);
          if(count($checkbox)<=$i){
             $i = 0;
         }
@@ -82,6 +83,7 @@ if (mysqli_query($remoteConnection, $update) === true) {
         }
     }
     mysqli_commit($remoteConnection);
+    exit();
     header('Location:betreuer.php');
 } else {
     echo 'failed';

@@ -19,7 +19,22 @@
     }
     if(isset($_GET['semester']) && isset($_GET['gruppe'])){
     $_SESSION['semester'] = $_GET['semester'];
-    $_SESSION['gruppe'] = $_GET['gruppe'];}?>
+    $_SESSION['gruppe'] = $_GET['gruppe'];}
+    /* Falls man verhindern will, das durch Falsche Get werte man zugriff auf Gruppen erhält, zu dennen man keine Rechte hat
+    if(isset($_SESSION['semester']) && $_SESSION['gruppe'] && $_SESSION['user'])
+    {
+$Userrighttest ="SELECT * FROM Gruppe AS g
+INNER JOIN `betreut`AS br ON br.`Gruppe_FK` = g.`ID`
+INNER JOIN `Benutzer` AS be ON be.`ID` = br.`Benutzer_FK`
+WHERE be.`E-Mail` = '".$_SESSION['user']."' AND g.`Gruppennummer` = '".$_SESSION['gruppe']."' AND g.`Semester_FK` = '".$_SESSION['semester']."';";
+if(mysqli_num_rows(mysqli_query($remoteConnection, $Userrighttest)) == 0){
+    header("Location: jahresauswahl.php");
+}
+    }
+    else{
+        header("Location: jahresauswahl.php");
+    } */
+    ?>
     <div class ="row pb-3">
         <div class ="col-9">
             <h3>
